@@ -200,11 +200,56 @@ function render(d) {
 
   document.getElementById('app').innerHTML = `
     <div class="header">
-      <div>
-        <h1>🐝 Spelling Bee</h1>
-        <div class="meta">${s.total_games} games · ${fmtDate(s.first_date)} – ${fmtDate(s.last_date)}</div>
+      <div style="display:flex;align-items:center;gap:14px;">
+        <svg width="180" height="92" viewBox="0 0 180 88">
+          <defs>
+            <clipPath id="lb4"><ellipse cx="35" cy="63" rx="28" ry="17"/></clipPath>
+            <clipPath id="rb4"><ellipse cx="145" cy="63" rx="28" ry="17"/></clipPath>
+          </defs>
+          <!-- LEFT BEE + sun hat -->
+          <path d="M 13 34 Q 13 12 35 12 Q 57 12 57 34 Z" fill="#E8C25A" stroke="#111" stroke-width="2.5" stroke-linejoin="round"/>
+          <ellipse cx="35" cy="34" rx="26" ry="6" fill="#D4A020" stroke="#111" stroke-width="2.5"/>
+          <ellipse cx="35" cy="63" rx="28" ry="17" fill="#F5C833" stroke="#111" stroke-width="3"/>
+          <rect x="32" y="46" width="5" height="34" fill="#111" clip-path="url(#lb4)"/>
+          <circle cx="21" cy="48" r="15" fill="white" stroke="#111" stroke-width="3"/>
+          <circle cx="43" cy="48" r="15" fill="white" stroke="#111" stroke-width="3"/>
+          <circle cx="56" cy="61" r="12" fill="white" stroke="#111" stroke-width="2.5"/>
+          <circle cx="60" cy="57" r="2.5" fill="#111"/>
+          <path d="M 65,61 C 72,57 78,54 83,52" stroke="#111" stroke-width="4" fill="none" stroke-linecap="round"/>
+          <rect x="81" y="47" width="12" height="10" rx="4" fill="#F5C833" stroke="#111" stroke-width="2.5"/>
+          <!-- RIGHT BEE + red beanie -->
+          <circle cx="140" cy="9"  r="4"   fill="#C0392B" stroke="#111" stroke-width="1.5"/>
+          <circle cx="145" cy="6"  r="5"   fill="#C0392B" stroke="#111" stroke-width="1.5"/>
+          <circle cx="150" cy="9"  r="4"   fill="#C0392B" stroke="#111" stroke-width="1.5"/>
+          <circle cx="138" cy="13" r="3.5" fill="#C0392B" stroke="#111" stroke-width="1.5"/>
+          <circle cx="145" cy="12" r="3.5" fill="#C0392B" stroke="#111" stroke-width="1.5"/>
+          <circle cx="152" cy="13" r="3.5" fill="#C0392B" stroke="#111" stroke-width="1.5"/>
+          <rect x="123" y="17" width="44" height="17" rx="4" fill="#C0392B" stroke="#111" stroke-width="2.5"/>
+          <rect x="123" y="30" width="44" height="8" rx="3" fill="#96281B" stroke="#111" stroke-width="2.5"/>
+          <line x1="132" y1="19" x2="132" y2="30" stroke="#96281B" stroke-width="2" stroke-linecap="round"/>
+          <line x1="140" y1="18" x2="140" y2="30" stroke="#96281B" stroke-width="2" stroke-linecap="round"/>
+          <line x1="148" y1="18" x2="148" y2="30" stroke="#96281B" stroke-width="2" stroke-linecap="round"/>
+          <line x1="156" y1="19" x2="156" y2="30" stroke="#96281B" stroke-width="2" stroke-linecap="round"/>
+          <ellipse cx="145" cy="63" rx="28" ry="17" fill="#F5C833" stroke="#111" stroke-width="3"/>
+          <rect x="142" y="46" width="5" height="34" fill="#111" clip-path="url(#rb4)"/>
+          <circle cx="159" cy="48" r="15" fill="white" stroke="#111" stroke-width="3"/>
+          <circle cx="137" cy="48" r="15" fill="white" stroke="#111" stroke-width="3"/>
+          <circle cx="124" cy="61" r="12" fill="white" stroke="#111" stroke-width="2.5"/>
+          <circle cx="120" cy="57" r="2.5" fill="#111"/>
+          <path d="M 115,61 C 108,57 102,54 97,52" stroke="#111" stroke-width="4" fill="none" stroke-linecap="round"/>
+          <rect x="87" y="47" width="12" height="10" rx="4" fill="#F5C833" stroke="#111" stroke-width="2.5"/>
+          <!-- IMPACT -->
+          <line x1="85" y1="49" x2="80" y2="43" stroke="#111" stroke-width="2" stroke-linecap="round"/>
+          <line x1="88" y1="47" x2="85" y2="40" stroke="#111" stroke-width="2" stroke-linecap="round"/>
+          <line x1="91" y1="46" x2="91" y2="39" stroke="#111" stroke-width="2" stroke-linecap="round"/>
+          <line x1="94" y1="47" x2="97" y2="40" stroke="#111" stroke-width="2" stroke-linecap="round"/>
+          <line x1="97" y1="49" x2="102" y2="43" stroke="#111" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <div>
+          <h1>Spelling Bee</h1>
+          <div class="meta">${s.total_games} games · ${fmtDate(s.first_date)} – ${fmtDate(s.last_date)}</div>
+        </div>
       </div>
-      <span class="pill-green">↑ Improving</span>
     </div>
 
     <div class="stat-grid">
