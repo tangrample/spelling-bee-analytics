@@ -1,0 +1,93 @@
+[
+  {
+    "date": "2026-02-07",
+    "letters": "ABCDEFG",
+    "center_letter": "D",
+    "words_found": [
+      "aged",
+      "added",
+      "beaded",
+      "bedded",
+      "caged",
+      "cadge",
+      "decade",
+      "faded",
+      "facade",
+      "gagged"
+    ],
+    "all_possible_words": [
+      "aged",
+      "added",
+      "beaded",
+      "bedded",
+      "caged",
+      "cadge",
+      "decade",
+      "faded",
+      "facade",
+      "gagged",
+      "dabbed",
+      "deface",
+      "defaced"
+    ],
+    "rank": "Genius"
+  },
+  {
+    "date": "2026-02-06",
+    "letters": "ROTNWHA",
+    "center_letter": "W",
+    "words_found": [
+      "warn",
+      "wart",
+      "wrath",
+      "what",
+      "want",
+      "sworn",
+      "thrown"
+    ],
+    "all_possible_words": [
+      "warn",
+      "wart",
+      "wrath",
+      "what",
+      "want",
+      "sworn",
+      "thrown",
+      "warrant",
+      "withdraw",
+      "worthan"
+    ],
+    "rank": "Great"
+  },
+  {
+    "date": "2026-02-05",
+    "letters": "TBCELIA",
+    "center_letter": "I",
+    "words_found": [
+      "bite",
+      "cite",
+      "elite",
+      "implicit",
+      "italic",
+      "tibiae",
+      "tablet",
+      "tacit",
+      "tail"
+    ],
+    "all_possible_words": [
+      "bite",
+      "cite",
+      "elite",
+      "implicit",
+      "italic",
+      "tibiae",
+      "tablet",
+      "tacit",
+      "tail",
+      "licit",
+      "elicit",
+      "illicit"
+    ],
+    "rank": "Amazing"
+  }
+]

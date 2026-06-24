@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>NYT Spelling Bee - Correct Data Extraction</title>
+    <style>
+        body { font-family: sans-serif; max-width: 800px; margin: 50px auto; padding: 20px; }
+        .code { background: #f4f4f4; padding: 15px; border-radius: 5px; overflow-x: auto; }
+        .warning { background: #fff3cd; border-left: 4px solid #ffc107; padding: 15px; margin: 20px 0; }
+        .success { background: #d4edda; border-left: 4px solid #28a745; padding: 15px; margin: 20px 0; }
+        h1 { color: #333; }
+        h2 { color: #555; margin-top: 30px; }
+    </style>
+</head>
+<body>
+    <h1>🐝 Correct Data Extraction for NYT Spelling Bee</h1>
+
+    <div class="warning">
+        <strong>⚠️ IMPORTANT:</strong> Your previous extractions were missing <code>_window_gameData</code> which contains puzzle dates and metadata. Use this corrected method!
+    </div>
+
+    <h2>Step-by-Step Console Method</h2>
+
+    <ol>
+        <li><strong>Open NYT Spelling Bee:</strong> <a href="https://www.nytimes.com/puzzles/spelling-bee" target="_blank">https://www.nytimes.com/puzzles/spelling-bee</a></li>
+        <li><strong>Wait for the game to FULLY load</strong> - let the puzzle appear and play at least one word</li>
+        <li><strong>Open DevTools:</strong> Press <kbd>F12</kbd> (or <kbd>Cmd+Option+I</kbd> on Mac)</li>
+        <li><strong>Go to Console tab</strong></li>
+        <li><strong>Paste this COMPLETE code:</strong></li>
+    </ol>
+
+    <div class="code">
+<pre>// Extract complete Spelling Bee data
+const data = {};
+
+// Get localStorage data
+for (let i = 0; i < localStorage.length; i++) {
+  const key = localStorage.key(i);
+  if (key.includes('spelling_bee')) {
+    try {
+      data[key] = JSON.parse(localStorage.getItem(key));
+    } catch (e) {
+      console.error('Error parsing localStorage key:', key);
+    }
+  }
+}
+
+// CRITICAL: Get window.gameData (contains puzzle info)
+if (window.gameData) {
+  data['_window_gameData'] = window.gameData;
+  console.log('✓ Found window.gameData');
+} else {
+  console.error('✗ window.gameData NOT FOUND - game may not be loaded!');
+  console.log('Make sure:');
+  console.log('1. The puzzle has fully loaded');
+  console.log('2. You have played at least one word');
+  console.log('3. Try refreshing and waiting a few seconds');
+}
+
+// Output the complete data
+console.log(JSON.stringify(data, null, 2));</pre>
+    </div>
+
+    <ol start="6">
+        <li><strong>Check the output</strong> - You should see <code>"_window_gameData"</code> in the output</li>
+        <li><strong>Copy ONLY the JSON</strong> (starting with <code>{</code>, not console log messages)</li>
+        <li><strong>Save to:</strong> <code>spelling_bee_raw.json</code></li>
+    </ol>
+
+    <div class="success">
+        <h3>✓ Verification</h3>
+        <p>After saving, verify your file has BOTH keys:</p>
+        <div class="code"><pre>jq 'keys' spelling_bee_raw.json</pre></div>
+        <p>Should show:</p>
+        <ul>
+            <li><code>"_window_gameData"</code> ← Must have this!</li>
+            <li><code>"games-state-spelling_bee/..."</code></li>
+        </ul>
+    </div>
+
+    <h2>What You Should See</h2>
+
+    <p>The JSON output should look like this:</p>
+
+    <div class="code">
+<pre>{
+  "games-state-spelling_bee/59392802": {
+    "states": [
+      {
+        "puzzleId": "21397",
+        "data": {
+          "answers": [...your words...],
+          "rank": "Genius",
+          "isRevealed": false
+        }
+      }
+    ]
+  },
+  "_window_gameData": {
+    "today": {
+      "printDate": "2026-02-08",
+      "centerLetter": "i",
+      "outerLetters": ["b", "e", "l", "n", "t", "u"],
+      "answers": [...],
+      "pangrams": [...]
+    },
+    "yesterday": {...}
+  }
+}</pre>
+    </div>
+
+    <h2>Common Issues</h2>
+
+    <h3>If window.gameData is missing:</h3>
+    <ul>
+        <li><strong>Wait longer</strong> - Let the puzzle fully load (bee animation completes)</li>
+        <li><strong>Play a word</strong> - Sometimes it only loads after interaction</li>
+        <li><strong>Refresh the page</strong> - Then wait and try again</li>
+        <li><strong>Check browser console</strong> - Look for any errors</li>
+    </ul>
+
+    <h3>If you copied console log prefix:</h3>
+    <p>Remove lines like <code>[Log] { (5155...js, line 2)</code> - only keep the actual JSON starting with <code>{</code></p>
+
+    <hr style="margin: 40px 0;">
+
+    <h2>🔖 Working Bookmarklet (Updated)</h2>
+
+    <p>Drag this to your bookmarks bar for one-click extraction:</p>
+
+    <a href="javascript:(function(){const d={};for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k.includes('spelling_bee')){try{d[k]=JSON.parse(localStorage.getItem(k))}catch(e){}}}if(window.gameData){d['_window_gameData']=window.gameData}else{alert('⚠️ window.gameData not loaded!\n\nMake sure:\n1. Puzzle has fully loaded\n2. Play at least one word\n3. Try again');return}const blob=new Blob([JSON.stringify(d,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='spelling_bee_raw.json';a.click()})();" style="display: inline-block; background: #4CAF50; color: white; padding: 15px 25px; text-decoration: none; border-radius: 5px; font-weight: bold;">
+        ⬇️ Extract Spelling Bee (Fixed)
+    </a>
+
+    <p style="margin-top: 20px; font-size: 14px; color: #666;">This bookmarklet will alert you if window.gameData is missing!</p>
+
+</body>
+</html>

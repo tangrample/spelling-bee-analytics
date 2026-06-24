@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>2-Minute Setup: Keyboard Shortcut for Spelling Bee</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 30px;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 32px;
+        }
+        .subtitle {
+            color: #666;
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+        .step {
+            background: #f8f9fa;
+            padding: 25px;
+            margin: 20px 0;
+            border-left: 5px solid #667eea;
+            border-radius: 8px;
+        }
+        .step-number {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: #667eea;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            margin-right: 15px;
+            font-weight: bold;
+            font-size: 20px;
+        }
+        .code-box {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+        .success {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        .kbd {
+            display: inline-block;
+            padding: 3px 8px;
+            font-size: 14px;
+            color: #333;
+            background: #f7f7f7;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-shadow: 0 1px 0 rgba(0,0,0,0.2);
+            font-family: 'Monaco', 'Courier New', monospace;
+        }
+        .highlight {
+            background: #fff3cd;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        .daily-routine {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            margin: 30px 0;
+            border-radius: 12px;
+            text-align: center;
+        }
+        .daily-routine h2 {
+            margin-top: 0;
+            color: white;
+        }
+        ol {
+            counter-reset: item;
+            padding-left: 0;
+        }
+        ol li {
+            display: block;
+            margin: 15px 0;
+            padding-left: 50px;
+            position: relative;
+        }
+        ol li:before {
+            content: counter(item);
+            counter-increment: item;
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: #667eea;
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 35px;
+            font-weight: bold;
+        }
+        .emoji {
+            font-size: 24px;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 2-Minute Setup: Keyboard Shortcut</h1>
+        <div class="subtitle">Set it up once, then just press a key combo every day!</div>
+
+        <div class="step">
+            <span class="step-number">1</span>
+            <strong style="font-size: 18px;">Open Shortcuts App</strong>
+            <p style="margin: 10px 0 0 55px;">
+                Press <span class="kbd">⌘ Cmd</span> + <span class="kbd">Space</span>, type "Shortcuts", press Enter
+            </p>
+        </div>
+
+        <div class="step">
+            <span class="step-number">2</span>
+            <strong style="font-size: 18px;">Create New Shortcut</strong>
+            <p style="margin: 10px 0 0 55px;">
+                Click <span class="highlight">+ New Shortcut</span> in the top-right corner
+            </p>
+        </div>
+
+        <div class="step">
+            <span class="step-number">3</span>
+            <strong style="font-size: 18px;">Add "Run Shell Script" Action</strong>
+            <p style="margin: 10px 0 10px 55px;">
+                Search for "Run Shell Script" in the actions panel and add it
+            </p>
+            <div class="code-box">cd ~/Desktop/spelling-bee-analytics/files
+./auto_update_with_notification.sh</div>
+            <p style="margin: 10px 0 0 55px; color: #666; font-size: 14px;">
+                Paste this code into the script box
+            </p>
+        </div>
+
+        <div class="step">
+            <span class="step-number">4</span>
+            <strong style="font-size: 18px;">Name Your Shortcut</strong>
+            <p style="margin: 10px 0 0 55px;">
+                Click on "Untitled Shortcut" at the top and rename to: <span class="highlight">Update Spelling Bee</span>
+            </p>
+        </div>
+
+        <div class="step">
+            <span class="step-number">5</span>
+            <strong style="font-size: 18px;">Add Keyboard Shortcut</strong>
+            <p style="margin: 10px 0 0 55px;">
+                Click the <strong>(i)</strong> icon → <strong>Add Keyboard Shortcut</strong><br>
+                <span style="display: inline-block; margin-top: 10px;">
+                    Press: <span class="kbd">⌃ Control</span> + <span class="kbd">⌥ Option</span> + <span class="kbd">B</span>
+                </span>
+            </p>
+        </div>
+
+        <div class="success">
+            <strong style="font-size: 18px;"><span class="emoji">✅</span>Setup Complete!</strong>
+            <p style="margin: 10px 0 0 0;">
+                Your shortcut is ready. Now you'll get a notification when it's done!
+            </p>
+        </div>
+
+        <div class="daily-routine">
+            <h2>📅 Your New Daily Routine (10 seconds total)</h2>
+            <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 8px; margin: 20px 0;">
+                <ol style="text-align: left; font-size: 18px;">
+                    <li>Play Spelling Bee in Safari 🐝</li>
+                    <li>Click your bookmarklet 📥</li>
+                    <li>Press <span class="kbd" style="background: white;">⌃⌥B</span> ⌨️</li>
+                    <li>See notification "✅ Updated" 🔔</li>
+                </ol>
+            </div>
+            <p style="font-size: 20px; margin: 0;">
+                <strong>Done!</strong> History is building automatically.
+            </p>
+        </div>
+
+        <hr style="margin: 40px 0; border: none; border-top: 2px solid #eee;">
+
+        <h2>🎯 Even Faster: Menu Bar Option</h2>
+        <p>Want a visual button instead of keyboard shortcut?</p>
+        <ol>
+            <li>In Shortcuts app, right-click your shortcut</li>
+            <li>Select <strong>"Add to Menu Bar"</strong></li>
+            <li>Now you have a 🐝 icon in your menu bar - click anytime!</li>
+        </ol>
+
+        <hr style="margin: 40px 0; border: none; border-top: 2px solid #eee;">
+
+        <h2>📚 More Options</h2>
+        <p>Check out <a href="file:///Users/manasa/Desktop/spelling-bee-analytics/files/AUTO_UPDATE_SETUP.md">AUTO_UPDATE_SETUP.md</a> for:</p>
+        <ul>
+            <li><strong>Folder Action:</strong> Fully automated - just click bookmarklet!</li>
+            <li><strong>Scheduled reminders:</strong> Never forget to track your games</li>
+            <li><strong>Troubleshooting tips:</strong> If something doesn't work</li>
+        </ul>
+
+        <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #ddd; color: #666; font-size: 14px; text-align: center;">
+            <p>All data stays on your Mac • Privacy first 🔒</p>
+        </div>
+    </div>
+</body>
+</html>

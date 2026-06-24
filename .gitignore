@@ -1,0 +1,21 @@
+# Database (large, stays local)
+files/spelling_bee.db
+
+# Raw data files
+files/spelling_bee_raw.json
+files/spelling_bee_parsed.json
+files/spelling_bee_games.csv
+files/spelling_bee_words_found.csv
+
+# Logs
+files/bee_sync.log
+files/bee_sync_error.log
+
+# Python cache
+files/__pycache__/
+**/__pycache__/
+*.pyc
+
+# macOS
+.DS_Store
+**/.DS_Store

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>One-Click Spelling Bee Data Extractor for Safari</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            max-width: 700px;
+            margin: 50px auto;
+            padding: 30px;
+            line-height: 1.6;
+        }
+        h1 { color: #333; margin-bottom: 10px; }
+        .subtitle { color: #666; font-size: 18px; margin-bottom: 30px; }
+        .bookmarklet-container {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            margin: 30px 0;
+        }
+        .bookmarklet {
+            display: inline-block;
+            background: white;
+            color: #667eea;
+            padding: 20px 40px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: transform 0.2s;
+        }
+        .bookmarklet:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+        .step {
+            background: #f8f9fa;
+            padding: 20px;
+            margin: 15px 0;
+            border-left: 4px solid #667eea;
+            border-radius: 4px;
+        }
+        .step-number {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background: #667eea;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        .success {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .warning {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Monaco', 'Courier New', monospace;
+        }
+        .daily-routine {
+            background: #e7f3ff;
+            border-left: 4px solid #2196F3;
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🐝 One-Click Spelling Bee Extractor</h1>
+    <div class="subtitle">Set up once, then just ONE CLICK per day!</div>
+
+    <div class="bookmarklet-container">
+        <p style="color: white; margin-bottom: 15px; font-size: 16px;">
+            Drag this button to your Safari bookmarks bar:
+        </p>
+        <a href="javascript:(function(){const d={};for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k.includes('spelling_bee')){try{d[k]=JSON.parse(localStorage.getItem(k))}catch(e){}}}if(window.gameData){d._window_gameData=window.gameData;const b=new Blob([JSON.stringify(d,null,2)],{type:'application/json'});const u=URL.createObjectURL(b);const a=document.createElement('a');a.href=u;a.download='spelling_bee_raw.json';a.click();alert('✅ Data extracted! File saved to Downloads.')}else{alert('⚠️ Game not loaded yet!\n\n1. Wait for puzzle to fully load\n2. Play at least one word\n3. Try clicking the bookmark again')}})();" class="bookmarklet">
+            🐝 Extract Bee Data
+        </a>
+        <p style="color: white; margin-top: 15px; font-size: 14px; opacity: 0.9;">
+            ← Drag this to your bookmarks bar (one-time setup)
+        </p>
+    </div>
+
+    <div class="step">
+        <span class="step-number">1</span>
+        <strong>Drag the button above to your Safari bookmarks bar</strong>
+        <p style="margin: 10px 0 0 40px; color: #666;">
+            If you don't see your bookmarks bar, press <kbd>Cmd+Shift+B</kbd> to show it
+        </p>
+    </div>
+
+    <div class="step">
+        <span class="step-number">2</span>
+        <strong>That's it! Setup complete ✓</strong>
+    </div>
+
+    <hr style="margin: 40px 0; border: none; border-top: 2px solid #eee;">
+
+    <h2 style="margin-top: 40px;">📅 Your Daily Routine (30 seconds total)</h2>
+
+    <div class="daily-routine">
+        <ol style="margin: 0; padding-left: 25px;">
+            <li style="margin-bottom: 10px;"><strong>Play Spelling Bee</strong> (you're already doing this!)</li>
+            <li style="margin-bottom: 10px;"><strong>Click your bookmarklet</strong> → downloads <code>spelling_bee_raw.json</code> to Downloads</li>
+            <li style="margin-bottom: 10px;"><strong>Move file</strong> from Downloads to <code>/Users/manasa/Desktop/spelling-bee-analytics/files/</code></li>
+            <li><strong>Run update script:</strong>
+                <pre style="background: #2d2d2d; color: #f8f8f2; padding: 10px; border-radius: 5px; margin-top: 5px;"><code>cd ~/Desktop/spelling-bee-analytics/files
+./update_spelling_bee.sh</code></pre>
+            </li>
+        </ol>
+    </div>
+
+    <div class="success">
+        <strong>✅ Benefits:</strong>
+        <ul style="margin: 10px 0 0 0;">
+            <li>No copy-pasting from console</li>
+            <li>One click extracts everything</li>
+            <li>Automatic validation (alerts if data missing)</li>
+            <li>Takes 30 seconds total</li>
+        </ul>
+    </div>
+
+    <div class="warning">
+        <strong>⚠️ Troubleshooting:</strong>
+        <p style="margin: 10px 0 0 0;">
+            If clicking the bookmarklet shows "Game not loaded yet":
+        </p>
+        <ol style="margin: 5px 0 0 20px;">
+            <li>Wait a few seconds for the puzzle to fully load</li>
+            <li>Play at least one word</li>
+            <li>Click the bookmarklet again</li>
+        </ol>
+    </div>
+
+    <h2 style="margin-top: 40px;">🤖 Even Easier: Automate with Shortcuts (Optional)</h2>
+
+    <p>If you want it even MORE automated on Mac, you can create a Shortcut that:</p>
+    <ol>
+        <li>Moves the file from Downloads automatically</li>
+        <li>Runs the update script</li>
+        <li>Shows you a notification when done</li>
+    </ol>
+    <p>Let me know if you want help setting this up!</p>
+
+    <hr style="margin: 40px 0; border: none; border-top: 2px solid #eee;">
+
+    <p style="color: #666; font-size: 14px; text-align: center;">
+        All data stays on your computer • No external servers • Privacy first 🔒
+    </p>
+</body>
+</html>

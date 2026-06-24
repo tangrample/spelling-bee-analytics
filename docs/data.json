@@ -1,0 +1,1282 @@
+{
+  "generated_at": "2026-06-24T22:31:52.890278",
+  "summary": {
+    "total_games": 110,
+    "games_with_answers": 104,
+    "avg_score_pct": 78.8,
+    "word_miss_rate": 24.6,
+    "genius_count": 108,
+    "genius_rate": 98.2,
+    "qb_count": 1,
+    "first_date": "2026-02-07",
+    "last_date": "2026-06-23",
+    "pangram_total": 163,
+    "pangram_found": 133,
+    "pangram_missed": 30,
+    "pangram_pct": 81.6,
+    "pangram_miss_pct": 18.4
+  },
+  "monthly": [
+    {
+      "month": "2026-02",
+      "games": 21,
+      "score_pct": 79.0,
+      "words_pct": 74.4,
+      "genius": 20,
+      "qb": 0
+    },
+    {
+      "month": "2026-03",
+      "games": 31,
+      "score_pct": 77.4,
+      "words_pct": 75.2,
+      "genius": 30,
+      "qb": 0
+    },
+    {
+      "month": "2026-04",
+      "games": 28,
+      "score_pct": 77.3,
+      "words_pct": 72.0,
+      "genius": 28,
+      "qb": 0
+    },
+    {
+      "month": "2026-05",
+      "games": 21,
+      "score_pct": 80.4,
+      "words_pct": 78.7,
+      "genius": 21,
+      "qb": 0
+    },
+    {
+      "month": "2026-06",
+      "games": 9,
+      "score_pct": 84.1,
+      "words_pct": 81.3,
+      "genius": 9,
+      "qb": 1
+    }
+  ],
+  "miss_by_length": [
+    {
+      "length": 4,
+      "label": "4-letter",
+      "total": 1661,
+      "missed": 531,
+      "miss_pct": 32.0
+    },
+    {
+      "length": 5,
+      "label": "5-letter",
+      "total": 1087,
+      "missed": 188,
+      "miss_pct": 17.3
+    },
+    {
+      "length": 6,
+      "label": "6-letter",
+      "total": 919,
+      "missed": 155,
+      "miss_pct": 16.9
+    },
+    {
+      "length": 7,
+      "label": "7-letter",
+      "total": 583,
+      "missed": 134,
+      "miss_pct": 23.0
+    },
+    {
+      "length": 8,
+      "label": "8+ letter",
+      "total": 512,
+      "missed": 142,
+      "miss_pct": 27.7
+    }
+  ],
+  "study_words": [
+    {
+      "word": "imam",
+      "appearances": 9,
+      "missed": 9,
+      "miss_pct": 100.0,
+      "length": 4,
+      "is_pangram": false,
+      "weight": 3.0,
+      "definition": "Islamic prayer leader"
+    },
+    {
+      "word": "annatto",
+      "appearances": 5,
+      "missed": 5,
+      "miss_pct": 100.0,
+      "length": 7,
+      "is_pangram": false,
+      "weight": 2.92,
+      "definition": "orange food dye from seeds"
+    },
+    {
+      "word": "iota",
+      "appearances": 6,
+      "missed": 6,
+      "miss_pct": 100.0,
+      "length": 4,
+      "is_pangram": false,
+      "weight": 2.0,
+      "definition": "a tiny amount"
+    },
+    {
+      "word": "gigging",
+      "appearances": 3,
+      "missed": 3,
+      "miss_pct": 100.0,
+      "length": 7,
+      "is_pangram": false,
+      "weight": 1.75,
+      "definition": "playing live music gigs"
+    },
+    {
+      "word": "illy",
+      "appearances": 6,
+      "missed": 5,
+      "miss_pct": 83.3,
+      "length": 4,
+      "is_pangram": false,
+      "weight": 1.67,
+      "definition": "archaic: badly, poorly"
+    },
+    {
+      "word": "mini",
+      "appearances": 9,
+      "missed": 5,
+      "miss_pct": 55.6,
+      "length": 4,
+      "is_pangram": false,
+      "weight": 1.67,
+      "definition": ""
+    },
+    {
+      "word": "monomania",
+      "appearances": 2,
+      "missed": 2,
+      "miss_pct": 100.0,
+      "length": 9,
+      "is_pangram": false,
+      "weight": 1.5,
+      "definition": "obsession with one idea"
+    },
+    {
+      "word": "imagining",
+      "appearances": 3,
+      "missed": 2,
+      "miss_pct": 66.7,
+      "length": 9,
+      "is_pangram": false,
+      "weight": 1.5,
+      "definition": "forming a mental image of"
+    },
+    {
+      "word": "acacia",
+      "appearances": 8,
+      "missed": 3,
+      "miss_pct": 37.5,
+      "length": 6,
+      "is_pangram": false,
+      "weight": 1.5,
+      "definition": "thorny flowering tree"
+    },
+    {
+      "word": "backcomb",
+      "appearances": 2,
+      "missed": 2,
+      "miss_pct": 100.0,
+      "length": 8,
+      "is_pangram": false,
+      "weight": 1.33,
+      "definition": "comb hair towards the roots"
+    },
+    {
+      "word": "boor",
+      "appearances": 4,
+      "missed": 4,
+      "miss_pct": 100.0,
+      "length": 4,
+      "is_pangram": false,
+      "weight": 1.33,
+      "definition": "rude, unmannerly person"
+    },
+    {
+      "word": "ignoring",
+      "appearances": 2,
+      "missed": 2,
+      "miss_pct": 100.0,
+      "length": 8,
+      "is_pangram": false,
+      "weight": 1.33,
+      "definition": "paying no attention to"
+    },
+    {
+      "word": "laudably",
+      "appearances": 2,
+      "missed": 2,
+      "miss_pct": 100.0,
+      "length": 8,
+      "is_pangram": false,
+      "weight": 1.33,
+      "definition": "in a praiseworthy manner"
+    },
+    {
+      "word": "pipeline",
+      "appearances": 2,
+      "missed": 2,
+      "miss_pct": 100.0,
+      "length": 8,
+      "is_pangram": false,
+      "weight": 1.33,
+      "definition": "channel for conveying something"
+    },
+    {
+      "word": "rani",
+      "appearances": 4,
+      "missed": 4,
+      "miss_pct": 100.0,
+      "length": 4,
+      "is_pangram": false,
+      "weight": 1.33,
+      "definition": "an Indian queen"
+    },
+    {
+      "word": "nada",
+      "appearances": 6,
+      "missed": 4,
+      "miss_pct": 66.7,
+      "length": 4,
+      "is_pangram": false,
+      "weight": 1.33,
+      "definition": "nothing"
+    },
+    {
+      "word": "olio",
+      "appearances": 7,
+      "missed": 4,
+      "miss_pct": 57.1,
+      "length": 4,
+      "is_pangram": false,
+      "weight": 1.33,
+      "definition": "a mixture or medley"
+    },
+    {
+      "word": "acai",
+      "appearances": 8,
+      "missed": 4,
+      "miss_pct": 50.0,
+      "length": 4,
+      "is_pangram": false,
+      "weight": 1.33,
+      "definition": "purple berry from Brazil"
+    },
+    {
+      "word": "titan",
+      "appearances": 3,
+      "missed": 3,
+      "miss_pct": 100.0,
+      "length": 5,
+      "is_pangram": false,
+      "weight": 1.25,
+      "definition": "person of great power/strength"
+    },
+    {
+      "word": "academe",
+      "appearances": 2,
+      "missed": 2,
+      "miss_pct": 100.0,
+      "length": 7,
+      "is_pangram": false,
+      "weight": 1.17,
+      "definition": "the academic world"
+    },
+    {
+      "word": "digging",
+      "appearances": 2,
+      "missed": 2,
+      "miss_pct": 100.0,
+      "length": 7,
+      "is_pangram": false,
+      "weight": 1.17,
+      "definition": "excavating or searching through"
+    },
+    {
+      "word": "edamame",
+      "appearances": 2,
+      "missed": 2,
+      "miss_pct": 100.0,
+      "length": 7,
+      "is_pangram": false,
+      "weight": 1.17,
+      "definition": "young soybeans in the pod"
+    },
+    {
+      "word": "hamachi",
+      "appearances": 2,
+      "missed": 2,
+      "miss_pct": 100.0,
+      "length": 7,
+      "is_pangram": false,
+      "weight": 1.17,
+      "definition": "Japanese yellowtail fish"
+    },
+    {
+      "word": "lanolin",
+      "appearances": 2,
+      "missed": 2,
+      "miss_pct": 100.0,
+      "length": 7,
+      "is_pangram": false,
+      "weight": 1.17,
+      "definition": "grease from sheep wool"
+    },
+    {
+      "word": "minicam",
+      "appearances": 2,
+      "missed": 2,
+      "miss_pct": 100.0,
+      "length": 7,
+      "is_pangram": false,
+      "weight": 1.17,
+      "definition": "small portable camera"
+    },
+    {
+      "word": "titanic",
+      "appearances": 2,
+      "missed": 2,
+      "miss_pct": 100.0,
+      "length": 7,
+      "is_pangram": false,
+      "weight": 1.17,
+      "definition": "of enormous size or strength"
+    },
+    {
+      "word": "titmice",
+      "appearances": 2,
+      "missed": 2,
+      "miss_pct": 100.0,
+      "length": 7,
+      "is_pangram": false,
+      "weight": 1.17,
+      "definition": "plural of titmouse (small bird)"
+    },
+    {
+      "word": "unceded",
+      "appearances": 2,
+      "missed": 2,
+      "miss_pct": 100.0,
+      "length": 7,
+      "is_pangram": false,
+      "weight": 1.17,
+      "definition": "not formally surrendered"
+    },
+    {
+      "word": "gadding",
+      "appearances": 3,
+      "missed": 2,
+      "miss_pct": 66.7,
+      "length": 7,
+      "is_pangram": false,
+      "weight": 1.17,
+      "definition": "moving from place to place"
+    },
+    {
+      "word": "ottoman",
+      "appearances": 3,
+      "missed": 2,
+      "miss_pct": 66.7,
+      "length": 7,
+      "is_pangram": false,
+      "weight": 1.17,
+      "definition": "padded seat or footstool"
+    },
+    {
+      "word": "alto",
+      "appearances": 3,
+      "missed": 3,
+      "miss_pct": 100.0,
+      "length": 4,
+      "is_pangram": false,
+      "weight": 1.0,
+      "definition": "low female singing voice"
+    },
+    {
+      "word": "ciao",
+      "appearances": 3,
+      "missed": 3,
+      "miss_pct": 100.0,
+      "length": 4,
+      "is_pangram": false,
+      "weight": 1.0,
+      "definition": "Italian hello/goodbye"
+    },
+    {
+      "word": "dunned",
+      "appearances": 2,
+      "missed": 2,
+      "miss_pct": 100.0,
+      "length": 6,
+      "is_pangram": false,
+      "weight": 1.0,
+      "definition": ""
+    },
+    {
+      "word": "educed",
+      "appearances": 2,
+      "missed": 2,
+      "miss_pct": 100.0,
+      "length": 6,
+      "is_pangram": false,
+      "weight": 1.0,
+      "definition": ""
+    },
+    {
+      "word": "ennead",
+      "appearances": 2,
+      "missed": 2,
+      "miss_pct": 100.0,
+      "length": 6,
+      "is_pangram": false,
+      "weight": 1.0,
+      "definition": ""
+    },
+    {
+      "word": "idyl",
+      "appearances": 3,
+      "missed": 3,
+      "miss_pct": 100.0,
+      "length": 4,
+      "is_pangram": false,
+      "weight": 1.0,
+      "definition": "short poem of simple charm"
+    },
+    {
+      "word": "italic",
+      "appearances": 2,
+      "missed": 2,
+      "miss_pct": 100.0,
+      "length": 6,
+      "is_pangram": false,
+      "weight": 1.0,
+      "definition": ""
+    },
+    {
+      "word": "lieu",
+      "appearances": 3,
+      "missed": 3,
+      "miss_pct": 100.0,
+      "length": 4,
+      "is_pangram": false,
+      "weight": 1.0,
+      "definition": "in place of; instead of"
+    },
+    {
+      "word": "magi",
+      "appearances": 3,
+      "missed": 3,
+      "miss_pct": 100.0,
+      "length": 4,
+      "is_pangram": false,
+      "weight": 1.0,
+      "definition": "the Three Wise Men"
+    },
+    {
+      "word": "moan",
+      "appearances": 3,
+      "missed": 3,
+      "miss_pct": 100.0,
+      "length": 4,
+      "is_pangram": false,
+      "weight": 1.0,
+      "definition": "low sound of pain or grief"
+    },
+    {
+      "word": "nigiri",
+      "appearances": 2,
+      "missed": 2,
+      "miss_pct": 100.0,
+      "length": 6,
+      "is_pangram": false,
+      "weight": 1.0,
+      "definition": ""
+    },
+    {
+      "word": "nonart",
+      "appearances": 2,
+      "missed": 2,
+      "miss_pct": 100.0,
+      "length": 6,
+      "is_pangram": false,
+      "weight": 1.0,
+      "definition": ""
+    },
+    {
+      "word": "okra",
+      "appearances": 3,
+      "missed": 3,
+      "miss_pct": 100.0,
+      "length": 4,
+      "is_pangram": false,
+      "weight": 1.0,
+      "definition": "green pod vegetable"
+    },
+    {
+      "word": "oniony",
+      "appearances": 2,
+      "missed": 2,
+      "miss_pct": 100.0,
+      "length": 6,
+      "is_pangram": false,
+      "weight": 1.0,
+      "definition": ""
+    },
+    {
+      "word": "oral",
+      "appearances": 3,
+      "missed": 3,
+      "miss_pct": 100.0,
+      "length": 4,
+      "is_pangram": false,
+      "weight": 1.0,
+      "definition": "spoken; relating to the mouth"
+    },
+    {
+      "word": "venule",
+      "appearances": 2,
+      "missed": 2,
+      "miss_pct": 100.0,
+      "length": 6,
+      "is_pangram": false,
+      "weight": 1.0,
+      "definition": ""
+    },
+    {
+      "word": "chic",
+      "appearances": 4,
+      "missed": 3,
+      "miss_pct": 75.0,
+      "length": 4,
+      "is_pangram": false,
+      "weight": 1.0,
+      "definition": "stylishly elegant"
+    },
+    {
+      "word": "laic",
+      "appearances": 4,
+      "missed": 3,
+      "miss_pct": 75.0,
+      "length": 4,
+      "is_pangram": false,
+      "weight": 1.0,
+      "definition": "of the laity; secular"
+    },
+    {
+      "word": "loco",
+      "appearances": 4,
+      "missed": 3,
+      "miss_pct": 75.0,
+      "length": 4,
+      "is_pangram": false,
+      "weight": 1.0,
+      "definition": "crazy (informal)"
+    },
+    {
+      "word": "mete",
+      "appearances": 4,
+      "missed": 3,
+      "miss_pct": 75.0,
+      "length": 4,
+      "is_pangram": false,
+      "weight": 1.0,
+      "definition": "to distribute or allot"
+    },
+    {
+      "word": "orca",
+      "appearances": 4,
+      "missed": 3,
+      "miss_pct": 75.0,
+      "length": 4,
+      "is_pangram": false,
+      "weight": 1.0,
+      "definition": "killer whale"
+    },
+    {
+      "word": "tapa",
+      "appearances": 4,
+      "missed": 3,
+      "miss_pct": 75.0,
+      "length": 4,
+      "is_pangram": false,
+      "weight": 1.0,
+      "definition": "Spanish small dish"
+    },
+    {
+      "word": "airman",
+      "appearances": 3,
+      "missed": 2,
+      "miss_pct": 66.7,
+      "length": 6,
+      "is_pangram": false,
+      "weight": 1.0,
+      "definition": "a pilot or air force member"
+    },
+    {
+      "word": "arrant",
+      "appearances": 3,
+      "missed": 2,
+      "miss_pct": 66.7,
+      "length": 6,
+      "is_pangram": false,
+      "weight": 1.0,
+      "definition": "complete, utter (usually negative)"
+    },
+    {
+      "word": "cami",
+      "appearances": 5,
+      "missed": 3,
+      "miss_pct": 60.0,
+      "length": 4,
+      "is_pangram": false,
+      "weight": 1.0,
+      "definition": ""
+    },
+    {
+      "word": "grog",
+      "appearances": 5,
+      "missed": 3,
+      "miss_pct": 60.0,
+      "length": 4,
+      "is_pangram": false,
+      "weight": 1.0,
+      "definition": "diluted alcoholic drink"
+    },
+    {
+      "word": "miming",
+      "appearances": 4,
+      "missed": 2,
+      "miss_pct": 50.0,
+      "length": 6,
+      "is_pangram": false,
+      "weight": 1.0,
+      "definition": ""
+    },
+    {
+      "word": "nene",
+      "appearances": 6,
+      "missed": 3,
+      "miss_pct": 50.0,
+      "length": 4,
+      "is_pangram": false,
+      "weight": 1.0,
+      "definition": "Hawaii's state bird"
+    },
+    {
+      "word": "maim",
+      "appearances": 9,
+      "missed": 3,
+      "miss_pct": 33.3,
+      "length": 4,
+      "is_pangram": false,
+      "weight": 1.0,
+      "definition": "to injure or disable"
+    },
+    {
+      "word": "naan",
+      "appearances": 10,
+      "missed": 3,
+      "miss_pct": 30.0,
+      "length": 4,
+      "is_pangram": false,
+      "weight": 1.0,
+      "definition": "leavened South Asian flatbread"
+    },
+    {
+      "word": "acidy",
+      "appearances": 2,
+      "missed": 2,
+      "miss_pct": 100.0,
+      "length": 5,
+      "is_pangram": false,
+      "weight": 0.83,
+      "definition": ""
+    },
+    {
+      "word": "altar",
+      "appearances": 2,
+      "missed": 2,
+      "miss_pct": 100.0,
+      "length": 5,
+      "is_pangram": false,
+      "weight": 0.83,
+      "definition": ""
+    },
+    {
+      "word": "amnio",
+      "appearances": 2,
+      "missed": 2,
+      "miss_pct": 100.0,
+      "length": 5,
+      "is_pangram": false,
+      "weight": 0.83,
+      "definition": ""
+    },
+    {
+      "word": "briar",
+      "appearances": 2,
+      "missed": 2,
+      "miss_pct": 100.0,
+      "length": 5,
+      "is_pangram": false,
+      "weight": 0.83,
+      "definition": ""
+    },
+    {
+      "word": "cirri",
+      "appearances": 2,
+      "missed": 2,
+      "miss_pct": 100.0,
+      "length": 5,
+      "is_pangram": false,
+      "weight": 0.83,
+      "definition": ""
+    },
+    {
+      "word": "coyly",
+      "appearances": 2,
+      "missed": 2,
+      "miss_pct": 100.0,
+      "length": 5,
+      "is_pangram": false,
+      "weight": 0.83,
+      "definition": ""
+    },
+    {
+      "word": "decay",
+      "appearances": 2,
+      "missed": 2,
+      "miss_pct": 100.0,
+      "length": 5,
+      "is_pangram": false,
+      "weight": 0.83,
+      "definition": ""
+    },
+    {
+      "word": "duple",
+      "appearances": 2,
+      "missed": 2,
+      "miss_pct": 100.0,
+      "length": 5,
+      "is_pangram": false,
+      "weight": 0.83,
+      "definition": ""
+    },
+    {
+      "word": "educe",
+      "appearances": 2,
+      "missed": 2,
+      "miss_pct": 100.0,
+      "length": 5,
+      "is_pangram": false,
+      "weight": 0.83,
+      "definition": ""
+    },
+    {
+      "word": "nimbi",
+      "appearances": 2,
+      "missed": 2,
+      "miss_pct": 100.0,
+      "length": 5,
+      "is_pangram": false,
+      "weight": 0.83,
+      "definition": ""
+    },
+    {
+      "word": "taiga",
+      "appearances": 2,
+      "missed": 2,
+      "miss_pct": 100.0,
+      "length": 5,
+      "is_pangram": false,
+      "weight": 0.83,
+      "definition": ""
+    },
+    {
+      "word": "tilth",
+      "appearances": 2,
+      "missed": 2,
+      "miss_pct": 100.0,
+      "length": 5,
+      "is_pangram": false,
+      "weight": 0.83,
+      "definition": ""
+    },
+    {
+      "word": "annal",
+      "appearances": 3,
+      "missed": 2,
+      "miss_pct": 66.7,
+      "length": 5,
+      "is_pangram": false,
+      "weight": 0.83,
+      "definition": "a historical record by year"
+    },
+    {
+      "word": "ennui",
+      "appearances": 3,
+      "missed": 2,
+      "miss_pct": 66.7,
+      "length": 5,
+      "is_pangram": false,
+      "weight": 0.83,
+      "definition": "listless boredom"
+    },
+    {
+      "word": "gamin",
+      "appearances": 3,
+      "missed": 2,
+      "miss_pct": 66.7,
+      "length": 5,
+      "is_pangram": false,
+      "weight": 0.83,
+      "definition": "a street urchin"
+    },
+    {
+      "word": "heath",
+      "appearances": 3,
+      "missed": 2,
+      "miss_pct": 66.7,
+      "length": 5,
+      "is_pangram": false,
+      "weight": 0.83,
+      "definition": "open uncultivated land"
+    },
+    {
+      "word": "lanai",
+      "appearances": 3,
+      "missed": 2,
+      "miss_pct": 66.7,
+      "length": 5,
+      "is_pangram": false,
+      "weight": 0.83,
+      "definition": ""
+    },
+    {
+      "word": "rigor",
+      "appearances": 3,
+      "missed": 2,
+      "miss_pct": 66.7,
+      "length": 5,
+      "is_pangram": false,
+      "weight": 0.83,
+      "definition": ""
+    },
+    {
+      "word": "atilt",
+      "appearances": 4,
+      "missed": 2,
+      "miss_pct": 50.0,
+      "length": 5,
+      "is_pangram": false,
+      "weight": 0.83,
+      "definition": ""
+    },
+    {
+      "word": "mimic",
+      "appearances": 5,
+      "missed": 2,
+      "miss_pct": 40.0,
+      "length": 5,
+      "is_pangram": false,
+      "weight": 0.83,
+      "definition": ""
+    },
+    {
+      "word": "emcee",
+      "appearances": 6,
+      "missed": 2,
+      "miss_pct": 33.3,
+      "length": 5,
+      "is_pangram": false,
+      "weight": 0.83,
+      "definition": ""
+    },
+    {
+      "word": "annotator",
+      "appearances": 2,
+      "missed": 1,
+      "miss_pct": 50.0,
+      "length": 9,
+      "is_pangram": false,
+      "weight": 0.75,
+      "definition": ""
+    },
+    {
+      "word": "tactician",
+      "appearances": 2,
+      "missed": 1,
+      "miss_pct": 50.0,
+      "length": 9,
+      "is_pangram": false,
+      "weight": 0.75,
+      "definition": ""
+    },
+    {
+      "word": "nonillion",
+      "appearances": 4,
+      "missed": 1,
+      "miss_pct": 25.0,
+      "length": 9,
+      "is_pangram": false,
+      "weight": 0.75,
+      "definition": ""
+    },
+    {
+      "word": "agar",
+      "appearances": 2,
+      "missed": 2,
+      "miss_pct": 100.0,
+      "length": 4,
+      "is_pangram": false,
+      "weight": 0.67,
+      "definition": ""
+    },
+    {
+      "word": "ahem",
+      "appearances": 2,
+      "missed": 2,
+      "miss_pct": 100.0,
+      "length": 4,
+      "is_pangram": false,
+      "weight": 0.67,
+      "definition": ""
+    },
+    {
+      "word": "alga",
+      "appearances": 2,
+      "missed": 2,
+      "miss_pct": 100.0,
+      "length": 4,
+      "is_pangram": false,
+      "weight": 0.67,
+      "definition": ""
+    },
+    {
+      "word": "banc",
+      "appearances": 2,
+      "missed": 2,
+      "miss_pct": 100.0,
+      "length": 4,
+      "is_pangram": false,
+      "weight": 0.67,
+      "definition": ""
+    },
+    {
+      "word": "baud",
+      "appearances": 2,
+      "missed": 2,
+      "miss_pct": 100.0,
+      "length": 4,
+      "is_pangram": false,
+      "weight": 0.67,
+      "definition": ""
+    },
+    {
+      "word": "brad",
+      "appearances": 2,
+      "missed": 2,
+      "miss_pct": 100.0,
+      "length": 4,
+      "is_pangram": false,
+      "weight": 0.67,
+      "definition": ""
+    },
+    {
+      "word": "clod",
+      "appearances": 2,
+      "missed": 2,
+      "miss_pct": 100.0,
+      "length": 4,
+      "is_pangram": false,
+      "weight": 0.67,
+      "definition": ""
+    },
+    {
+      "word": "cloy",
+      "appearances": 2,
+      "missed": 2,
+      "miss_pct": 100.0,
+      "length": 4,
+      "is_pangram": false,
+      "weight": 0.67,
+      "definition": ""
+    },
+    {
+      "word": "coil",
+      "appearances": 2,
+      "missed": 2,
+      "miss_pct": 100.0,
+      "length": 4,
+      "is_pangram": false,
+      "weight": 0.67,
+      "definition": ""
+    },
+    {
+      "word": "colt",
+      "appearances": 2,
+      "missed": 2,
+      "miss_pct": 100.0,
+      "length": 4,
+      "is_pangram": false,
+      "weight": 0.67,
+      "definition": ""
+    },
+    {
+      "word": "croc",
+      "appearances": 2,
+      "missed": 2,
+      "miss_pct": 100.0,
+      "length": 4,
+      "is_pangram": false,
+      "weight": 0.67,
+      "definition": ""
+    },
+    {
+      "word": "epee",
+      "appearances": 2,
+      "missed": 2,
+      "miss_pct": 100.0,
+      "length": 4,
+      "is_pangram": false,
+      "weight": 0.67,
+      "definition": ""
+    },
+    {
+      "word": "fiat",
+      "appearances": 2,
+      "missed": 2,
+      "miss_pct": 100.0,
+      "length": 4,
+      "is_pangram": false,
+      "weight": 0.67,
+      "definition": ""
+    },
+    {
+      "word": "gaff",
+      "appearances": 2,
+      "missed": 2,
+      "miss_pct": 100.0,
+      "length": 4,
+      "is_pangram": false,
+      "weight": 0.67,
+      "definition": ""
+    },
+    {
+      "word": "gala",
+      "appearances": 2,
+      "missed": 2,
+      "miss_pct": 100.0,
+      "length": 4,
+      "is_pangram": false,
+      "weight": 0.67,
+      "definition": ""
+    },
+    {
+      "word": "idea",
+      "appearances": 2,
+      "missed": 2,
+      "miss_pct": 100.0,
+      "length": 4,
+      "is_pangram": false,
+      "weight": 0.67,
+      "definition": ""
+    }
+  ],
+  "missed_pangrams": [
+    {
+      "word": "wrongdoing",
+      "date": "2026-06-20",
+      "points": 17,
+      "length": 10
+    },
+    {
+      "word": "corkboard",
+      "date": "2026-05-20",
+      "points": 16,
+      "length": 9
+    },
+    {
+      "word": "outpolled",
+      "date": "2026-05-19",
+      "points": 16,
+      "length": 9
+    },
+    {
+      "word": "cartload",
+      "date": "2026-05-17",
+      "points": 15,
+      "length": 8
+    },
+    {
+      "word": "phaeton",
+      "date": "2026-05-16",
+      "points": 14,
+      "length": 7
+    },
+    {
+      "word": "phonate",
+      "date": "2026-05-16",
+      "points": 14,
+      "length": 7
+    },
+    {
+      "word": "bookmobile",
+      "date": "2026-05-14",
+      "points": 17,
+      "length": 10
+    },
+    {
+      "word": "megahit",
+      "date": "2026-05-09",
+      "points": 14,
+      "length": 7
+    },
+    {
+      "word": "glaciology",
+      "date": "2026-05-08",
+      "points": 17,
+      "length": 10
+    },
+    {
+      "word": "illogically",
+      "date": "2026-05-08",
+      "points": 18,
+      "length": 11
+    },
+    {
+      "word": "clementine",
+      "date": "2026-04-28",
+      "points": 17,
+      "length": 10
+    },
+    {
+      "word": "oenophile",
+      "date": "2026-04-25",
+      "points": 16,
+      "length": 9
+    },
+    {
+      "word": "vincible",
+      "date": "2026-04-22",
+      "points": 15,
+      "length": 8
+    },
+    {
+      "word": "matutinal",
+      "date": "2026-04-19",
+      "points": 16,
+      "length": 9
+    },
+    {
+      "word": "affiliating",
+      "date": "2026-04-16",
+      "points": 18,
+      "length": 11
+    },
+    {
+      "word": "inflating",
+      "date": "2026-04-16",
+      "points": 16,
+      "length": 9
+    },
+    {
+      "word": "unfledged",
+      "date": "2026-04-07",
+      "points": 16,
+      "length": 9
+    },
+    {
+      "word": "arguably",
+      "date": "2026-04-04",
+      "points": 15,
+      "length": 8
+    },
+    {
+      "word": "ineptly",
+      "date": "2026-03-25",
+      "points": 14,
+      "length": 7
+    },
+    {
+      "word": "gladhanding",
+      "date": "2026-03-22",
+      "points": 18,
+      "length": 11
+    },
+    {
+      "word": "highland",
+      "date": "2026-03-22",
+      "points": 15,
+      "length": 8
+    },
+    {
+      "word": "befouled",
+      "date": "2026-03-17",
+      "points": 15,
+      "length": 8
+    },
+    {
+      "word": "acridly",
+      "date": "2026-03-15",
+      "points": 14,
+      "length": 7
+    },
+    {
+      "word": "haricot",
+      "date": "2026-03-13",
+      "points": 14,
+      "length": 7
+    },
+    {
+      "word": "thoracic",
+      "date": "2026-03-13",
+      "points": 15,
+      "length": 8
+    },
+    {
+      "word": "upfield",
+      "date": "2026-03-06",
+      "points": 14,
+      "length": 7
+    },
+    {
+      "word": "lockable",
+      "date": "2026-03-03",
+      "points": 15,
+      "length": 8
+    },
+    {
+      "word": "daywork",
+      "date": "2026-02-25",
+      "points": 14,
+      "length": 7
+    },
+    {
+      "word": "cordovan",
+      "date": "2026-02-18",
+      "points": 15,
+      "length": 8
+    },
+    {
+      "word": "propitiatory",
+      "date": "2026-02-07",
+      "points": 19,
+      "length": 12
+    }
+  ]
+}

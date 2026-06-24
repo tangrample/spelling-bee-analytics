@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>🐝 Spelling Bee Analytics</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+  <style>
+    :root {
+      --bg:          #ffffff;
+      --bg-sec:      #f5f5f3;
+      --text:        #1a1a1a;
+      --text-muted:  #6b6b6b;
+      --border:      rgba(0,0,0,0.09);
+      --teal:        #1D9E75;
+      --teal-light:  #9FE1CB;
+      --red:         #E24B4A;
+      --amber:       #EF9F27;
+      --r-card:      12px;
+      --r-sm:        8px;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg:         #1c1c1e;
+        --bg-sec:     #2c2c2e;
+        --text:       #f0f0f0;
+        --text-muted: #8e8e93;
+        --border:     rgba(255,255,255,0.1);
+      }
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg-sec);
+      color: var(--text);
+      font-size: 15px;
+      line-height: 1.5;
+    }
+    .container { max-width: 920px; margin: 0 auto; padding: 2rem 1.25rem 3rem; }
+
+    /* Header */
+    .header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 1.5rem; }
+    .header h1 { font-size: 22px; font-weight: 500; }
+    .header .meta { font-size: 13px; color: var(--text-muted); margin-top: 3px; }
+    .pill-green { background: #EAF3DE; color: #3B6D11; font-size: 11px; padding: 3px 10px; border-radius: 99px; font-weight: 500; white-space: nowrap; }
+
+    /* Stat grid */
+    .stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 12px; }
+    .stat-card { background: var(--bg); border-radius: var(--r-sm); padding: 14px 16px; }
+    .stat-label { font-size: 11px; color: var(--text-muted); margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.05em; }
+    .stat-value { font-size: 24px; font-weight: 500; }
+    .stat-sub { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+
+    /* Two-col layout */
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+    .card { background: var(--bg); border-radius: var(--r-card); padding: 1.1rem 1.25rem; }
+    .card-title { font-size: 11px; font-weight: 500; color: var(--text-muted); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 12px; }
+
+    /* Chart */
+    .chart-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+    .legend { display: flex; gap: 12px; }
+    .legend-item { display: flex; align-items: center; gap: 5px; font-size: 11px; color: var(--text-muted); }
+    .legend-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+    .chart-wrap { position: relative; height: 150px; }
+
+    /* Length bars */
+    .len-row { margin-bottom: 9px; }
+    .len-row:last-child { margin-bottom: 0; }
+    .len-header { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 3px; }
+    .len-label { color: var(--text-muted); }
+    .bar-track { height: 5px; border-radius: 3px; background: var(--border); overflow: hidden; }
+    .bar-fill { height: 100%; border-radius: 3px; transition: width 0.6s ease; }
+
+    /* Word rows */
+    .word-row { display: flex; align-items: center; justify-content: space-between; padding: 7px 0; border-bottom: 0.5px solid var(--border); }
+    .word-row:last-of-type { border-bottom: none; }
+    .word-left { display: flex; align-items: center; gap: 8px; }
+    .word-name { font-size: 14px; font-weight: 500; }
+    .badge { display: inline-block; font-size: 11px; padding: 2px 7px; border-radius: 99px; font-weight: 500; }
+    .badge-red    { background: #FCEBEB; color: #A32D2D; }
+    .badge-amber  { background: #FAEEDA; color: #854F0B; }
+    .badge-teal   { background: #E1F5EE; color: #0F6E56; }
+    .badge-purple { background: #EEEDFE; color: #534AB7; }
+    .word-right { font-size: 12px; color: var(--text-muted); text-align: right; }
+
+    /* Show more */
+    .show-more { margin-top: 10px; text-align: right; }
+    .show-more button {
+      background: none; border: 0.5px solid var(--border); border-radius: var(--r-sm);
+      padding: 4px 10px; font-size: 12px; color: var(--text-muted); cursor: pointer;
+    }
+    .show-more button:hover { color: var(--text); }
+    .extra { display: none; }
+
+    /* Study cards */
+    .study-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+    .study-card { background: var(--bg-sec); border-radius: var(--r-sm); padding: 12px 10px; text-align: center; }
+    .study-word { font-size: 18px; font-weight: 500; margin-bottom: 5px; }
+    .study-def { font-size: 11px; color: var(--text-muted); margin-bottom: 8px; min-height: 30px; line-height: 1.4; }
+
+    /* Footer */
+    .footer { font-size: 11px; color: var(--text-muted); margin-top: 8px; line-height: 1.6; }
+
+    /* Responsive */
+    @media (max-width: 640px) {
+      .stat-grid { grid-template-columns: repeat(2, 1fr); }
+      .grid-2 { grid-template-columns: 1fr; }
+      .study-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+  </style>
+</head>
+<body>
+<div class="container" id="app">
+  <div style="padding:4rem;text-align:center;color:var(--text-muted);">Loading…</div>
+</div>
+
+<script>
+fetch('data.json')
+  .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+  .then(render)
+  .catch(() => {
+    document.getElementById('app').innerHTML =
+      '<div style="padding:4rem;text-align:center;color:#A32D2D;">⚠️ Could not load data.json</div>';
+  });
+
+function render(d) {
+  const s = d.summary;
+  const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+  // Daily rotation: 5 words, advances each day
+  const epoch = new Date('2026-01-01').getTime();
+  const dayIndex = Math.floor((Date.now() - epoch) / 86400000);
+  const n = d.study_words.length;
+  const todayWords = Array.from({ length: 5 }, (_, i) => d.study_words[(dayIndex * 5 + i) % n]);
+
+  function fmtDate(iso) {
+    return new Date(iso + 'T12:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+  }
+  function fmtMonth(ym) {
+    const [, m] = ym.split('-');
+    return ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][+m - 1];
+  }
+  function missBadge(pct) {
+    return pct >= 90 ? 'badge-red' : pct >= 60 ? 'badge-amber' : 'badge-teal';
+  }
+  function barColor(pct) {
+    return pct >= 28 ? '#E24B4A' : pct >= 20 ? '#EF9F27' : '#1D9E75';
+  }
+  function lenBadge(len) {
+    return len >= 10 ? 'badge-purple' : len >= 8 ? 'badge-amber' : 'badge-teal';
+  }
+
+  // Build word rows HTML
+  function wordRows(words, extraClass) {
+    return words.map((w, i) => `
+      <div class="word-row${i >= 10 ? ' extra ' + extraClass : ''}">
+        <div class="word-left">
+          <span class="word-name">${w.word}</span>
+          <span class="badge ${missBadge(w.miss_pct)}">${w.miss_pct}% · ${w.appearances}×</span>
+        </div>
+        <span class="word-right">${w.definition || (w.length + '-letter word')}</span>
+      </div>`).join('');
+  }
+
+  function pangramRows(pangrams, extraClass) {
+    return pangrams.map((p, i) => {
+      const dt = new Date(p.date + 'T12:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+      return `
+        <div class="word-row${i >= 7 ? ' extra ' + extraClass : ''}">
+          <div class="word-left">
+            <span class="word-name">${p.word}</span>
+            <span class="badge ${lenBadge(p.length)}">${p.length} letters</span>
+          </div>
+          <span class="word-right">${dt}</span>
+        </div>`;
+    }).join('');
+  }
+
+  function studyCards(words) {
+    return words.map(w => `
+      <div class="study-card">
+        <div class="study-word">${w.word}</div>
+        <div class="study-def">${w.definition || ''}</div>
+        <span class="badge ${missBadge(w.miss_pct)}">${w.miss_pct}% miss</span>
+      </div>`).join('');
+  }
+
+  function lenBars(rows) {
+    return rows.map(r => `
+      <div class="len-row">
+        <div class="len-header">
+          <span class="len-label">${r.label}</span>
+          <span style="font-weight:500;color:${barColor(r.miss_pct)};">${r.miss_pct.toFixed(0)}%</span>
+        </div>
+        <div class="bar-track">
+          <div class="bar-fill" style="width:${r.miss_pct}%;background:${barColor(r.miss_pct)};"></div>
+        </div>
+      </div>`).join('');
+  }
+
+  document.getElementById('app').innerHTML = `
+    <div class="header">
+      <div>
+        <h1>🐝 Spelling Bee</h1>
+        <div class="meta">${s.total_games} games · ${fmtDate(s.first_date)} – ${fmtDate(s.last_date)}</div>
+      </div>
+      <span class="pill-green">↑ Improving</span>
+    </div>
+
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-label">Avg score</div>
+        <div class="stat-value">${s.avg_score_pct}%</div>
+        <div class="stat-sub">of max pts · ${s.total_games} games</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Genius rate</div>
+        <div class="stat-value">${s.genius_rate}%</div>
+        <div class="stat-sub">${s.genius_count} of ${s.total_games} games</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Pangram rate</div>
+        <div class="stat-value">${s.pangram_pct}%</div>
+        <div class="stat-sub">${s.pangram_found} of ${s.pangram_total} · ${s.pangram_missed} missed</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Word miss rate</div>
+        <div class="stat-value">${s.word_miss_rate}%</div>
+        <div class="stat-sub">count-based · ${s.games_with_answers} games</div>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="chart-header">
+          <div class="card-title" style="margin-bottom:0;">Score &amp; words found % by month</div>
+          <div class="legend">
+            <div class="legend-item"><div class="legend-dot" style="background:#1D9E75;"></div>Score %</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#9FE1CB;"></div>Words %</div>
+          </div>
+        </div>
+        <div class="chart-wrap"><canvas id="monthChart"></canvas></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Miss rate by word length</div>
+        ${lenBars(d.miss_by_length)}
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">Words to study — miss rate × length · min 2 appearances</div>
+        ${wordRows(d.study_words, 'study-extra')}
+        <div class="show-more">
+          <button onclick="toggleExtra('.study-extra', this, '${d.study_words.length} words')">
+            See full list (${d.study_words.length} words) ↓
+          </button>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">Missed pangrams — ${s.pangram_missed} total · ${s.pangram_miss_pct}% miss rate</div>
+        ${pangramRows(d.missed_pangrams, 'pangram-extra')}
+        <div class="show-more">
+          <button onclick="toggleExtra('.pangram-extra', this, 'all ${s.pangram_missed}')">
+            See all ${s.pangram_missed} ↓
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:6px;">
+      <div class="card-title">Today's study words — rotates daily, weighted by miss rate × length</div>
+      <div class="study-grid">${studyCards(todayWords)}</div>
+    </div>
+
+    <div class="footer">
+      Last updated: ${new Date(d.generated_at).toLocaleString()} ·
+      Missed word stats use ${s.games_with_answers} games with full data. Top stats use all ${s.total_games} games.
+    </div>
+  `;
+
+  // Chart.js grouped bar chart
+  const mutedColor = isDark ? '#8e8e93' : '#6b6b6b';
+  const gridColor  = isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)';
+
+  new Chart(document.getElementById('monthChart').getContext('2d'), {
+    type: 'bar',
+    data: {
+      labels: d.monthly.map(m => fmtMonth(m.month)),
+      datasets: [
+        { label: 'Score %',      data: d.monthly.map(m => m.score_pct),  backgroundColor: '#1D9E75', borderRadius: 3 },
+        { label: 'Words found %', data: d.monthly.map(m => m.words_pct), backgroundColor: '#9FE1CB', borderRadius: 3 },
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: ctx => ctx.dataset.label + ': ' + ctx.parsed.y + '%' } }
+      },
+      scales: {
+        x: {
+          grid: { display: false },
+          ticks: { color: mutedColor, font: { size: 11 } },
+          border: { display: false }
+        },
+        y: {
+          min: 60, max: 100,
+          grid: { color: gridColor },
+          ticks: { color: mutedColor, font: { size: 11 }, callback: v => v + '%' },
+          border: { display: false }
+        }
+      }
+    }
+  });
+}
+
+function toggleExtra(selector, btn, label) {
+  const items = document.querySelectorAll(selector);
+  const opening = items[0].style.display === 'none' || items[0].style.display === '';
+  items.forEach(el => { el.style.display = opening ? 'flex' : 'none'; });
+  btn.textContent = opening ? 'Show less ↑' : `See ${label} ↓`;
+}
+</script>
+</body>
+</html>
