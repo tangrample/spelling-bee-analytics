@@ -184,23 +184,20 @@
     .legend { display: flex; gap: 12px; }
     .legend-item { display: flex; align-items: center; gap: 5px; font-size: 11px; color: var(--muted); }
     .legend-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
-    .chart-area { flex: 1; display: flex; align-items: stretch; min-height: 0; }
+    .chart-area { flex: 1; display: flex; flex-direction: column; min-height: 0; }
+    .chart-body { flex: 1; display: flex; min-height: 0; }
     .y-axis {
-      height: 175px;
-      align-self: flex-start;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      padding-bottom: 24px;
+      padding-bottom: 0;
       padding-right: 6px;
       align-items: flex-end;
       flex-shrink: 0;
     }
     .y-label { font-size: 10px; color: var(--muted); }
-    .bars-wrap { flex: 1; display: flex; flex-direction: column; min-height: 0; }
     .bars {
-      height: 175px;
-      flex-shrink: 0;
+      flex: 1;
       display: flex;
       align-items: flex-end;
       justify-content: space-around;
@@ -216,8 +213,18 @@
       background: var(--border);
     }
     .bar-group { display: flex; gap: 3px; align-items: flex-end; z-index: 1; height: 100%; }
-    .bar { width: 14px; border-radius: 3px 3px 0 0; min-height: 2px; }
-    .x-labels { display: flex; justify-content: space-around; padding: 6px 8px 0; }
+    .bar { width: 14px; border-radius: 3px 3px 0 0; min-height: 2px; position: relative; cursor: default; }
+    .bar:hover::after {
+      content: attr(data-val);
+      position: absolute;
+      top: -22px; left: 50%;
+      transform: translateX(-50%);
+      background: var(--text); color: var(--bg);
+      padding: 2px 5px; border-radius: 4px;
+      font-size: 10px; white-space: nowrap;
+      pointer-events: none; z-index: 10;
+    }
+    .x-labels { display: flex; justify-content: space-around; padding: 5px 8px 0; flex-shrink: 0; }
     .x-label { font-size: 11px; color: var(--muted); }
 
     /* ── Length bars (slide 5) ───────────────────────────────────── */
@@ -333,8 +340,8 @@ function render(d) {
   }
   const barGroups = d.monthly.map(m => `
     <div class="bar-group">
-      <div class="bar" style="height:${barH(m.score_pct)};background:var(--teal);"></div>
-      <div class="bar" style="height:${barH(m.words_pct)};background:var(--teal-light);"></div>
+      <div class="bar" style="height:${barH(m.score_pct)};background:var(--teal);" data-val="${m.score_pct}%"></div>
+      <div class="bar" style="height:${barH(m.words_pct)};background:var(--teal-light);" data-val="${m.words_pct}%"></div>
     </div>`).join('');
   const xLabels = d.monthly.map(m =>
     `<span class="x-label">${fmtMonthShort(m.month)}</span>`).join('');
@@ -475,19 +482,19 @@ function render(d) {
             </div>
           </div>
           <div class="chart-area">
-            <div class="y-axis">
-              <span class="y-label">90%</span>
-              <span class="y-label">75%</span>
-              <span class="y-label">60%</span>
-            </div>
-            <div class="bars-wrap">
+            <div class="chart-body">
+              <div class="y-axis">
+                <span class="y-label">90%</span>
+                <span class="y-label">75%</span>
+                <span class="y-label">60%</span>
+              </div>
               <div class="bars">
                 <div class="grid-line" style="top:0;"></div>
                 <div class="grid-line" style="top:50%;"></div>
                 ${barGroups}
               </div>
-              <div class="x-labels">${xLabels}</div>
             </div>
+            <div class="x-labels">${xLabels}</div>
           </div>
           <p class="insight">${chartInsight}</p>
         </div>
