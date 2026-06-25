@@ -1,28 +1,28 @@
 {
-  "generated_at": "2026-06-25T03:15:32.896260",
+  "generated_at": "2026-06-25T13:33:16.473686",
   "summary": {
-    "total_games": 110,
-    "games_with_answers": 104,
-    "avg_score_pct": 78.8,
-    "word_miss_rate": 24.6,
-    "genius_count": 108,
+    "total_games": 111,
+    "games_with_answers": 105,
+    "avg_score_pct": 78.9,
+    "word_miss_rate": 24.5,
+    "genius_count": 109,
     "genius_rate": 98.2,
     "qb_count": 1,
     "first_date": "2026-02-07",
-    "last_date": "2026-06-23",
-    "pangram_total": 163,
-    "pangram_found": 133,
+    "last_date": "2026-06-24",
+    "pangram_total": 164,
+    "pangram_found": 134,
     "pangram_missed": 30,
-    "pangram_pct": 81.6,
-    "pangram_miss_pct": 18.4
+    "pangram_pct": 81.7,
+    "pangram_miss_pct": 18.3
   },
   "recent": {
-    "games": 6,
-    "avg_score_pct": 86.8,
-    "genius_count": 6,
-    "word_miss_rate": 16.3,
-    "pangram_found": 8,
-    "pangram_total": 9
+    "games": 7,
+    "avg_score_pct": 86.3,
+    "genius_count": 7,
+    "word_miss_rate": 15.9,
+    "pangram_found": 9,
+    "pangram_total": 10
   },
   "monthly": [
     {
@@ -59,10 +59,10 @@
     },
     {
       "month": "2026-06",
-      "games": 9,
-      "score_pct": 84.1,
-      "words_pct": 81.3,
-      "genius": 9,
+      "games": 10,
+      "score_pct": 84.0,
+      "words_pct": 81.8,
+      "genius": 10,
       "qb": 1
     }
   ],
@@ -70,37 +70,37 @@
     {
       "length": 4,
       "label": "4-letter",
-      "total": 1661,
-      "missed": 531,
-      "miss_pct": 32.0
+      "total": 1686,
+      "missed": 533,
+      "miss_pct": 31.6
     },
     {
       "length": 5,
       "label": "5-letter",
-      "total": 1087,
-      "missed": 188,
+      "total": 1096,
+      "missed": 190,
       "miss_pct": 17.3
     },
     {
       "length": 6,
       "label": "6-letter",
-      "total": 919,
-      "missed": 155,
+      "total": 929,
+      "missed": 157,
       "miss_pct": 16.9
     },
     {
       "length": 7,
       "label": "7-letter",
-      "total": 583,
+      "total": 593,
       "missed": 134,
-      "miss_pct": 23.0
+      "miss_pct": 22.6
     },
     {
       "length": 8,
       "label": "8+ letter",
-      "total": 512,
-      "missed": 142,
-      "miss_pct": 27.7
+      "total": 522,
+      "missed": 145,
+      "miss_pct": 27.8
     }
   ],
   "study_words": [
@@ -226,6 +226,17 @@
       "definition": "rude, unmannerly person"
     },
     {
+      "word": "cetacean",
+      "appearances": 2,
+      "missed": 2,
+      "miss_pct": 100.0,
+      "length": 8,
+      "is_pangram": false,
+      "weight": 1.33,
+      "last_missed": "2026-06-24",
+      "definition": ""
+    },
+    {
       "word": "ignoring",
       "appearances": 2,
       "missed": 2,
@@ -248,6 +259,17 @@
       "definition": "in a praiseworthy manner"
     },
     {
+      "word": "nametape",
+      "appearances": 2,
+      "missed": 2,
+      "miss_pct": 100.0,
+      "length": 8,
+      "is_pangram": false,
+      "weight": 1.33,
+      "last_missed": "2026-06-24",
+      "definition": ""
+    },
+    {
       "word": "pipeline",
       "appearances": 2,
       "missed": 2,
@@ -268,6 +290,17 @@
       "weight": 1.33,
       "last_missed": "2026-06-23",
       "definition": "an Indian queen"
+    },
+    {
+      "word": "mete",
+      "appearances": 5,
+      "missed": 4,
+      "miss_pct": 80.0,
+      "length": 4,
+      "is_pangram": false,
+      "weight": 1.33,
+      "last_missed": "2026-06-24",
+      "definition": "to distribute or allot"
     },
     {
       "word": "nada",
@@ -644,17 +677,6 @@
       "definition": "crazy (informal)"
     },
     {
-      "word": "mete",
-      "appearances": 4,
-      "missed": 3,
-      "miss_pct": 75.0,
-      "length": 4,
-      "is_pangram": false,
-      "weight": 1.0,
-      "last_missed": "2026-05-09",
-      "definition": "to distribute or allot"
-    },
-    {
       "word": "orca",
       "appearances": 4,
       "missed": 3,
@@ -664,17 +686,6 @@
       "weight": 1.0,
       "last_missed": "2026-06-17",
       "definition": "killer whale"
-    },
-    {
-      "word": "tapa",
-      "appearances": 4,
-      "missed": 3,
-      "miss_pct": 75.0,
-      "length": 4,
-      "is_pangram": false,
-      "weight": 1.0,
-      "last_missed": "2026-05-16",
-      "definition": "Spanish small dish"
     },
     {
       "word": "airman",
@@ -719,6 +730,17 @@
       "weight": 1.0,
       "last_missed": "2026-06-20",
       "definition": "diluted alcoholic drink"
+    },
+    {
+      "word": "tapa",
+      "appearances": 5,
+      "missed": 3,
+      "miss_pct": 60.0,
+      "length": 4,
+      "is_pangram": false,
+      "weight": 1.0,
+      "last_missed": "2026-05-16",
+      "definition": "Spanish small dish"
     },
     {
       "word": "miming",
@@ -974,6 +996,17 @@
       "definition": ""
     },
     {
+      "word": "eaten",
+      "appearances": 4,
+      "missed": 2,
+      "miss_pct": 50.0,
+      "length": 5,
+      "is_pangram": false,
+      "weight": 0.83,
+      "last_missed": "2026-06-24",
+      "definition": ""
+    },
+    {
       "word": "mimic",
       "appearances": 5,
       "missed": 2,
@@ -1004,6 +1037,17 @@
       "is_pangram": false,
       "weight": 0.75,
       "last_missed": "2026-03-18",
+      "definition": ""
+    },
+    {
+      "word": "enactment",
+      "appearances": 2,
+      "missed": 1,
+      "miss_pct": 50.0,
+      "length": 9,
+      "is_pangram": false,
+      "weight": 0.75,
+      "last_missed": "2026-04-09",
       "definition": ""
     },
     {
@@ -1158,50 +1202,6 @@
       "is_pangram": false,
       "weight": 0.67,
       "last_missed": "2026-03-21",
-      "definition": ""
-    },
-    {
-      "word": "fiat",
-      "appearances": 2,
-      "missed": 2,
-      "miss_pct": 100.0,
-      "length": 4,
-      "is_pangram": false,
-      "weight": 0.67,
-      "last_missed": "2026-04-16",
-      "definition": ""
-    },
-    {
-      "word": "gaff",
-      "appearances": 2,
-      "missed": 2,
-      "miss_pct": 100.0,
-      "length": 4,
-      "is_pangram": false,
-      "weight": 0.67,
-      "last_missed": "2026-04-16",
-      "definition": ""
-    },
-    {
-      "word": "gala",
-      "appearances": 2,
-      "missed": 2,
-      "miss_pct": 100.0,
-      "length": 4,
-      "is_pangram": false,
-      "weight": 0.67,
-      "last_missed": "2026-04-04",
-      "definition": ""
-    },
-    {
-      "word": "idea",
-      "appearances": 2,
-      "missed": 2,
-      "miss_pct": 100.0,
-      "length": 4,
-      "is_pangram": false,
-      "weight": 0.67,
-      "last_missed": "2026-06-19",
       "definition": ""
     }
   ],
