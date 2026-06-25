@@ -195,9 +195,10 @@
       flex-shrink: 0;
     }
     .y-label { font-size: 10px; color: var(--muted); }
-    .bars-wrap { flex: 1; display: flex; flex-direction: column; }
+    .bars-wrap { flex: 1; display: flex; flex-direction: column; min-height: 0; }
     .bars {
-      flex: 1;
+      height: 175px;
+      flex-shrink: 0;
       display: flex;
       align-items: flex-end;
       justify-content: space-around;
@@ -506,8 +507,8 @@ function render(d) {
     </div>
 
     <div class="footer">
-      Last updated: ${new Date(d.generated_at).toLocaleString()} ·
-      Word miss stats use ${s.games_with_answers} games with full puzzle data.
+      Reflects data from ${s.total_games} puzzles (${fmtDate(s.first_date)} – ${fmtDate(s.last_date)}).
+      Word miss stats exclude ${s.total_games - s.games_with_answers} games with incomplete data.
     </div>
   `;
 
@@ -536,6 +537,9 @@ function initCarousel(n) {
     dotsEl.querySelectorAll('.dot').forEach((d, idx) =>
       d.classList.toggle('active', idx === cur));
   }
+
+  document.getElementById('prev-btn').addEventListener('click', () => goTo(cur - 1));
+  document.getElementById('next-btn').addEventListener('click', () => goTo(cur + 1));
 
   // Touch swipe
   let tx = null;
