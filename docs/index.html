@@ -184,20 +184,26 @@
     .legend { display: flex; gap: 12px; }
     .legend-item { display: flex; align-items: center; gap: 5px; font-size: 11px; color: var(--muted); }
     .legend-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
-    .chart-area { flex: 1; display: flex; flex-direction: column; min-height: 0; }
-    .chart-body { flex: 1; display: flex; min-height: 0; }
+    .chart-area {
+      flex: 1;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      grid-template-rows: 1fr auto;
+      min-height: 0;
+    }
+    .chart-body { display: contents; }
     .y-axis {
+      grid-column: 1; grid-row: 1;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       padding-bottom: 0;
       padding-right: 6px;
       align-items: flex-end;
-      flex-shrink: 0;
     }
     .y-label { font-size: 10px; color: var(--muted); }
     .bars {
-      flex: 1;
+      grid-column: 2; grid-row: 1;
       display: flex;
       align-items: flex-end;
       justify-content: space-around;
@@ -224,7 +230,7 @@
       font-size: 10px; white-space: nowrap;
       pointer-events: none; z-index: 10;
     }
-    .x-labels { display: flex; justify-content: space-around; padding: 5px 8px 0; flex-shrink: 0; }
+    .x-labels { grid-column: 2; grid-row: 2; display: flex; justify-content: space-around; padding: 5px 8px 0; }
     .x-label { font-size: 11px; color: var(--muted); }
 
     /* ── Length bars (slide 5) ───────────────────────────────────── */
