@@ -131,6 +131,43 @@ def main():
         'pangram_miss_pct':   round((pg[0] - pg[1]) / pg[0] * 100, 1),
     }
 
+    # ── Recent stats (last 7 days) ────────────────────────────────────────────
+    rec_games = cur.execute('''
+        SELECT COUNT(*) games,
+               ROUND(AVG(CAST(score AS FLOAT)/NULLIF(max_possible_score,0))*100, 1) avg_score_pct,
+               SUM(is_genius) genius_count
+        FROM games
+        WHERE puzzle_date >= date('now', '-7 days')
+    ''').fetchone()
+
+    rec_words = cur.execute('''
+        SELECT COUNT(pa.word) total,
+               SUM(CASE WHEN wf.word IS NULL THEN 1 ELSE 0 END) missed
+        FROM puzzle_answers pa
+        JOIN games g ON g.id = pa.game_id
+        LEFT JOIN words_found wf ON wf.game_id = pa.game_id AND wf.word = pa.word
+        WHERE g.puzzle_date >= date('now', '-7 days')
+    ''').fetchone()
+
+    rec_pg = cur.execute('''
+        SELECT COUNT(*) total,
+               SUM(CASE WHEN wf.word IS NOT NULL THEN 1 ELSE 0 END) found
+        FROM puzzle_answers pa
+        JOIN games g ON g.id = pa.game_id
+        LEFT JOIN words_found wf ON wf.game_id = pa.game_id AND wf.word = pa.word
+        WHERE pa.is_pangram = 1 AND g.puzzle_date >= date('now', '-7 days')
+    ''').fetchone()
+
+    n_rec = rec_games[0] or 0
+    recent = {
+        'games':          n_rec,
+        'avg_score_pct':  rec_games[1] or 0,
+        'genius_count':   rec_games[2] or 0,
+        'word_miss_rate': round(rec_words[1] / rec_words[0] * 100, 1) if (rec_words[0] or 0) > 0 else 0,
+        'pangram_found':  rec_pg[1] or 0,
+        'pangram_total':  rec_pg[0] or 0,
+    }
+
     # ── Monthly stats ─────────────────────────────────────────────────────────
     monthly = []
     for r in cur.execute('''
@@ -181,8 +218,10 @@ def main():
                    (MAX(pa.length) * 1.0 / 4) *
                    CASE WHEN MAX(pa.is_pangram)=1 THEN 3.0 ELSE 1.0 END *
                    COUNT(*) / 3.0
-               , 2) weight
+               , 2) weight,
+               MAX(CASE WHEN wf.word IS NULL THEN g.puzzle_date ELSE NULL END) last_missed
         FROM puzzle_answers pa
+        JOIN games g ON g.id = pa.game_id
         LEFT JOIN words_found wf ON wf.game_id = pa.game_id AND wf.word = pa.word
         GROUP BY pa.word
         HAVING appearances >= 2 AND missed > 0
@@ -197,6 +236,7 @@ def main():
             'length':      r[4],
             'is_pangram':  bool(r[5]),
             'weight':      r[6],
+            'last_missed': r[7],
             'definition':  DEFINITIONS.get(r[0], ''),
         })
 
@@ -219,6 +259,7 @@ def main():
     data = {
         'generated_at':   datetime.now().isoformat(),
         'summary':        summary,
+        'recent':         recent,
         'monthly':        monthly,
         'miss_by_length': miss_by_length,
         'study_words':    study_words,

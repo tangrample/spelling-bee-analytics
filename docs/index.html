@@ -3,29 +3,29 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>🐝 Spelling Bee Analytics</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+  <title>BeeBot</title>
+  <link rel="icon" type="image/svg+xml" href="bee.svg">
   <style>
     :root {
-      --bg:          #ffffff;
-      --bg-sec:      #f5f5f3;
-      --text:        #1a1a1a;
-      --text-muted:  #6b6b6b;
-      --border:      rgba(0,0,0,0.09);
-      --teal:        #1D9E75;
-      --teal-light:  #9FE1CB;
-      --red:         #E24B4A;
-      --amber:       #EF9F27;
-      --r-card:      12px;
-      --r-sm:        8px;
+      --bg:         #ffffff;
+      --bg-sec:     #f5f5f3;
+      --text:       #1a1a1a;
+      --muted:      #6b6b6b;
+      --border:     rgba(0,0,0,0.09);
+      --teal:       #1D9E75;
+      --teal-light: #9FE1CB;
+      --red:        #E24B4A;
+      --amber:      #EF9F27;
+      --r-card:     16px;
+      --r-sm:       8px;
     }
     @media (prefers-color-scheme: dark) {
       :root {
-        --bg:         #1c1c1e;
-        --bg-sec:     #2c2c2e;
-        --text:       #f0f0f0;
-        --text-muted: #8e8e93;
-        --border:     rgba(255,255,255,0.1);
+        --bg:     #1c1c1e;
+        --bg-sec: #2c2c2e;
+        --text:   #f0f0f0;
+        --muted:  #8e8e93;
+        --border: rgba(255,255,255,0.1);
       }
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -36,82 +36,220 @@
       font-size: 15px;
       line-height: 1.5;
     }
-    .container { max-width: 920px; margin: 0 auto; padding: 2rem 1.25rem 3rem; }
+    .container { max-width: 780px; margin: 0 auto; padding: 1.5rem 1.25rem 2.5rem; }
 
-    /* Header */
-    .header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 1.5rem; }
-    .header h1 { font-size: 22px; font-weight: 500; }
-    .header .meta { font-size: 13px; color: var(--text-muted); margin-top: 3px; }
-    .pill-green { background: #EAF3DE; color: #3B6D11; font-size: 11px; padding: 3px 10px; border-radius: 99px; font-weight: 500; white-space: nowrap; }
+    /* ── Header ──────────────────────────────────────────────────── */
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.25rem;
+    }
+    .header-left { display: flex; align-items: center; gap: 10px; }
+    .header-left h1 { font-size: 15px; font-weight: 500; }
+    .header-left .meta { font-size: 12px; color: var(--muted); }
+    .slide-counter { font-size: 12px; color: var(--muted); }
 
-    /* Stat grid */
-    .stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 12px; }
-    .stat-card { background: var(--bg); border-radius: var(--r-sm); padding: 14px 16px; }
-    .stat-label { font-size: 11px; color: var(--text-muted); margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.05em; }
-    .stat-value { font-size: 24px; font-weight: 500; }
-    .stat-sub { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+    /* ── Carousel ────────────────────────────────────────────────── */
+    .carousel-outer {
+      overflow: hidden;
+      border-radius: var(--r-card);
+      border: 0.5px solid var(--border);
+      background: var(--bg);
+      height: 420px;
+    }
+    .carousel-track {
+      display: flex;
+      height: 100%;
+      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .slide {
+      min-width: 100%;
+      height: 100%;
+      padding: 1.75rem 2rem;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+    }
+    .slide-scroll { overflow: hidden; }
+    .slide-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1.25rem;
+      flex-shrink: 0;
+    }
 
-    /* Two-col layout */
-    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
-    .card { background: var(--bg); border-radius: var(--r-card); padding: 1.1rem 1.25rem; }
-    .card-title { font-size: 11px; font-weight: 500; color: var(--text-muted); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 12px; }
+    /* ── Nav ─────────────────────────────────────────────────────── */
+    .carousel-nav {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      margin-top: 1rem;
+    }
+    .nav-btn {
+      width: 30px; height: 30px;
+      border-radius: 50%;
+      border: 0.5px solid var(--border);
+      background: var(--bg);
+      color: var(--text);
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      padding: 0;
+      font-size: 18px;
+      line-height: 1;
+      transition: opacity 0.2s;
+    }
+    .nav-btn:disabled { opacity: 0.3; cursor: default; }
+    .dots { display: flex; gap: 6px; align-items: center; }
+    .dot {
+      height: 6px; width: 6px;
+      border-radius: 3px;
+      background: var(--border);
+      cursor: pointer;
+      transition: all 0.2s;
+      flex-shrink: 0;
+    }
+    .dot.active { width: 18px; background: var(--teal); }
 
-    /* Chart */
-    .chart-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
-    .legend { display: flex; gap: 12px; }
-    .legend-item { display: flex; align-items: center; gap: 5px; font-size: 11px; color: var(--text-muted); }
-    .legend-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
-    .chart-wrap { position: relative; height: 150px; }
+    /* ── Slide 1: Overview ───────────────────────────────────────── */
+    .overview-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.75rem 2.5rem;
+      flex: 1;
+      align-content: center;
+    }
+    .stat-label {
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin: 0 0 4px;
+    }
+    .stat-big { font-size: 44px; font-weight: 500; line-height: 1; margin: 0; }
+    .stat-week { font-size: 11px; font-weight: 400; color: var(--muted); margin-left: 5px; }
+    .stat-alltime { font-size: 11px; color: var(--muted); margin: 5px 0 0; }
 
-    /* Length bars */
-    .len-row { margin-bottom: 9px; }
-    .len-row:last-child { margin-bottom: 0; }
-    .len-header { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 3px; }
-    .len-label { color: var(--text-muted); }
-    .bar-track { height: 5px; border-radius: 3px; background: var(--border); overflow: hidden; }
-    .bar-fill { height: 100%; border-radius: 3px; transition: width 0.6s ease; }
-
-    /* Word rows */
-    .word-row { display: flex; align-items: center; justify-content: space-between; padding: 7px 0; border-bottom: 0.5px solid var(--border); }
-    .word-row:last-of-type { border-bottom: none; }
-    .word-left { display: flex; align-items: center; gap: 8px; }
-    .word-name { font-size: 14px; font-weight: 500; }
-    .badge { display: inline-block; font-size: 11px; padding: 2px 7px; border-radius: 99px; font-weight: 500; }
+    /* ── Word list (slides 2 & 3) ────────────────────────────────── */
+    .word-list { flex: 1; overflow-y: auto; min-height: 0; }
+    .section-label {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 0 0 6px;
+      border-bottom: 0.5px solid var(--border);
+      margin-bottom: 2px;
+    }
+    .section-label.spaced { margin-top: 10px; }
+    .word-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 0.5px solid var(--border);
+    }
+    .word-row:last-child { border-bottom: none; }
+    .word-left { display: flex; align-items: center; gap: 7px; }
+    .word-name { font-size: 15px; font-weight: 500; }
+    .word-def { font-size: 12px; color: var(--muted); text-align: right; flex-shrink: 0; margin-left: 8px; }
+    .badge {
+      display: inline-block;
+      font-size: 11px;
+      padding: 2px 7px;
+      border-radius: 99px;
+      font-weight: 500;
+      white-space: nowrap;
+    }
     .badge-red    { background: #FCEBEB; color: #A32D2D; }
     .badge-amber  { background: #FAEEDA; color: #854F0B; }
     .badge-teal   { background: #E1F5EE; color: #0F6E56; }
     .badge-purple { background: #EEEDFE; color: #534AB7; }
-    .word-right { font-size: 12px; color: var(--text-muted); text-align: right; }
+    .badge-date   { background: #E1F5EE; color: #0F6E56; font-size: 10px; padding: 1px 6px; }
 
-    /* Show more */
-    .show-more { margin-top: 10px; text-align: right; }
-    .show-more button {
-      background: none; border: 0.5px solid var(--border); border-radius: var(--r-sm);
-      padding: 4px 10px; font-size: 12px; color: var(--text-muted); cursor: pointer;
+    /* ── Chart (slide 4) ─────────────────────────────────────────── */
+    .chart-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.1rem;
+      flex-shrink: 0;
     }
-    .show-more button:hover { color: var(--text); }
-    .extra { display: none; }
+    .chart-title { font-size: 13px; font-weight: 500; }
+    .legend { display: flex; gap: 12px; }
+    .legend-item { display: flex; align-items: center; gap: 5px; font-size: 11px; color: var(--muted); }
+    .legend-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+    .chart-area { flex: 1; display: flex; align-items: stretch; min-height: 0; }
+    .y-axis {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding-bottom: 24px;
+      padding-right: 6px;
+      align-items: flex-end;
+      flex-shrink: 0;
+    }
+    .y-label { font-size: 10px; color: var(--muted); }
+    .bars-wrap { flex: 1; display: flex; flex-direction: column; }
+    .bars {
+      flex: 1;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-around;
+      border-left: 0.5px solid var(--border);
+      border-bottom: 0.5px solid var(--border);
+      position: relative;
+      padding: 0 8px;
+    }
+    .grid-line {
+      position: absolute;
+      left: 0; right: 0;
+      height: 0.5px;
+      background: var(--border);
+    }
+    .bar-group { display: flex; gap: 3px; align-items: flex-end; z-index: 1; }
+    .bar { width: 14px; border-radius: 3px 3px 0 0; min-height: 2px; }
+    .x-labels { display: flex; justify-content: space-around; padding: 6px 8px 0; }
+    .x-label { font-size: 11px; color: var(--muted); }
 
-    /* Study cards */
-    .study-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
-    .study-card { background: var(--bg-sec); border-radius: var(--r-sm); padding: 12px 10px; text-align: center; }
-    .study-word { font-size: 18px; font-weight: 500; margin-bottom: 5px; }
-    .study-def { font-size: 11px; color: var(--text-muted); margin-bottom: 8px; min-height: 30px; line-height: 1.4; }
+    /* ── Length bars (slide 5) ───────────────────────────────────── */
+    .len-rows { display: flex; flex-direction: column; gap: 14px; flex: 1; justify-content: center; }
+    .len-header { display: flex; justify-content: space-between; margin-bottom: 5px; }
+    .len-label { font-size: 13px; color: var(--muted); }
+    .len-pct   { font-size: 13px; font-weight: 500; }
+    .bar-track { height: 6px; border-radius: 3px; background: var(--border); overflow: hidden; }
+    .bar-fill  { height: 100%; border-radius: 3px; }
 
-    /* Footer */
-    .footer { font-size: 11px; color: var(--text-muted); margin-top: 8px; line-height: 1.6; }
+    /* ── Insight line ────────────────────────────────────────────── */
+    .insight {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 14px;
+      border-top: 0.5px solid var(--border);
+      padding-top: 12px;
+      flex-shrink: 0;
+    }
 
-    /* Responsive */
-    @media (max-width: 640px) {
-      .stat-grid { grid-template-columns: repeat(2, 1fr); }
-      .grid-2 { grid-template-columns: 1fr; }
-      .study-grid { grid-template-columns: repeat(3, 1fr); }
+    /* ── Footer ──────────────────────────────────────────────────── */
+    .footer { font-size: 11px; color: var(--muted); margin-top: 0.75rem; text-align: center; }
+
+    /* ── Responsive ──────────────────────────────────────────────── */
+    @media (max-width: 600px) {
+      .slide { padding: 1.25rem; }
+      .overview-grid { gap: 1.25rem 1.5rem; }
+      .stat-big { font-size: 36px; }
+      .carousel-outer { height: 460px; }
     }
   </style>
 </head>
 <body>
 <div class="container" id="app">
-  <div style="padding:4rem;text-align:center;color:var(--text-muted);">Loading…</div>
+  <div style="padding:4rem;text-align:center;color:var(--muted);">Loading…</div>
 </div>
 
 <script>
@@ -124,249 +262,298 @@ fetch('data.json')
   });
 
 function render(d) {
-  const s = d.summary;
-  const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const s  = d.summary;
+  const rc = d.recent || {};
+  const hasRecent = (rc.games || 0) > 0;
 
-  // Daily rotation: 5 words, advances each day
-  const epoch = new Date('2026-01-01').getTime();
-  const dayIndex = Math.floor((Date.now() - epoch) / 86400000);
-  const n = d.study_words.length;
-  const todayWords = Array.from({ length: 5 }, (_, i) => d.study_words[(dayIndex * 5 + i) % n]);
-
+  // ── Helpers ────────────────────────────────────────────────────
   function fmtDate(iso) {
-    return new Date(iso + 'T12:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    return new Date(iso + 'T12:00:00').toLocaleDateString('en-US',
+      { month: 'short', day: 'numeric', year: 'numeric' });
   }
-  function fmtMonth(ym) {
-    const [, m] = ym.split('-');
-    return ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][+m - 1];
+  function fmtMonthShort(ym) {
+    return ['Jan','Feb','Mar','Apr','May','Jun',
+            'Jul','Aug','Sep','Oct','Nov','Dec'][+ym.split('-')[1] - 1];
   }
   function missBadge(pct) {
-    return pct >= 90 ? 'badge-red' : pct >= 60 ? 'badge-amber' : 'badge-teal';
-  }
-  function barColor(pct) {
-    return pct >= 28 ? '#E24B4A' : pct >= 20 ? '#EF9F27' : '#1D9E75';
+    return pct >= 80 ? 'badge-red' : pct >= 50 ? 'badge-amber' : 'badge-teal';
   }
   function lenBadge(len) {
     return len >= 10 ? 'badge-purple' : len >= 8 ? 'badge-amber' : 'badge-teal';
   }
+  function barColor(pct) {
+    return pct >= 28 ? 'var(--red)' : pct >= 20 ? 'var(--amber)' : 'var(--teal)';
+  }
 
-  // Build word rows HTML
-  function wordRows(words, extraClass) {
-    return words.map((w, i) => `
-      <div class="word-row${i >= 10 ? ' extra ' + extraClass : ''}">
+  // ── Recent word cutoff (7 days) ──────────────────────────────
+  const cutoff = new Date();
+  cutoff.setDate(cutoff.getDate() - 7);
+  const cutoffStr = cutoff.toISOString().slice(0, 10);
+  const recentWords  = d.study_words.filter(w => w.last_missed && w.last_missed >= cutoffStr);
+  const allTimeWords = d.study_words.filter(w => !w.last_missed || w.last_missed < cutoffStr);
+
+  // ── Word row ─────────────────────────────────────────────────
+  function wordRow(w, showDate) {
+    const dateBadge = showDate && w.last_missed
+      ? `<span class="badge badge-date">${new Date(w.last_missed + 'T12:00:00')
+          .toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>`
+      : '';
+    return `
+      <div class="word-row">
         <div class="word-left">
           <span class="word-name">${w.word}</span>
           <span class="badge ${missBadge(w.miss_pct)}">${w.miss_pct}% · ${w.appearances}×</span>
+          ${dateBadge}
         </div>
-        <span class="word-right">${w.definition || (w.length + '-letter word')}</span>
-      </div>`).join('');
+        <span class="word-def">${w.definition || (w.length + '-letter word')}</span>
+      </div>`;
   }
 
-  function pangramRows(pangrams, extraClass) {
-    return pangrams.map((p, i) => {
-      const dt = new Date(p.date + 'T12:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+  // ── Pangram row ──────────────────────────────────────────────
+  function pangramRow(p) {
+    const dt = new Date(p.date + 'T12:00:00')
+      .toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    return `
+      <div class="word-row">
+        <div class="word-left">
+          <span class="word-name">${p.word}</span>
+          <span class="badge ${lenBadge(p.length)}">${p.length} letters</span>
+        </div>
+        <span class="word-def">${dt}</span>
+      </div>`;
+  }
+
+  // ── Monthly chart (div bars, scale 60–90%) ───────────────────
+  const minY = 60, maxY = 90, yRange = maxY - minY;
+  function barH(val) {
+    return Math.max(0, Math.min(100, (val - minY) / yRange * 100)).toFixed(1) + '%';
+  }
+  const barGroups = d.monthly.map(m => `
+    <div class="bar-group">
+      <div class="bar" style="height:${barH(m.score_pct)};background:var(--teal);"></div>
+      <div class="bar" style="height:${barH(m.words_pct)};background:var(--teal-light);"></div>
+    </div>`).join('');
+  const xLabels = d.monthly.map(m =>
+    `<span class="x-label">${fmtMonthShort(m.month)}</span>`).join('');
+
+  const lastM = d.monthly[d.monthly.length - 1];
+  const bestM = d.monthly.reduce((b, m) => m.score_pct > b.score_pct ? m : b, d.monthly[0]);
+  const chartInsight = lastM.score_pct >= bestM.score_pct
+    ? `Trending up — ${fmtMonthShort(lastM.month)} is your strongest month yet (${lastM.score_pct}%).`
+    : `Best month so far: ${fmtMonthShort(bestM.month)} at ${bestM.score_pct}%.`;
+
+  // ── Length bars ──────────────────────────────────────────────
+  const lenBars = d.miss_by_length.map(r => `
+    <div>
+      <div class="len-header">
+        <span class="len-label">${r.label}</span>
+        <span class="len-pct" style="color:${barColor(r.miss_pct)};">${r.miss_pct.toFixed(0)}%</span>
+      </div>
+      <div class="bar-track">
+        <div class="bar-fill" style="width:${r.miss_pct}%;background:${barColor(r.miss_pct)};"></div>
+      </div>
+    </div>`).join('');
+
+  // ── Overview stat cell ───────────────────────────────────────
+  function overviewStat(label, weekFmt, allTimeFmt, color) {
+    const c = color ? ` style="color:${color};"` : '';
+    if (hasRecent) {
       return `
-        <div class="word-row${i >= 7 ? ' extra ' + extraClass : ''}">
-          <div class="word-left">
-            <span class="word-name">${p.word}</span>
-            <span class="badge ${lenBadge(p.length)}">${p.length} letters</span>
-          </div>
-          <span class="word-right">${dt}</span>
+        <div>
+          <p class="stat-label">${label}</p>
+          <p class="stat-big"${c}>${weekFmt}<span class="stat-week">this week</span></p>
+          <p class="stat-alltime">${allTimeFmt} all time</p>
         </div>`;
-    }).join('');
+    }
+    return `
+      <div>
+        <p class="stat-label">${label}</p>
+        <p class="stat-big"${c}>${allTimeFmt}</p>
+        <p class="stat-alltime">across all ${s.total_games} games</p>
+      </div>`;
   }
 
-  function studyCards(words) {
-    return words.map(w => `
-      <div class="study-card">
-        <div class="study-word">${w.word}</div>
-        <div class="study-def">${w.definition || ''}</div>
-        <span class="badge ${missBadge(w.miss_pct)}">${w.miss_pct}% miss</span>
-      </div>`).join('');
-  }
+  // ── Study words insight ──────────────────────────────────────
+  const topWord = d.study_words[0];
+  const studyInsight = topWord
+    ? (topWord.miss_pct === 100
+        ? `${topWord.word} has appeared ${topWord.appearances}× — you've never found it.`
+        : `${topWord.word} tops the list — missed ${topWord.miss_pct}% of ${topWord.appearances} appearances.`)
+    : '';
 
-  function lenBars(rows) {
-    return rows.map(r => `
-      <div class="len-row">
-        <div class="len-header">
-          <span class="len-label">${r.label}</span>
-          <span style="font-weight:500;color:${barColor(r.miss_pct)};">${r.miss_pct.toFixed(0)}%</span>
-        </div>
-        <div class="bar-track">
-          <div class="bar-fill" style="width:${r.miss_pct}%;background:${barColor(r.miss_pct)};"></div>
-        </div>
-      </div>`).join('');
-  }
+  // ── Bee SVG (header) ─────────────────────────────────────────
+  const beeSvg = `<svg width="34" height="34" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true" style="flex-shrink:0;">
+    <defs><clipPath id="bh"><ellipse cx="16" cy="22" rx="9" ry="9"/></clipPath></defs>
+    <ellipse cx="8"   cy="14" rx="7" ry="4" fill="white" stroke="#111" stroke-width="1.2" opacity=".85"/>
+    <ellipse cx="24"  cy="14" rx="7" ry="4" fill="white" stroke="#111" stroke-width="1.2" opacity=".85"/>
+    <ellipse cx="16"  cy="22" rx="9" ry="9" fill="#F5C833" stroke="#111" stroke-width="1.5"/>
+    <rect x="7" y="18" width="18" height="3.5" fill="#333" clip-path="url(#bh)"/>
+    <rect x="7" y="24" width="18" height="3.5" fill="#333" clip-path="url(#bh)"/>
+    <circle cx="16"   cy="10" r="6"   fill="#F5C833" stroke="#111" stroke-width="1.5"/>
+    <circle cx="13.5" cy="9"  r="1.2" fill="#111"/>
+    <circle cx="18.5" cy="9"  r="1.2" fill="#111"/>
+    <path d="M13,5 Q11,2 10,1" stroke="#111" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+    <circle cx="9.5"  cy="1"  r="1.2" fill="#111"/>
+    <path d="M19,5 Q21,2 22,1" stroke="#111" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+    <circle cx="22.5" cy="1"  r="1.2" fill="#111"/>
+  </svg>`;
 
+  // ── Build HTML ───────────────────────────────────────────────
   document.getElementById('app').innerHTML = `
     <div class="header">
-      <div style="display:flex;align-items:center;gap:14px;">
-        <svg width="180" height="92" viewBox="0 0 180 88">
-          <defs>
-            <clipPath id="lb4"><ellipse cx="35" cy="63" rx="28" ry="17"/></clipPath>
-            <clipPath id="rb4"><ellipse cx="145" cy="63" rx="28" ry="17"/></clipPath>
-          </defs>
-          <!-- LEFT BEE + sun hat -->
-          <path d="M 13 34 Q 13 12 35 12 Q 57 12 57 34 Z" fill="#E8C25A" stroke="#111" stroke-width="2.5" stroke-linejoin="round"/>
-          <ellipse cx="35" cy="34" rx="26" ry="6" fill="#D4A020" stroke="#111" stroke-width="2.5"/>
-          <ellipse cx="35" cy="63" rx="28" ry="17" fill="#F5C833" stroke="#111" stroke-width="3"/>
-          <rect x="32" y="46" width="5" height="34" fill="#111" clip-path="url(#lb4)"/>
-          <circle cx="21" cy="48" r="15" fill="white" stroke="#111" stroke-width="3"/>
-          <circle cx="43" cy="48" r="15" fill="white" stroke="#111" stroke-width="3"/>
-          <circle cx="56" cy="61" r="12" fill="white" stroke="#111" stroke-width="2.5"/>
-          <circle cx="60" cy="57" r="2.5" fill="#111"/>
-          <path d="M 65,61 C 72,57 78,54 83,52" stroke="#111" stroke-width="4" fill="none" stroke-linecap="round"/>
-          <rect x="81" y="47" width="12" height="10" rx="4" fill="#F5C833" stroke="#111" stroke-width="2.5"/>
-          <!-- RIGHT BEE + red beanie -->
-          <circle cx="140" cy="9"  r="4"   fill="#C0392B" stroke="#111" stroke-width="1.5"/>
-          <circle cx="145" cy="6"  r="5"   fill="#C0392B" stroke="#111" stroke-width="1.5"/>
-          <circle cx="150" cy="9"  r="4"   fill="#C0392B" stroke="#111" stroke-width="1.5"/>
-          <circle cx="138" cy="13" r="3.5" fill="#C0392B" stroke="#111" stroke-width="1.5"/>
-          <circle cx="145" cy="12" r="3.5" fill="#C0392B" stroke="#111" stroke-width="1.5"/>
-          <circle cx="152" cy="13" r="3.5" fill="#C0392B" stroke="#111" stroke-width="1.5"/>
-          <rect x="123" y="17" width="44" height="17" rx="4" fill="#C0392B" stroke="#111" stroke-width="2.5"/>
-          <rect x="123" y="30" width="44" height="8" rx="3" fill="#96281B" stroke="#111" stroke-width="2.5"/>
-          <line x1="132" y1="19" x2="132" y2="30" stroke="#96281B" stroke-width="2" stroke-linecap="round"/>
-          <line x1="140" y1="18" x2="140" y2="30" stroke="#96281B" stroke-width="2" stroke-linecap="round"/>
-          <line x1="148" y1="18" x2="148" y2="30" stroke="#96281B" stroke-width="2" stroke-linecap="round"/>
-          <line x1="156" y1="19" x2="156" y2="30" stroke="#96281B" stroke-width="2" stroke-linecap="round"/>
-          <ellipse cx="145" cy="63" rx="28" ry="17" fill="#F5C833" stroke="#111" stroke-width="3"/>
-          <rect x="142" y="46" width="5" height="34" fill="#111" clip-path="url(#rb4)"/>
-          <circle cx="159" cy="48" r="15" fill="white" stroke="#111" stroke-width="3"/>
-          <circle cx="137" cy="48" r="15" fill="white" stroke="#111" stroke-width="3"/>
-          <circle cx="124" cy="61" r="12" fill="white" stroke="#111" stroke-width="2.5"/>
-          <circle cx="120" cy="57" r="2.5" fill="#111"/>
-          <path d="M 115,61 C 108,57 102,54 97,52" stroke="#111" stroke-width="4" fill="none" stroke-linecap="round"/>
-          <rect x="87" y="47" width="12" height="10" rx="4" fill="#F5C833" stroke="#111" stroke-width="2.5"/>
-          <!-- IMPACT -->
-          <line x1="85" y1="49" x2="80" y2="43" stroke="#111" stroke-width="2" stroke-linecap="round"/>
-          <line x1="88" y1="47" x2="85" y2="40" stroke="#111" stroke-width="2" stroke-linecap="round"/>
-          <line x1="91" y1="46" x2="91" y2="39" stroke="#111" stroke-width="2" stroke-linecap="round"/>
-          <line x1="94" y1="47" x2="97" y2="40" stroke="#111" stroke-width="2" stroke-linecap="round"/>
-          <line x1="97" y1="49" x2="102" y2="43" stroke="#111" stroke-width="2" stroke-linecap="round"/>
-        </svg>
+      <div class="header-left">
+        ${beeSvg}
         <div>
-          <h1>Spelling Bee</h1>
+          <h1>BeeBot</h1>
           <div class="meta">${s.total_games} games · ${fmtDate(s.first_date)} – ${fmtDate(s.last_date)}</div>
         </div>
       </div>
+      <span class="slide-counter" id="slide-counter">1 / 5</span>
     </div>
 
-    <div class="stat-grid">
-      <div class="stat-card">
-        <div class="stat-label">Avg score</div>
-        <div class="stat-value">${s.avg_score_pct}%</div>
-        <div class="stat-sub">of max pts · ${s.total_games} games</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-label">Genius rate</div>
-        <div class="stat-value">${s.genius_rate}%</div>
-        <div class="stat-sub">${s.genius_count} of ${s.total_games} games</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-label">Pangram rate</div>
-        <div class="stat-value">${s.pangram_pct}%</div>
-        <div class="stat-sub">${s.pangram_found} of ${s.pangram_total} · ${s.pangram_missed} missed</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-label">Word miss rate</div>
-        <div class="stat-value">${s.word_miss_rate}%</div>
-        <div class="stat-sub">count-based · ${s.games_with_answers} games</div>
-      </div>
-    </div>
+    <div class="carousel-outer">
+      <div class="carousel-track" id="carousel-track">
 
-    <div class="grid-2">
-      <div class="card">
-        <div class="chart-header">
-          <div class="card-title" style="margin-bottom:0;">Score &amp; words found % by month</div>
-          <div class="legend">
-            <div class="legend-item"><div class="legend-dot" style="background:#1D9E75;"></div>Score %</div>
-            <div class="legend-item"><div class="legend-dot" style="background:#9FE1CB;"></div>Words %</div>
+        <!-- Slide 1: Overview -->
+        <div class="slide">
+          <div class="slide-label">Overview</div>
+          <div class="overview-grid">
+            ${overviewStat('Avg score',
+                rc.avg_score_pct + '%',
+                s.avg_score_pct + '%',
+                'var(--teal)')}
+            ${overviewStat('Genius rate',
+                rc.genius_count + '/' + rc.games,
+                s.genius_rate + '%')}
+            ${overviewStat('Pangrams found',
+                rc.pangram_found + '/' + (rc.pangram_total || '?'),
+                s.pangram_pct + '%')}
+            ${overviewStat('Word miss rate',
+                rc.word_miss_rate + '%',
+                s.word_miss_rate + '%')}
           </div>
         </div>
-        <div class="chart-wrap"><canvas id="monthChart"></canvas></div>
-      </div>
-      <div class="card">
-        <div class="card-title">Miss rate by word length</div>
-        ${lenBars(d.miss_by_length)}
+
+        <!-- Slide 2: Words to study -->
+        <div class="slide slide-scroll">
+          <div class="slide-label">Words to study</div>
+          <div class="word-list">
+            ${recentWords.length > 0 ? `
+              <div class="section-label">Recent</div>
+              ${recentWords.map(w => wordRow(w, true)).join('')}
+              <div class="section-label spaced">All time · highest miss rate</div>
+            ` : ''}
+            ${allTimeWords.map(w => wordRow(w, false)).join('')}
+          </div>
+          ${studyInsight ? `<p class="insight">${studyInsight}</p>` : ''}
+        </div>
+
+        <!-- Slide 3: Missed pangrams -->
+        <div class="slide slide-scroll">
+          <div class="slide-label">Missed pangrams — ${s.pangram_missed} total</div>
+          <div class="word-list">
+            ${d.missed_pangrams.map(pangramRow).join('')}
+          </div>
+          <p class="insight">${s.pangram_miss_pct}% pangram miss rate — most are long compound words.</p>
+        </div>
+
+        <!-- Slide 4: Monthly trend -->
+        <div class="slide">
+          <div class="chart-header">
+            <span class="chart-title">Score &amp; words found % by month</span>
+            <div class="legend">
+              <div class="legend-item">
+                <div class="legend-dot" style="background:var(--teal);"></div>Score %
+              </div>
+              <div class="legend-item">
+                <div class="legend-dot" style="background:var(--teal-light);"></div>Words %
+              </div>
+            </div>
+          </div>
+          <div class="chart-area">
+            <div class="y-axis">
+              <span class="y-label">90%</span>
+              <span class="y-label">75%</span>
+              <span class="y-label">60%</span>
+            </div>
+            <div class="bars-wrap">
+              <div class="bars">
+                <div class="grid-line" style="top:0;"></div>
+                <div class="grid-line" style="top:50%;"></div>
+                ${barGroups}
+              </div>
+              <div class="x-labels">${xLabels}</div>
+            </div>
+          </div>
+          <p class="insight">${chartInsight}</p>
+        </div>
+
+        <!-- Slide 5: Miss by length -->
+        <div class="slide">
+          <div class="slide-label">Miss rate by word length</div>
+          <div class="len-rows">${lenBars}</div>
+          <p class="insight">Mostly cheap losses — 4-letter words are only worth 1 pt.</p>
+        </div>
+
       </div>
     </div>
 
-    <div class="grid-2">
-      <div class="card">
-        <div class="card-title">Words to study — miss rate × length</div>
-        <div style="font-size:11px;color:var(--text-muted);margin-top:-8px;margin-bottom:10px;">min 2 appearances to qualify</div>
-        ${wordRows(d.study_words, 'study-extra')}
-        <div class="show-more">
-          <button onclick="toggleExtra('.study-extra', this, '${d.study_words.length} words')">
-            See full list (${d.study_words.length} words) ↓
-          </button>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-title">Missed pangrams — ${s.pangram_missed} total · ${s.pangram_miss_pct}% miss rate</div>
-        ${pangramRows(d.missed_pangrams, 'pangram-extra')}
-        <div class="show-more">
-          <button onclick="toggleExtra('.pangram-extra', this, 'all ${s.pangram_missed}')">
-            See all ${s.pangram_missed} ↓
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <div class="card" style="margin-bottom:6px;">
-      <div class="card-title">Today's study words — rotates daily, weighted by miss rate × length</div>
-      <div class="study-grid">${studyCards(todayWords)}</div>
+    <div class="carousel-nav">
+      <button class="nav-btn" id="prev-btn" aria-label="Previous">&#8249;</button>
+      <div class="dots" id="dots"></div>
+      <button class="nav-btn" id="next-btn" aria-label="Next">&#8250;</button>
     </div>
 
     <div class="footer">
       Last updated: ${new Date(d.generated_at).toLocaleString()} ·
-      Missed word stats use ${s.games_with_answers} games with full data. Top stats use all ${s.total_games} games.
+      Word miss stats use ${s.games_with_answers} games with full puzzle data.
     </div>
   `;
 
-  // Chart.js grouped bar chart
-  const mutedColor = isDark ? '#8e8e93' : '#6b6b6b';
-  const gridColor  = isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)';
-
-  new Chart(document.getElementById('monthChart').getContext('2d'), {
-    type: 'bar',
-    data: {
-      labels: d.monthly.map(m => fmtMonth(m.month)),
-      datasets: [
-        { label: 'Score %',      data: d.monthly.map(m => m.score_pct),  backgroundColor: '#1D9E75', borderRadius: 3 },
-        { label: 'Words found %', data: d.monthly.map(m => m.words_pct), backgroundColor: '#9FE1CB', borderRadius: 3 },
-      ]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: { display: false },
-        tooltip: { callbacks: { label: ctx => ctx.dataset.label + ': ' + ctx.parsed.y + '%' } }
-      },
-      scales: {
-        x: {
-          grid: { display: false },
-          ticks: { color: mutedColor, font: { size: 11 } },
-          border: { display: false }
-        },
-        y: {
-          min: 60, max: 100,
-          grid: { color: gridColor },
-          ticks: { color: mutedColor, font: { size: 11 }, callback: v => v + '%' },
-          border: { display: false }
-        }
-      }
-    }
-  });
+  initCarousel(5);
 }
 
-function toggleExtra(selector, btn, label) {
-  const items = document.querySelectorAll(selector);
-  const opening = items[0].style.display === 'none' || items[0].style.display === '';
-  items.forEach(el => { el.style.display = opening ? 'flex' : 'none'; });
-  btn.textContent = opening ? 'Show less ↑' : `See ${label} ↓`;
+function initCarousel(n) {
+  const track   = document.getElementById('carousel-track');
+  const dotsEl  = document.getElementById('dots');
+  const counter = document.getElementById('slide-counter');
+  let cur = 0;
+
+  for (let i = 0; i < n; i++) {
+    const dot = document.createElement('div');
+    dot.className = 'dot' + (i === 0 ? ' active' : '');
+    dot.addEventListener('click', () => goTo(i));
+    dotsEl.appendChild(dot);
+  }
+
+  function goTo(i) {
+    cur = Math.max(0, Math.min(n - 1, i));
+    track.style.transform = `translateX(-${cur * 100}%)`;
+    counter.textContent = (cur + 1) + ' / ' + n;
+    document.getElementById('prev-btn').disabled = cur === 0;
+    document.getElementById('next-btn').disabled = cur === n - 1;
+    dotsEl.querySelectorAll('.dot').forEach((d, idx) =>
+      d.classList.toggle('active', idx === cur));
+  }
+
+  // Touch swipe
+  let tx = null;
+  track.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive: true });
+  track.addEventListener('touchend', e => {
+    if (tx === null) return;
+    const dx = e.changedTouches[0].clientX - tx;
+    if (Math.abs(dx) > 50) goTo(cur + (dx < 0 ? 1 : -1));
+    tx = null;
+  }, { passive: true });
+
+  // Keyboard
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowLeft')  goTo(cur - 1);
+    if (e.key === 'ArrowRight') goTo(cur + 1);
+  });
+
+  goTo(0);
 }
 </script>
 </body>

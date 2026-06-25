@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-24T22:31:52.890278",
+  "generated_at": "2026-06-25T03:15:32.896260",
   "summary": {
     "total_games": 110,
     "games_with_answers": 104,
@@ -15,6 +15,14 @@
     "pangram_missed": 30,
     "pangram_pct": 81.6,
     "pangram_miss_pct": 18.4
+  },
+  "recent": {
+    "games": 6,
+    "avg_score_pct": 86.8,
+    "genius_count": 6,
+    "word_miss_rate": 16.3,
+    "pangram_found": 8,
+    "pangram_total": 9
   },
   "monthly": [
     {
@@ -104,6 +112,7 @@
       "length": 4,
       "is_pangram": false,
       "weight": 3.0,
+      "last_missed": "2026-06-23",
       "definition": "Islamic prayer leader"
     },
     {
@@ -114,6 +123,7 @@
       "length": 7,
       "is_pangram": false,
       "weight": 2.92,
+      "last_missed": "2026-05-22",
       "definition": "orange food dye from seeds"
     },
     {
@@ -124,6 +134,7 @@
       "length": 4,
       "is_pangram": false,
       "weight": 2.0,
+      "last_missed": "2026-05-22",
       "definition": "a tiny amount"
     },
     {
@@ -134,6 +145,7 @@
       "length": 7,
       "is_pangram": false,
       "weight": 1.75,
+      "last_missed": "2026-04-10",
       "definition": "playing live music gigs"
     },
     {
@@ -144,6 +156,7 @@
       "length": 4,
       "is_pangram": false,
       "weight": 1.67,
+      "last_missed": "2026-05-04",
       "definition": "archaic: badly, poorly"
     },
     {
@@ -154,6 +167,7 @@
       "length": 4,
       "is_pangram": false,
       "weight": 1.67,
+      "last_missed": "2026-05-07",
       "definition": ""
     },
     {
@@ -164,6 +178,7 @@
       "length": 9,
       "is_pangram": false,
       "weight": 1.5,
+      "last_missed": "2026-04-02",
       "definition": "obsession with one idea"
     },
     {
@@ -174,6 +189,7 @@
       "length": 9,
       "is_pangram": false,
       "weight": 1.5,
+      "last_missed": "2026-05-15",
       "definition": "forming a mental image of"
     },
     {
@@ -184,6 +200,7 @@
       "length": 6,
       "is_pangram": false,
       "weight": 1.5,
+      "last_missed": "2026-05-23",
       "definition": "thorny flowering tree"
     },
     {
@@ -194,6 +211,7 @@
       "length": 8,
       "is_pangram": false,
       "weight": 1.33,
+      "last_missed": "2026-04-18",
       "definition": "comb hair towards the roots"
     },
     {
@@ -204,6 +222,7 @@
       "length": 4,
       "is_pangram": false,
       "weight": 1.33,
+      "last_missed": "2026-06-17",
       "definition": "rude, unmannerly person"
     },
     {
@@ -214,6 +233,7 @@
       "length": 8,
       "is_pangram": false,
       "weight": 1.33,
+      "last_missed": "2026-06-20",
       "definition": "paying no attention to"
     },
     {
@@ -224,6 +244,7 @@
       "length": 8,
       "is_pangram": false,
       "weight": 1.33,
+      "last_missed": "2026-03-09",
       "definition": "in a praiseworthy manner"
     },
     {
@@ -234,6 +255,7 @@
       "length": 8,
       "is_pangram": false,
       "weight": 1.33,
+      "last_missed": "2026-03-25",
       "definition": "channel for conveying something"
     },
     {
@@ -244,6 +266,7 @@
       "length": 4,
       "is_pangram": false,
       "weight": 1.33,
+      "last_missed": "2026-06-23",
       "definition": "an Indian queen"
     },
     {
@@ -254,6 +277,7 @@
       "length": 4,
       "is_pangram": false,
       "weight": 1.33,
+      "last_missed": "2026-04-24",
       "definition": "nothing"
     },
     {
@@ -264,6 +288,7 @@
       "length": 4,
       "is_pangram": false,
       "weight": 1.33,
+      "last_missed": "2026-05-22",
       "definition": "a mixture or medley"
     },
     {
@@ -274,6 +299,7 @@
       "length": 4,
       "is_pangram": false,
       "weight": 1.33,
+      "last_missed": "2026-05-23",
       "definition": "purple berry from Brazil"
     },
     {
@@ -284,6 +310,7 @@
       "length": 5,
       "is_pangram": false,
       "weight": 1.25,
+      "last_missed": "2026-04-08",
       "definition": "person of great power/strength"
     },
     {
@@ -294,6 +321,7 @@
       "length": 7,
       "is_pangram": false,
       "weight": 1.17,
+      "last_missed": "2026-06-19",
       "definition": "the academic world"
     },
     {
@@ -304,6 +332,7 @@
       "length": 7,
       "is_pangram": false,
       "weight": 1.17,
+      "last_missed": "2026-04-24",
       "definition": "excavating or searching through"
     },
     {
@@ -314,6 +343,7 @@
       "length": 7,
       "is_pangram": false,
       "weight": 1.17,
+      "last_missed": "2026-06-19",
       "definition": "young soybeans in the pod"
     },
     {
@@ -324,6 +354,7 @@
       "length": 7,
       "is_pangram": false,
       "weight": 1.17,
+      "last_missed": "2026-06-22",
       "definition": "Japanese yellowtail fish"
     },
     {
@@ -334,6 +365,7 @@
       "length": 7,
       "is_pangram": false,
       "weight": 1.17,
+      "last_missed": "2026-05-22",
       "definition": "grease from sheep wool"
     },
     {
@@ -344,6 +376,7 @@
       "length": 7,
       "is_pangram": false,
       "weight": 1.17,
+      "last_missed": "2026-05-15",
       "definition": "small portable camera"
     },
     {
@@ -354,6 +387,7 @@
       "length": 7,
       "is_pangram": false,
       "weight": 1.17,
+      "last_missed": "2026-03-08",
       "definition": "of enormous size or strength"
     },
     {
@@ -364,6 +398,7 @@
       "length": 7,
       "is_pangram": false,
       "weight": 1.17,
+      "last_missed": "2026-04-28",
       "definition": "plural of titmouse (small bird)"
     },
     {
@@ -374,6 +409,7 @@
       "length": 7,
       "is_pangram": false,
       "weight": 1.17,
+      "last_missed": "2026-05-05",
       "definition": "not formally surrendered"
     },
     {
@@ -384,6 +420,7 @@
       "length": 7,
       "is_pangram": false,
       "weight": 1.17,
+      "last_missed": "2026-04-24",
       "definition": "moving from place to place"
     },
     {
@@ -394,6 +431,7 @@
       "length": 7,
       "is_pangram": false,
       "weight": 1.17,
+      "last_missed": "2026-04-02",
       "definition": "padded seat or footstool"
     },
     {
@@ -404,6 +442,7 @@
       "length": 4,
       "is_pangram": false,
       "weight": 1.0,
+      "last_missed": "2026-05-22",
       "definition": "low female singing voice"
     },
     {
@@ -414,6 +453,7 @@
       "length": 4,
       "is_pangram": false,
       "weight": 1.0,
+      "last_missed": "2026-05-08",
       "definition": "Italian hello/goodbye"
     },
     {
@@ -424,6 +464,7 @@
       "length": 6,
       "is_pangram": false,
       "weight": 1.0,
+      "last_missed": "2026-05-07",
       "definition": ""
     },
     {
@@ -434,6 +475,7 @@
       "length": 6,
       "is_pangram": false,
       "weight": 1.0,
+      "last_missed": "2026-05-05",
       "definition": ""
     },
     {
@@ -444,6 +486,7 @@
       "length": 6,
       "is_pangram": false,
       "weight": 1.0,
+      "last_missed": "2026-05-23",
       "definition": ""
     },
     {
@@ -454,6 +497,7 @@
       "length": 4,
       "is_pangram": false,
       "weight": 1.0,
+      "last_missed": "2026-04-20",
       "definition": "short poem of simple charm"
     },
     {
@@ -464,6 +508,7 @@
       "length": 6,
       "is_pangram": false,
       "weight": 1.0,
+      "last_missed": "2026-04-05",
       "definition": ""
     },
     {
@@ -474,6 +519,7 @@
       "length": 4,
       "is_pangram": false,
       "weight": 1.0,
+      "last_missed": "2026-03-21",
       "definition": "in place of; instead of"
     },
     {
@@ -484,6 +530,7 @@
       "length": 4,
       "is_pangram": false,
       "weight": 1.0,
+      "last_missed": "2026-05-15",
       "definition": "the Three Wise Men"
     },
     {
@@ -494,6 +541,7 @@
       "length": 4,
       "is_pangram": false,
       "weight": 1.0,
+      "last_missed": "2026-04-02",
       "definition": "low sound of pain or grief"
     },
     {
@@ -504,6 +552,7 @@
       "length": 6,
       "is_pangram": false,
       "weight": 1.0,
+      "last_missed": "2026-06-20",
       "definition": ""
     },
     {
@@ -514,6 +563,7 @@
       "length": 6,
       "is_pangram": false,
       "weight": 1.0,
+      "last_missed": "2026-03-18",
       "definition": ""
     },
     {
@@ -524,6 +574,7 @@
       "length": 4,
       "is_pangram": false,
       "weight": 1.0,
+      "last_missed": "2026-06-17",
       "definition": "green pod vegetable"
     },
     {
@@ -534,6 +585,7 @@
       "length": 6,
       "is_pangram": false,
       "weight": 1.0,
+      "last_missed": "2026-04-02",
       "definition": ""
     },
     {
@@ -544,6 +596,7 @@
       "length": 4,
       "is_pangram": false,
       "weight": 1.0,
+      "last_missed": "2026-06-17",
       "definition": "spoken; relating to the mouth"
     },
     {
@@ -554,6 +607,7 @@
       "length": 6,
       "is_pangram": false,
       "weight": 1.0,
+      "last_missed": "2026-03-21",
       "definition": ""
     },
     {
@@ -564,6 +618,7 @@
       "length": 4,
       "is_pangram": false,
       "weight": 1.0,
+      "last_missed": "2026-06-15",
       "definition": "stylishly elegant"
     },
     {
@@ -574,6 +629,7 @@
       "length": 4,
       "is_pangram": false,
       "weight": 1.0,
+      "last_missed": "2026-05-08",
       "definition": "of the laity; secular"
     },
     {
@@ -584,6 +640,7 @@
       "length": 4,
       "is_pangram": false,
       "weight": 1.0,
+      "last_missed": "2026-05-17",
       "definition": "crazy (informal)"
     },
     {
@@ -594,6 +651,7 @@
       "length": 4,
       "is_pangram": false,
       "weight": 1.0,
+      "last_missed": "2026-05-09",
       "definition": "to distribute or allot"
     },
     {
@@ -604,6 +662,7 @@
       "length": 4,
       "is_pangram": false,
       "weight": 1.0,
+      "last_missed": "2026-06-17",
       "definition": "killer whale"
     },
     {
@@ -614,6 +673,7 @@
       "length": 4,
       "is_pangram": false,
       "weight": 1.0,
+      "last_missed": "2026-05-16",
       "definition": "Spanish small dish"
     },
     {
@@ -624,6 +684,7 @@
       "length": 6,
       "is_pangram": false,
       "weight": 1.0,
+      "last_missed": "2026-04-17",
       "definition": "a pilot or air force member"
     },
     {
@@ -634,6 +695,7 @@
       "length": 6,
       "is_pangram": false,
       "weight": 1.0,
+      "last_missed": "2026-04-26",
       "definition": "complete, utter (usually negative)"
     },
     {
@@ -644,6 +706,7 @@
       "length": 4,
       "is_pangram": false,
       "weight": 1.0,
+      "last_missed": "2026-06-19",
       "definition": ""
     },
     {
@@ -654,6 +717,7 @@
       "length": 4,
       "is_pangram": false,
       "weight": 1.0,
+      "last_missed": "2026-06-20",
       "definition": "diluted alcoholic drink"
     },
     {
@@ -664,6 +728,7 @@
       "length": 6,
       "is_pangram": false,
       "weight": 1.0,
+      "last_missed": "2026-04-01",
       "definition": ""
     },
     {
@@ -674,6 +739,7 @@
       "length": 4,
       "is_pangram": false,
       "weight": 1.0,
+      "last_missed": "2026-05-07",
       "definition": "Hawaii's state bird"
     },
     {
@@ -684,6 +750,7 @@
       "length": 4,
       "is_pangram": false,
       "weight": 1.0,
+      "last_missed": "2026-04-19",
       "definition": "to injure or disable"
     },
     {
@@ -694,6 +761,7 @@
       "length": 4,
       "is_pangram": false,
       "weight": 1.0,
+      "last_missed": "2026-04-23",
       "definition": "leavened South Asian flatbread"
     },
     {
@@ -704,6 +772,7 @@
       "length": 5,
       "is_pangram": false,
       "weight": 0.83,
+      "last_missed": "2026-06-19",
       "definition": ""
     },
     {
@@ -714,6 +783,7 @@
       "length": 5,
       "is_pangram": false,
       "weight": 0.83,
+      "last_missed": "2026-05-17",
       "definition": ""
     },
     {
@@ -724,6 +794,7 @@
       "length": 5,
       "is_pangram": false,
       "weight": 0.83,
+      "last_missed": "2026-04-02",
       "definition": ""
     },
     {
@@ -734,6 +805,7 @@
       "length": 5,
       "is_pangram": false,
       "weight": 0.83,
+      "last_missed": "2026-04-17",
       "definition": ""
     },
     {
@@ -744,6 +816,7 @@
       "length": 5,
       "is_pangram": false,
       "weight": 0.83,
+      "last_missed": "2026-04-26",
       "definition": ""
     },
     {
@@ -754,6 +827,7 @@
       "length": 5,
       "is_pangram": false,
       "weight": 0.83,
+      "last_missed": "2026-05-08",
       "definition": ""
     },
     {
@@ -764,6 +838,7 @@
       "length": 5,
       "is_pangram": false,
       "weight": 0.83,
+      "last_missed": "2026-06-19",
       "definition": ""
     },
     {
@@ -774,6 +849,7 @@
       "length": 5,
       "is_pangram": false,
       "weight": 0.83,
+      "last_missed": "2026-05-19",
       "definition": ""
     },
     {
@@ -784,6 +860,7 @@
       "length": 5,
       "is_pangram": false,
       "weight": 0.83,
+      "last_missed": "2026-05-05",
       "definition": ""
     },
     {
@@ -794,6 +871,7 @@
       "length": 5,
       "is_pangram": false,
       "weight": 0.83,
+      "last_missed": "2026-04-01",
       "definition": ""
     },
     {
@@ -804,6 +882,7 @@
       "length": 5,
       "is_pangram": false,
       "weight": 0.83,
+      "last_missed": "2026-05-09",
       "definition": ""
     },
     {
@@ -814,6 +893,7 @@
       "length": 5,
       "is_pangram": false,
       "weight": 0.83,
+      "last_missed": "2026-05-04",
       "definition": ""
     },
     {
@@ -824,6 +904,7 @@
       "length": 5,
       "is_pangram": false,
       "weight": 0.83,
+      "last_missed": "2026-04-23",
       "definition": "a historical record by year"
     },
     {
@@ -834,6 +915,7 @@
       "length": 5,
       "is_pangram": false,
       "weight": 0.83,
+      "last_missed": "2026-05-07",
       "definition": "listless boredom"
     },
     {
@@ -844,6 +926,7 @@
       "length": 5,
       "is_pangram": false,
       "weight": 0.83,
+      "last_missed": "2026-03-01",
       "definition": "a street urchin"
     },
     {
@@ -854,6 +937,7 @@
       "length": 5,
       "is_pangram": false,
       "weight": 0.83,
+      "last_missed": "2026-05-16",
       "definition": "open uncultivated land"
     },
     {
@@ -864,6 +948,7 @@
       "length": 5,
       "is_pangram": false,
       "weight": 0.83,
+      "last_missed": "2026-03-26",
       "definition": ""
     },
     {
@@ -874,6 +959,7 @@
       "length": 5,
       "is_pangram": false,
       "weight": 0.83,
+      "last_missed": "2026-06-20",
       "definition": ""
     },
     {
@@ -884,6 +970,7 @@
       "length": 5,
       "is_pangram": false,
       "weight": 0.83,
+      "last_missed": "2026-05-06",
       "definition": ""
     },
     {
@@ -894,6 +981,7 @@
       "length": 5,
       "is_pangram": false,
       "weight": 0.83,
+      "last_missed": "2026-05-15",
       "definition": ""
     },
     {
@@ -904,6 +992,7 @@
       "length": 5,
       "is_pangram": false,
       "weight": 0.83,
+      "last_missed": "2026-06-22",
       "definition": ""
     },
     {
@@ -914,6 +1003,7 @@
       "length": 9,
       "is_pangram": false,
       "weight": 0.75,
+      "last_missed": "2026-03-18",
       "definition": ""
     },
     {
@@ -924,6 +1014,7 @@
       "length": 9,
       "is_pangram": false,
       "weight": 0.75,
+      "last_missed": "2026-02-26",
       "definition": ""
     },
     {
@@ -934,6 +1025,7 @@
       "length": 9,
       "is_pangram": false,
       "weight": 0.75,
+      "last_missed": "2026-05-10",
       "definition": ""
     },
     {
@@ -944,6 +1036,7 @@
       "length": 4,
       "is_pangram": false,
       "weight": 0.67,
+      "last_missed": "2026-04-04",
       "definition": ""
     },
     {
@@ -954,6 +1047,7 @@
       "length": 4,
       "is_pangram": false,
       "weight": 0.67,
+      "last_missed": "2026-03-20",
       "definition": ""
     },
     {
@@ -964,6 +1058,7 @@
       "length": 4,
       "is_pangram": false,
       "weight": 0.67,
+      "last_missed": "2026-04-04",
       "definition": ""
     },
     {
@@ -974,6 +1069,7 @@
       "length": 4,
       "is_pangram": false,
       "weight": 0.67,
+      "last_missed": "2026-05-12",
       "definition": ""
     },
     {
@@ -984,6 +1080,7 @@
       "length": 4,
       "is_pangram": false,
       "weight": 0.67,
+      "last_missed": "2026-03-09",
       "definition": ""
     },
     {
@@ -994,6 +1091,7 @@
       "length": 4,
       "is_pangram": false,
       "weight": 0.67,
+      "last_missed": "2026-05-20",
       "definition": ""
     },
     {
@@ -1004,6 +1102,7 @@
       "length": 4,
       "is_pangram": false,
       "weight": 0.67,
+      "last_missed": "2026-05-17",
       "definition": ""
     },
     {
@@ -1014,6 +1113,7 @@
       "length": 4,
       "is_pangram": false,
       "weight": 0.67,
+      "last_missed": "2026-05-08",
       "definition": ""
     },
     {
@@ -1024,6 +1124,7 @@
       "length": 4,
       "is_pangram": false,
       "weight": 0.67,
+      "last_missed": "2026-05-08",
       "definition": ""
     },
     {
@@ -1034,6 +1135,7 @@
       "length": 4,
       "is_pangram": false,
       "weight": 0.67,
+      "last_missed": "2026-05-17",
       "definition": ""
     },
     {
@@ -1044,6 +1146,7 @@
       "length": 4,
       "is_pangram": false,
       "weight": 0.67,
+      "last_missed": "2026-06-17",
       "definition": ""
     },
     {
@@ -1054,6 +1157,7 @@
       "length": 4,
       "is_pangram": false,
       "weight": 0.67,
+      "last_missed": "2026-03-21",
       "definition": ""
     },
     {
@@ -1064,6 +1168,7 @@
       "length": 4,
       "is_pangram": false,
       "weight": 0.67,
+      "last_missed": "2026-04-16",
       "definition": ""
     },
     {
@@ -1074,6 +1179,7 @@
       "length": 4,
       "is_pangram": false,
       "weight": 0.67,
+      "last_missed": "2026-04-16",
       "definition": ""
     },
     {
@@ -1084,6 +1190,7 @@
       "length": 4,
       "is_pangram": false,
       "weight": 0.67,
+      "last_missed": "2026-04-04",
       "definition": ""
     },
     {
@@ -1094,6 +1201,7 @@
       "length": 4,
       "is_pangram": false,
       "weight": 0.67,
+      "last_missed": "2026-06-19",
       "definition": ""
     }
   ],
