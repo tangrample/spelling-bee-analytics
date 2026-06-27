@@ -1,26 +1,26 @@
 {
-  "generated_at": "2026-06-25T13:39:49.369125",
+  "generated_at": "2026-06-27T15:00:37.035029",
   "summary": {
-    "total_games": 111,
-    "games_with_answers": 105,
-    "avg_score_pct": 78.9,
-    "word_miss_rate": 24.5,
-    "genius_count": 109,
+    "total_games": 113,
+    "games_with_answers": 107,
+    "avg_score_pct": 79.2,
+    "word_miss_rate": 24.1,
+    "genius_count": 111,
     "genius_rate": 98.2,
-    "qb_count": 1,
+    "qb_count": 3,
     "first_date": "2026-02-07",
-    "last_date": "2026-06-24",
-    "pangram_total": 164,
-    "pangram_found": 134,
+    "last_date": "2026-06-26",
+    "pangram_total": 167,
+    "pangram_found": 137,
     "pangram_missed": 30,
-    "pangram_pct": 81.7,
-    "pangram_miss_pct": 18.3
+    "pangram_pct": 82.0,
+    "pangram_miss_pct": 18.0
   },
   "recent": {
     "games": 7,
-    "avg_score_pct": 86.3,
+    "avg_score_pct": 88.9,
     "genius_count": 7,
-    "word_miss_rate": 15.9,
+    "word_miss_rate": 13.4,
     "pangram_found": 9,
     "pangram_total": 10
   },
@@ -59,56 +59,56 @@
     },
     {
       "month": "2026-06",
-      "games": 10,
-      "score_pct": 84.0,
-      "words_pct": 81.8,
-      "genius": 10,
-      "qb": 1
+      "games": 12,
+      "score_pct": 86.7,
+      "words_pct": 84.8,
+      "genius": 12,
+      "qb": 3
     }
   ],
   "miss_by_length": [
     {
       "length": 4,
       "label": "4-letter",
-      "total": 1686,
+      "total": 1715,
       "missed": 533,
-      "miss_pct": 31.6
+      "miss_pct": 31.1
     },
     {
       "length": 5,
       "label": "5-letter",
-      "total": 1096,
+      "total": 1110,
       "missed": 190,
-      "miss_pct": 17.3
+      "miss_pct": 17.1
     },
     {
       "length": 6,
       "label": "6-letter",
-      "total": 929,
+      "total": 943,
       "missed": 157,
-      "miss_pct": 16.9
+      "miss_pct": 16.6
     },
     {
       "length": 7,
       "label": "7-letter",
-      "total": 593,
+      "total": 603,
       "missed": 134,
-      "miss_pct": 22.6
+      "miss_pct": 22.2
     },
     {
       "length": 8,
       "label": "8+ letter",
-      "total": 522,
+      "total": 523,
       "missed": 145,
-      "miss_pct": 27.8
+      "miss_pct": 27.7
     }
   ],
   "study_words": [
     {
       "word": "imam",
-      "appearances": 9,
+      "appearances": 10,
       "missed": 9,
-      "miss_pct": 100.0,
+      "miss_pct": 90.0,
       "length": 4,
       "is_pangram": false,
       "weight": 3.0,
@@ -556,17 +556,6 @@
       "definition": "in place of; instead of"
     },
     {
-      "word": "magi",
-      "appearances": 3,
-      "missed": 3,
-      "miss_pct": 100.0,
-      "length": 4,
-      "is_pangram": false,
-      "weight": 1.0,
-      "last_missed": "2026-05-15",
-      "definition": "the Three Wise Men"
-    },
-    {
       "word": "moan",
       "appearances": 3,
       "missed": 3,
@@ -677,6 +666,17 @@
       "definition": "crazy (informal)"
     },
     {
+      "word": "magi",
+      "appearances": 4,
+      "missed": 3,
+      "miss_pct": 75.0,
+      "length": 4,
+      "is_pangram": false,
+      "weight": 1.0,
+      "last_missed": "2026-05-15",
+      "definition": "the Three Wise Men"
+    },
+    {
       "word": "orca",
       "appearances": 4,
       "missed": 3,
@@ -710,17 +710,6 @@
       "definition": "complete, utter (usually negative)"
     },
     {
-      "word": "cami",
-      "appearances": 5,
-      "missed": 3,
-      "miss_pct": 60.0,
-      "length": 4,
-      "is_pangram": false,
-      "weight": 1.0,
-      "last_missed": "2026-06-19",
-      "definition": ""
-    },
-    {
       "word": "grog",
       "appearances": 5,
       "missed": 3,
@@ -741,6 +730,17 @@
       "weight": 1.0,
       "last_missed": "2026-05-16",
       "definition": "Spanish small dish"
+    },
+    {
+      "word": "cami",
+      "appearances": 6,
+      "missed": 3,
+      "miss_pct": 50.0,
+      "length": 4,
+      "is_pangram": false,
+      "weight": 1.0,
+      "last_missed": "2026-06-19",
+      "definition": ""
     },
     {
       "word": "miming",
@@ -766,9 +766,9 @@
     },
     {
       "word": "maim",
-      "appearances": 9,
+      "appearances": 10,
       "missed": 3,
-      "miss_pct": 33.3,
+      "miss_pct": 30.0,
       "length": 4,
       "is_pangram": false,
       "weight": 1.0,
@@ -1007,17 +1007,6 @@
       "definition": ""
     },
     {
-      "word": "mimic",
-      "appearances": 5,
-      "missed": 2,
-      "miss_pct": 40.0,
-      "length": 5,
-      "is_pangram": false,
-      "weight": 0.83,
-      "last_missed": "2026-05-15",
-      "definition": ""
-    },
-    {
       "word": "emcee",
       "appearances": 6,
       "missed": 2,
@@ -1026,6 +1015,17 @@
       "is_pangram": false,
       "weight": 0.83,
       "last_missed": "2026-06-22",
+      "definition": ""
+    },
+    {
+      "word": "mimic",
+      "appearances": 6,
+      "missed": 2,
+      "miss_pct": 33.3,
+      "length": 5,
+      "is_pangram": false,
+      "weight": 0.83,
+      "last_missed": "2026-05-15",
       "definition": ""
     },
     {
