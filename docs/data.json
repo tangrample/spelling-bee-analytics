@@ -1,27 +1,27 @@
 {
-  "generated_at": "2026-06-27T15:00:37.035029",
+  "generated_at": "2026-06-29T10:53:43.365054",
   "summary": {
-    "total_games": 113,
-    "games_with_answers": 107,
-    "avg_score_pct": 79.2,
-    "word_miss_rate": 24.1,
-    "genius_count": 111,
-    "genius_rate": 98.2,
-    "qb_count": 3,
+    "total_games": 115,
+    "games_with_answers": 109,
+    "avg_score_pct": 79.6,
+    "word_miss_rate": 23.7,
+    "genius_count": 113,
+    "genius_rate": 98.3,
+    "qb_count": 4,
     "first_date": "2026-02-07",
-    "last_date": "2026-06-26",
-    "pangram_total": 167,
-    "pangram_found": 137,
+    "last_date": "2026-06-28",
+    "pangram_total": 171,
+    "pangram_found": 141,
     "pangram_missed": 30,
-    "pangram_pct": 82.0,
-    "pangram_miss_pct": 18.0
+    "pangram_pct": 82.5,
+    "pangram_miss_pct": 17.5
   },
   "recent": {
     "games": 7,
-    "avg_score_pct": 88.9,
+    "avg_score_pct": 93.6,
     "genius_count": 7,
-    "word_miss_rate": 13.4,
-    "pangram_found": 9,
+    "word_miss_rate": 6.8,
+    "pangram_found": 10,
     "pangram_total": 10
   },
   "monthly": [
@@ -59,48 +59,48 @@
     },
     {
       "month": "2026-06",
-      "games": 12,
-      "score_pct": 86.7,
-      "words_pct": 84.8,
-      "genius": 12,
-      "qb": 3
+      "games": 14,
+      "score_pct": 88.5,
+      "words_pct": 86.9,
+      "genius": 14,
+      "qb": 4
     }
   ],
   "miss_by_length": [
     {
       "length": 4,
       "label": "4-letter",
-      "total": 1715,
+      "total": 1737,
       "missed": 533,
-      "miss_pct": 31.1
+      "miss_pct": 30.7
     },
     {
       "length": 5,
       "label": "5-letter",
-      "total": 1110,
-      "missed": 190,
-      "miss_pct": 17.1
+      "total": 1126,
+      "missed": 191,
+      "miss_pct": 17.0
     },
     {
       "length": 6,
       "label": "6-letter",
-      "total": 943,
+      "total": 969,
       "missed": 157,
-      "miss_pct": 16.6
+      "miss_pct": 16.2
     },
     {
       "length": 7,
       "label": "7-letter",
-      "total": 603,
+      "total": 616,
       "missed": 134,
-      "miss_pct": 22.2
+      "miss_pct": 21.8
     },
     {
       "length": 8,
       "label": "8+ letter",
-      "total": 523,
+      "total": 537,
       "missed": 145,
-      "miss_pct": 27.7
+      "miss_pct": 27.0
     }
   ],
   "study_words": [
@@ -919,6 +919,17 @@
       "definition": ""
     },
     {
+      "word": "vigil",
+      "appearances": 2,
+      "missed": 2,
+      "miss_pct": 100.0,
+      "length": 5,
+      "is_pangram": false,
+      "weight": 0.83,
+      "last_missed": "2026-06-28",
+      "definition": ""
+    },
+    {
       "word": "annal",
       "appearances": 3,
       "missed": 2,
@@ -1191,17 +1202,6 @@
       "is_pangram": false,
       "weight": 0.67,
       "last_missed": "2026-06-17",
-      "definition": ""
-    },
-    {
-      "word": "epee",
-      "appearances": 2,
-      "missed": 2,
-      "miss_pct": 100.0,
-      "length": 4,
-      "is_pangram": false,
-      "weight": 0.67,
-      "last_missed": "2026-03-21",
       "definition": ""
     }
   ],
