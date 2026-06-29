@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-06-29T11:05:27.163770",
+  "generated_at": "2026-06-29T11:10:33.423281",
   "summary": {
     "total_games": 115,
     "games_with_answers": 109,
     "avg_score_pct": 79.6,
-    "word_miss_rate": 23.7,
+    "word_miss_rate": 23.6,
     "genius_count": 113,
     "genius_rate": 98.3,
-    "qb_count": 4,
+    "qb_count": 5,
     "first_date": "2026-02-07",
     "last_date": "2026-06-28",
     "pangram_total": 171,
@@ -18,9 +18,9 @@
   },
   "recent": {
     "games": 7,
-    "avg_score_pct": 93.6,
+    "avg_score_pct": 93.8,
     "genius_count": 7,
-    "word_miss_rate": 6.8,
+    "word_miss_rate": 6.5,
     "pangram_found": 10,
     "pangram_total": 10
   },
@@ -60,10 +60,10 @@
     {
       "month": "2026-06",
       "games": 14,
-      "score_pct": 88.5,
-      "words_pct": 86.9,
+      "score_pct": 88.6,
+      "words_pct": 87.0,
       "genius": 14,
-      "qb": 4
+      "qb": 5
     }
   ],
   "miss_by_length": [
@@ -78,8 +78,8 @@
       "length": 5,
       "label": "5-letter",
       "total": 1126,
-      "missed": 191,
-      "miss_pct": 17.0
+      "missed": 190,
+      "miss_pct": 16.9
     },
     {
       "length": 6,
@@ -919,17 +919,6 @@
       "definition": ""
     },
     {
-      "word": "vigil",
-      "appearances": 2,
-      "missed": 2,
-      "miss_pct": 100.0,
-      "length": 5,
-      "is_pangram": false,
-      "weight": 0.83,
-      "last_missed": "2026-06-28",
-      "definition": ""
-    },
-    {
       "word": "annal",
       "appearances": 3,
       "missed": 2,
@@ -1202,6 +1191,17 @@
       "is_pangram": false,
       "weight": 0.67,
       "last_missed": "2026-06-17",
+      "definition": ""
+    },
+    {
+      "word": "epee",
+      "appearances": 2,
+      "missed": 2,
+      "miss_pct": 100.0,
+      "length": 4,
+      "is_pangram": false,
+      "weight": 0.67,
+      "last_missed": "2026-03-21",
       "definition": ""
     }
   ],
