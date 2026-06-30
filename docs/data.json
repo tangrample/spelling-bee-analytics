@@ -1,26 +1,26 @@
 {
-  "generated_at": "2026-06-29T11:10:33.423281",
+  "generated_at": "2026-06-30T16:07:27.619302",
   "summary": {
-    "total_games": 115,
-    "games_with_answers": 109,
-    "avg_score_pct": 79.6,
-    "word_miss_rate": 23.6,
-    "genius_count": 113,
+    "total_games": 116,
+    "games_with_answers": 110,
+    "avg_score_pct": 79.7,
+    "word_miss_rate": 23.5,
+    "genius_count": 114,
     "genius_rate": 98.3,
     "qb_count": 5,
     "first_date": "2026-02-07",
-    "last_date": "2026-06-28",
-    "pangram_total": 171,
-    "pangram_found": 141,
+    "last_date": "2026-06-29",
+    "pangram_total": 172,
+    "pangram_found": 142,
     "pangram_missed": 30,
-    "pangram_pct": 82.5,
-    "pangram_miss_pct": 17.5
+    "pangram_pct": 82.6,
+    "pangram_miss_pct": 17.4
   },
   "recent": {
     "games": 7,
-    "avg_score_pct": 93.8,
+    "avg_score_pct": 95.3,
     "genius_count": 7,
-    "word_miss_rate": 6.5,
+    "word_miss_rate": 5.7,
     "pangram_found": 10,
     "pangram_total": 10
   },
@@ -59,10 +59,10 @@
     },
     {
       "month": "2026-06",
-      "games": 14,
-      "score_pct": 88.6,
-      "words_pct": 87.0,
-      "genius": 14,
+      "games": 15,
+      "score_pct": 89.0,
+      "words_pct": 87.4,
+      "genius": 15,
       "qb": 5
     }
   ],
@@ -70,37 +70,37 @@
     {
       "length": 4,
       "label": "4-letter",
-      "total": 1737,
-      "missed": 533,
-      "miss_pct": 30.7
+      "total": 1745,
+      "missed": 534,
+      "miss_pct": 30.6
     },
     {
       "length": 5,
       "label": "5-letter",
-      "total": 1126,
+      "total": 1133,
       "missed": 190,
-      "miss_pct": 16.9
+      "miss_pct": 16.8
     },
     {
       "length": 6,
       "label": "6-letter",
-      "total": 969,
-      "missed": 157,
+      "total": 978,
+      "missed": 158,
       "miss_pct": 16.2
     },
     {
       "length": 7,
       "label": "7-letter",
-      "total": 616,
+      "total": 618,
       "missed": 134,
-      "miss_pct": 21.8
+      "miss_pct": 21.7
     },
     {
       "length": 8,
       "label": "8+ letter",
-      "total": 537,
+      "total": 541,
       "missed": 145,
-      "miss_pct": 27.0
+      "miss_pct": 26.8
     }
   ],
   "study_words": [
@@ -194,9 +194,9 @@
     },
     {
       "word": "acacia",
-      "appearances": 8,
+      "appearances": 9,
       "missed": 3,
-      "miss_pct": 37.5,
+      "miss_pct": 33.3,
       "length": 6,
       "is_pangram": false,
       "weight": 1.5,
@@ -326,9 +326,9 @@
     },
     {
       "word": "acai",
-      "appearances": 8,
+      "appearances": 9,
       "missed": 4,
-      "miss_pct": 50.0,
+      "miss_pct": 44.4,
       "length": 4,
       "is_pangram": false,
       "weight": 1.33,
@@ -644,17 +644,6 @@
       "definition": "stylishly elegant"
     },
     {
-      "word": "laic",
-      "appearances": 4,
-      "missed": 3,
-      "miss_pct": 75.0,
-      "length": 4,
-      "is_pangram": false,
-      "weight": 1.0,
-      "last_missed": "2026-05-08",
-      "definition": "of the laity; secular"
-    },
-    {
       "word": "loco",
       "appearances": 4,
       "missed": 3,
@@ -719,6 +708,17 @@
       "weight": 1.0,
       "last_missed": "2026-06-20",
       "definition": "diluted alcoholic drink"
+    },
+    {
+      "word": "laic",
+      "appearances": 5,
+      "missed": 3,
+      "miss_pct": 60.0,
+      "length": 4,
+      "is_pangram": false,
+      "weight": 1.0,
+      "last_missed": "2026-05-08",
+      "definition": "of the laity; secular"
     },
     {
       "word": "tapa",
