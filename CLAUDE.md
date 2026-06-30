@@ -1,15 +1,13 @@
 # Spelling Bee Analytics — Project Notes
 
 ## What This Is
-A personal analytics pipeline for NYT Spelling Bee game history. Data is extracted from the browser, stored in a local SQLite database, and analyzed for performance trends.
+A personal analytics pipeline for NYT Spelling Bee game history. Data is extracted from the browser, stored in both a local SQLite database and Supabase (Postgres), and analyzed for performance trends.
 
-## Current State (as of June 25, 2026)
-- **110 games** in the database, covering 2026-02-07 to 2026-06-23 with some gaps
-- **3,753 words found**, **4,678 puzzle answers** tracked
-- **104 of 110 games** have full puzzle_answers data (6 expired before extraction)
-- Manual workflow is working on new MacBook
-- No automation yet (deliberately avoided due to macOS security tradeoffs)
-- **GitHub Pages dashboard live** at `https://tangrample.github.io/spelling-bee-analytics`
+## Current State (as of June 30, 2026)
+- **116 games** in SQLite and Supabase, covering 2026-02-07 to 2026-06-29 with some gaps
+- **110 of 116 games** have full puzzle_answers data (6 expired before extraction)
+- **Phase 1 complete:** cloud pipeline live — bookmarklet POSTs to Supabase, dashboard on Vercel
+- Local Mac workflow still works as fallback (SQLite + GitHub Pages)
 
 ## Key Paths
 | Thing | Path |
@@ -17,27 +15,25 @@ A personal analytics pipeline for NYT Spelling Bee game history. Data is extract
 | Project folder | `~/Desktop/AI-projects/spelling-bee-analytics/` |
 | Scripts | `~/Desktop/AI-projects/spelling-bee-analytics/files/` |
 | Database | `~/Desktop/AI-projects/spelling-bee-analytics/files/spelling_bee.db` |
+| Web app | `~/Desktop/AI-projects/spelling-bee-analytics/web/` |
 | iCloud drop folder | `~/Library/Mobile Documents/com~apple~CloudDocs/Downloads/Spelling Bee/` |
 
-## Daily Workflow
-**iPhone → Mac:**
-1. Finish playing, reveal answers on iPhone
-2. Tap **🐝 Save Bee Data** bookmarklet in Safari
-3. File saves to iCloud Drive → Downloads → Spelling Bee
-4. On Mac, run `bee` in Terminal — picks up all accumulated iCloud files automatically
+## Daily Workflow (Cloud — preferred)
+**iPhone:**
+1. Finish playing, reveal answers in Safari
+2. Tap **🐝 Save Bee Data** bookmarklet
+3. File saves to iCloud AND syncs to Supabase — dashboard updates automatically
 
-**Mac only (alternative):**
+**Mac:**
 1. Go to nytimes.com/puzzles/spelling-bee in Safari
-2. Click **🐝 Copy Bee Data** bookmarklet (copies to clipboard)
-3. Run `bee` in Terminal
+2. Click **🐝 Copy Bee Data** bookmarklet
+3. Copies to clipboard AND syncs to Supabase — no `bee` command needed
+
+## Daily Workflow (Local fallback)
+Same as above, but also run `bee` in Terminal to write to SQLite and update GitHub Pages.
 
 ## The `bee` Command
 Alias defined in `~/.zshrc`, points to `files/bee_sync.sh`.
-
-Checks data sources in order:
-1. Clipboard (from Mac bookmarklet)
-2. `~/Downloads/spelling_bee_*.json` (legacy)
-3. iCloud Drive folder (from iPhone bookmarklet)
 
 ```bash
 bee             # smart sync
@@ -45,12 +41,39 @@ bee --force     # save all puzzles with any progress
 bee --status    # preview without saving
 ```
 
-## Database Schema
+## Bookmarklet Setup Files
+- Mac Safari: `files/mac_bookmarklet.html` — open in Safari, drag yellow button to bookmarks bar
+- iPhone Safari: `files/iphone_bookmarklet_setup.html` — open on iPhone, follow 4-step setup
+- Both bookmarklets now POST to `/api/sync` on Vercel in addition to their existing behavior
+
+## Cloud Infrastructure
+| Thing | Value |
+|-------|-------|
+| Supabase project | `https://keeizqtabnmpjdbuwxoj.supabase.co` |
+| Vercel dashboard | `https://spelling-bee-analytics.vercel.app` |
+| Vercel repo | `tangrample/spelling-bee-analytics`, root dir `web/` |
+| Sync endpoint | `POST https://spelling-bee-analytics.vercel.app/api/sync` |
+
+**Environment variables in Vercel:**
+- `NEXT_PUBLIC_SUPABASE_URL`
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+- `SUPABASE_SERVICE_ROLE_KEY`
+- `SYNC_SECRET`
+
+**Key web app files:**
+- `web/app/page.tsx` — server component, fetches analytics from Supabase
+- `web/components/Dashboard.tsx` — client component, carousel UI
+- `web/lib/analytics.ts` — all analytics computations (port of export_analytics.py)
+- `web/lib/parseNYTData.ts` — parses raw bookmarklet JSON (port of parse_nyt_data.py + process_data.py)
+- `web/app/api/sync/route.ts` — accepts POST from bookmarklet, upserts to Supabase
+
+## Database Schema (SQLite + Supabase, identical structure)
 **`games`** — one row per puzzle played
 - `id`, `puzzle_date`, `puzzle_letters`, `center_letter`
 - `score`, `max_possible_score`, `rank_achieved`
 - `is_genius`, `is_queen_bee`, `is_gn4l`, `is_revealed`
 - `total_words_found`, `total_possible_words`
+- `user_id` (Supabase only, NULL for Phase 1 — used in Phase 2 for multi-user)
 
 **`words_found`** — words you guessed
 - `id`, `game_id`, `word`, `points`, `is_pangram`, `length`
@@ -60,44 +83,40 @@ bee --status    # preview without saving
 
 **`words_missed`** — view, derived from puzzle_answers minus words_found
 
-## Known Issues / Limitations
-- Many games missing entirely — data collection only started 2026-02-07, all prior history is unrecoverable from NYT
-- 6 games missing from `puzzle_answers` (puzzles expired before extraction — data unrecoverable)
-- `bee_sync_error.log` has old errors from previous laptop with wrong paths — can be ignored
-- Automation (launchd folder watcher) was deliberately skipped due to macOS Full Disk Access security requirements
+**Supabase note:** `games` has a partial unique index on `puzzle_date WHERE user_id IS NULL` (instead of a standard UNIQUE constraint) to handle NULL user_ids correctly in Phase 1.
 
-## Bookmarklet Setup Files
-- Mac Safari: `files/mac_bookmarklet.html` — open in Safari, drag yellow button to bookmarks bar
-- iPhone Safari: `files/iphone_bookmarklet_setup.html` — open on iPhone, follow 4-step setup
-
-## GitHub Pages Dashboard
+## GitHub Pages Dashboard (legacy, still live)
 Live at: `https://tangrample.github.io/spelling-bee-analytics`
-Source: `docs/` folder on `main` branch (Settings → Pages → Deploy from branch → main / docs)
+Updated by `bee` → `export_analytics.py` → `git push`. Will be superseded by Vercel app.
 
-**Key files:**
-- `docs/index.html` — carousel dashboard (div-based charts, fetches data.json)
-- `docs/data.json` — exported by `files/export_analytics.py`, auto-committed by `bee_sync.sh`
-- `docs/bee.svg` — nerd bee SVG used as favicon (SVG favicon; note: flaky in some browsers)
-- `files/export_analytics.py` — reads SQLite DB, writes data.json with summary, recent (last 7 days), monthly stats, miss-by-length, study words (top 100 weighted + last_missed date), missed pangrams
+## Known Issues / Limitations
+- 6 games missing from `puzzle_answers` (puzzles expired before extraction — data unrecoverable)
+- `bee_sync_error.log` has old errors from previous laptop — can be ignored
+- Vercel dashboard reads live from Supabase; local SQLite and GitHub Pages are independent and only updated when `bee` is run manually
 
-**Dashboard design:** 5-slide carousel, clean/calm aesthetic.
-- Slide 1 — Overview: this-week stats (score %, miss rate, genius, pangrams) with all-time below
-- Slide 2 — Words to study: Recent section (missed in last 7 days) pinned above All-time list
-- Slide 3 — Missed pangrams
-- Slide 4 — Monthly trend: div-based grouped bar chart (score % + words found %), scale 60–90%, hover tooltips
-- Slide 5 — Miss rate by word length
+## What's Next (Phase 2)
+- [ ] Add Supabase Auth (email magic link)
+- [ ] Landing page + onboarding flow for bookmarklet install
+- [ ] Tighten RLS policies to user_id-scoped access
+- [ ] Add `user_id NOT NULL` constraint once auth is wired up
+- [ ] Push notifications via email for study words
+- [ ] Consider adding word definitions (expand DEFINITIONS dict in `web/lib/analytics.ts`)
 
-**Navigation:** dot indicators + prev/next arrows + keyboard arrows + touch swipe
+## Product Direction
+**Goal:** Shareable web product, passion project, no monetization pressure.
 
-**Header:** "BeeBot" with inline SVG of two fist-bumping bees — floppy sun hat (left) + red beanie with pompom (right). Arms raised upward to meet in the middle.
+**Architecture:**
+- **Backend:** Supabase (Postgres + auth, free tier)
+- **Frontend:** Next.js on Vercel
+- **Data ingestion:** Bookmarklet POSTs raw localStorage JSON to `/api/sync`, parsed server-side
 
-**Favicon:** `docs/bee.svg` — single nerd bee with round glasses. Referenced via `<link rel="icon" type="image/svg+xml" href="bee.svg">`. SVG favicon support is browser-dependent; may not show in all browsers.
+**Key constraints:**
+- Safari is a hard requirement — bookmarklet reads JS state from the NYT page. Native app is a black box.
+- `puzzle_answers` is stored (it's publicly available data on misc sites, low ToS risk)
 
-**Footer:** "Reflects data from N puzzles (date – date). Word miss stats exclude N games with incomplete data."
+**Phased plan:**
+- **Phase 1** ✅ — Cloud pipeline live. Supabase + Vercel + updated bookmarklets. No Mac required for daily workflow.
+- **Phase 2** — Multi-user auth, landing page, onboarding.
+- **Phase 3** — Polish, email notifications, cross-browser testing.
 
-**Auto-update flow:** `bee` → `smart_update.py` → `export_analytics.py` → `git commit + push` → Pages rebuilds in ~1 min.
-
-## What's Next
-- [ ] Consider adding word definitions to more study words (expand DEFINITIONS dict in export_analytics.py)
-- [ ] Consider daily/weekly word push notification (e.g. email or widget) for study words
-- [ ] Favicon: convert bee.svg to PNG/ICO for reliable cross-browser support
+**What to tell users:** "Requires playing in Safari (mobile or desktop). Native NYT app not supported."
