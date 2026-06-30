@@ -1,17 +1,15 @@
 import { supabase } from './supabase'
 
 // Fetch all rows from a table, paginating past Supabase's 1000-row default limit
-async function fetchAll<T>(
-  query: () => ReturnType<typeof supabase.from>
-): Promise<T[]> {
+async function fetchAll<T>(queryFn: () => any): Promise<T[]> {
   const PAGE = 1000
   let offset = 0
   const results: T[] = []
   while (true) {
-    const { data, error } = await (query() as any).range(offset, offset + PAGE - 1)
+    const { data, error } = await queryFn().range(offset, offset + PAGE - 1)
     if (error) throw new Error(error.message)
     results.push(...(data as T[]))
-    if (data.length < PAGE) break
+    if ((data as T[]).length < PAGE) break
     offset += PAGE
   }
   return results
