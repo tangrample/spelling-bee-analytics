@@ -370,6 +370,9 @@ export default function Dashboard({ data }: { data: AnalyticsData }) {
       <div className="footer">
         Reflects data from {s.total_games} puzzles ({fmtDate(s.first_date)} – {fmtDate(s.last_date)}).
         {' '}Word miss stats exclude {s.total_games - s.games_with_answers} games with incomplete data.
+        <div style={{ marginTop: '0.4rem' }}>
+          BeeBot is an independent fan project for Spelling Bee enthusiasts. Not affiliated with or endorsed by The New York Times.
+        </div>
       </div>
     </div>
   )
