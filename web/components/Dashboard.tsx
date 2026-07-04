@@ -273,7 +273,7 @@ export default function Dashboard({ data }: { data: AnalyticsData }) {
       {/* Header */}
       <div className="header">
         <div className="header-left">
-          <BeeSvg />
+          <img src="/icon.png" alt="BeeBot" width={44} height={44} style={{ borderRadius: '50%', flexShrink: 0 }} />
           <div>
             <h1>BeeBot</h1>
             <div className="meta">{s.total_games} games · {fmtDate(s.first_date)} – {fmtDate(s.last_date)}</div>
