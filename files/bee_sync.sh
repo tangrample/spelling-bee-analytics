@@ -8,8 +8,8 @@
 #   bee --status     → preview without making changes
 #
 # Data sources (checked in order):
-#   1. Clipboard     — if it contains valid bee JSON (from Mac bookmarklet)
-#   2. Downloads     — spelling_bee_*.json files (from old bookmarklet download)
+#   1. Clipboard     — if it contains valid bee JSON (from Mac bookmarklet, same session only)
+#   2. Downloads     — spelling_bee_*.json files (from Mac bookmarklet, accumulates across days)
 #   3. iCloud        — ~/iCloud Drive/Downloads/Spelling Bee/*.json (from iPhone bookmarklet)
 #   If none found, falls back to existing spelling_bee_raw.json
 #
@@ -79,9 +79,15 @@ process_file() {
 }
 
 archive_icloud() {
+    [[ "$MODE" == "status" ]] && return 0
     local f="$1"
     mkdir -p "$ICLOUD_BEE/processed"
     mv "$f" "$ICLOUD_BEE/processed/"
+}
+
+remove_source() {
+    [[ "$MODE" == "status" ]] && return 0
+    rm -f "$1"
 }
 
 # ── Source 1: Clipboard ───────────────────────────────────────────────────────
@@ -92,10 +98,17 @@ if is_clipboard_valid_bee_json; then
     echo ""
 
 # ── Source 2: Downloads ───────────────────────────────────────────────────────
-elif LATEST_DL=$(ls -t "$DOWNLOADS"/spelling_bee_*.json 2>/dev/null | head -1) && [ -n "$LATEST_DL" ]; then
-    process_file "$LATEST_DL" "Downloads"
-    rm "$LATEST_DL"
+elif ls "$DOWNLOADS"/spelling_bee_*.json &>/dev/null 2>&1; then
+    # Process each downloaded file in sequence, oldest first (handles multiple saved days)
+    for f in $(ls -tr "$DOWNLOADS"/spelling_bee_*.json 2>/dev/null); do
+        [ -f "$f" ] || continue
+        process_file "$f" "Downloads ($(basename "$f"))"
+        remove_source "$f"
+        python3 "$SCRIPT_DIR/smart_update.py" --mode "$MODE"
+    done
     echo ""
+    export_and_push
+    exit 0
 
 # ── Source 3: iCloud ──────────────────────────────────────────────────────────
 elif ls "$ICLOUD_BEE"/spelling_bee_*.json &>/dev/null 2>&1; then

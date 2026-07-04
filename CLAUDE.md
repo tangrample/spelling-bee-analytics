@@ -26,11 +26,11 @@ A personal analytics pipeline for NYT Spelling Bee game history. Data is extract
 
 **Mac:**
 1. Go to nytimes.com/puzzles/spelling-bee in Safari
-2. Click **🐝 Copy Bee Data** bookmarklet
-3. Copies to clipboard AND syncs to Supabase — no `bee` command needed
+2. Click **🐝 Save Bee Data** bookmarklet
+3. Downloads a dated file to `~/Downloads`, copies to clipboard, AND syncs to Supabase — no `bee` command needed
 
 ## Daily Workflow (Local fallback)
-Same as above, but also run `bee` in Terminal to write to SQLite and update GitHub Pages.
+Same as above, but also run `bee` in Terminal to write to SQLite and update GitHub Pages. `bee` picks up every `spelling_bee_*.json` sitting in `~/Downloads` (oldest first) each time it runs, so it's fine to skip it for several days — the files just accumulate until you run it. (As of Jul 2026, the Mac bookmarklet is named **Save Bee Data**, not Copy Bee Data — it downloads a file instead of relying on clipboard, since clipboard content only lasts until you copy something else.)
 
 ## The `bee` Command
 Alias defined in `~/.zshrc`, points to `files/bee_sync.sh`.
