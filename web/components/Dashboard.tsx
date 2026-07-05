@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef, useCallback } from 'react'
-import type { AnalyticsData, StudyWord, MissedPangram, MonthStat, LengthStat } from '@/lib/analytics'
+import type { AnalyticsData, StudyWord, MissedPangram, MonthStat, WeekStat, LengthStat } from '@/lib/analytics'
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -16,6 +16,11 @@ function fmtMonthShort(ym: string) {
   return months[parseInt(ym.split('-')[1]) - 1]
 }
 
+function fmtWeekShort(iso: string) {
+  const d = new Date(iso + 'T12:00:00')
+  return `${d.getMonth() + 1}/${d.getDate()}`
+}
+
 function missBadge(pct: number) {
   return pct >= 80 ? 'badge badge-red' : pct >= 50 ? 'badge badge-amber' : 'badge badge-teal'
 }
@@ -26,11 +31,6 @@ function lenBadge(len: number) {
 
 function barColor(pct: number) {
   return pct >= 28 ? 'var(--red)' : pct >= 20 ? 'var(--amber)' : 'var(--teal)'
-}
-
-function barH(val: number, minY = 60, maxY = 90) {
-  const yRange = maxY - minY
-  return Math.max(0, Math.min(100, (val - minY) / yRange * 100)).toFixed(1) + '%'
 }
 
 // ── Sub-components ────────────────────────────────────────────────────────────
@@ -65,17 +65,54 @@ function PangramRow({ p }: { p: MissedPangram }) {
   )
 }
 
-function MonthlyChart({ monthly }: { monthly: MonthStat[] }) {
-  const lastM = monthly[monthly.length - 1]
-  const bestM = monthly.reduce((b, m) => m.score_pct > b.score_pct ? m : b, monthly[0])
-  const insight = lastM.score_pct >= bestM.score_pct
-    ? `Trending up — ${fmtMonthShort(lastM.month)} is your strongest month yet (${lastM.score_pct}%).`
-    : `Best month so far: ${fmtMonthShort(bestM.month)} at ${bestM.score_pct}%.`
+type TrendPoint = { key: string; label: string; games: number; score_pct: number; words_pct: number }
+
+function TrendChart({ weekly, monthly }: { weekly: WeekStat[]; monthly: MonthStat[] }) {
+  const [range, setRange] = useState<'weekly' | 'monthly'>('weekly')
+
+  const weeklyPoints: TrendPoint[] = weekly.map(w => ({
+    key: w.week, label: fmtWeekShort(w.week), games: w.games, score_pct: w.score_pct, words_pct: w.words_pct,
+  }))
+  const monthlyPoints: TrendPoint[] = monthly.map(m => ({
+    key: m.month, label: fmtMonthShort(m.month), games: m.games, score_pct: m.score_pct, words_pct: m.words_pct,
+  }))
+  const points = range === 'weekly' ? weeklyPoints : monthlyPoints
+  const unit = range === 'weekly' ? 'week' : 'month'
+
+  const last = points[points.length - 1]
+  const best = points.reduce((b, p) => p.score_pct > b.score_pct ? p : b, points[0])
+  const insight = last.score_pct >= best.score_pct
+    ? `Trending up — ${last.label} is your strongest ${unit} yet (${last.score_pct}%).`
+    : `Best ${unit} so far: ${best.label} at ${best.score_pct}%.`
+
+  // ── SVG line geometry ─────────────────────────────────────────────────
+  const w = 640, h = 220, padL = 32, padR = 8, padT = 12, padB = 24
+  const plotW = w - padL - padR, plotH = h - padT - padB
+  const vals = points.flatMap(p => [p.score_pct, p.words_pct])
+  const min = Math.max(0, Math.min(...vals) - 6)
+  const max = Math.min(100, Math.max(...vals) + 5)
+  const x = (i: number) => padL + (points.length === 1 ? 0 : (i / (points.length - 1)) * plotW)
+  const y = (v: number) => padT + plotH - ((v - min) / (max - min || 1)) * plotH
+  const linePath = (key: 'score_pct' | 'words_pct') =>
+    points.map((p, i) => `${i === 0 ? 'M' : 'L'}${x(i).toFixed(1)},${y(p[key]).toFixed(1)}`).join(' ')
+
+  // Thin out x-axis labels when there are many points (weekly view)
+  const labelStep = points.length > 10 ? Math.ceil(points.length / 8) : 1
 
   return (
     <div className="slide">
       <div className="chart-header">
-        <span className="chart-title">Score &amp; words found % by month</span>
+        <span className="chart-title">Score &amp; words found % by {unit}</span>
+        <div className="range-toggle">
+          <button
+            className={range === 'weekly' ? 'range-btn active' : 'range-btn'}
+            onClick={() => setRange('weekly')}
+          >Weekly</button>
+          <button
+            className={range === 'monthly' ? 'range-btn active' : 'range-btn'}
+            onClick={() => setRange('monthly')}
+          >Monthly</button>
+        </div>
         <div className="legend">
           <div className="legend-item">
             <div className="legend-dot" style={{ background: 'var(--teal)' }} />Score %
@@ -85,29 +122,29 @@ function MonthlyChart({ monthly }: { monthly: MonthStat[] }) {
           </div>
         </div>
       </div>
-      <div className="chart-area">
-        <div className="chart-body">
-          <div className="y-axis">
-            <span className="y-label">90%</span>
-            <span className="y-label">75%</span>
-            <span className="y-label">60%</span>
-          </div>
-          <div className="bars">
-            <div className="grid-line" style={{ top: 0 }} />
-            <div className="grid-line" style={{ top: '50%' }} />
-            {monthly.map(m => (
-              <div key={m.month} className="bar-group">
-                <div className="bar" style={{ height: barH(m.score_pct), background: 'var(--teal)' }} data-val={`${m.score_pct}%`} />
-                <div className="bar" style={{ height: barH(m.words_pct), background: 'var(--teal-light)' }} data-val={`${m.words_pct}%`} />
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className="x-labels">
-          {monthly.map(m => (
-            <span key={m.month} className="x-label">{fmtMonthShort(m.month)}</span>
+      <div className="line-chart-area">
+        <svg viewBox={`0 0 ${w} ${h}`} className="line-chart-svg">
+          <line x1={padL} y1={padT} x2={w - padR} y2={padT} className="line-grid" />
+          <line x1={padL} y1={padT + plotH / 2} x2={w - padR} y2={padT + plotH / 2} className="line-grid" />
+          <line x1={padL} y1={padT + plotH} x2={w - padR} y2={padT + plotH} className="line-grid" />
+          <path d={linePath('words_pct')} fill="none" stroke="var(--teal-light)" strokeWidth={2} />
+          <path d={linePath('score_pct')} fill="none" stroke="var(--teal)" strokeWidth={2} />
+          {points.map((p, i) => (
+            <circle key={`w-${p.key}`} cx={x(i)} cy={y(p.words_pct)} r={2.5} fill="var(--teal-light)">
+              <title>{p.label} · words {p.words_pct}% · {p.games} game{p.games === 1 ? '' : 's'}</title>
+            </circle>
           ))}
-        </div>
+          {points.map((p, i) => (
+            <circle key={`s-${p.key}`} cx={x(i)} cy={y(p.score_pct)} r={2.5} fill="var(--teal)">
+              <title>{p.label} · score {p.score_pct}% · {p.games} game{p.games === 1 ? '' : 's'}</title>
+            </circle>
+          ))}
+          {points.map((p, i) => (
+            (i % labelStep === 0 || i === points.length - 1) ? (
+              <text key={`l-${p.key}`} x={x(i)} y={h - 6} textAnchor="middle" className="line-x-label">{p.label}</text>
+            ) : null
+          ))}
+        </svg>
       </div>
       <p className="insight">{insight}</p>
     </div>
@@ -198,7 +235,7 @@ function BeeSvg() {
 const SLIDE_COUNT = 5
 
 export default function Dashboard({ data }: { data: AnalyticsData }) {
-  const { summary: s, recent: rc, study_words, missed_pangrams, monthly, miss_by_length } = data
+  const { summary: s, recent: rc, study_words, missed_pangrams, monthly, weekly, miss_by_length } = data
   const hasRecent = (rc.games ?? 0) > 0
 
   const [cur, setCur] = useState(0)
@@ -343,8 +380,8 @@ export default function Dashboard({ data }: { data: AnalyticsData }) {
             <p className="insight">{s.pangram_miss_pct}% pangram miss rate — most are long compound words.</p>
           </div>
 
-          {/* Slide 4: Monthly trend */}
-          <MonthlyChart monthly={monthly} />
+          {/* Slide 4: Score trend */}
+          <TrendChart weekly={weekly} monthly={monthly} />
 
           {/* Slide 5: Miss by length */}
           <LengthSlide missByLength={miss_by_length} />

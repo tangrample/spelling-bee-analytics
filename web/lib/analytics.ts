@@ -73,6 +73,15 @@ export type MonthStat = {
   qb: number
 }
 
+export type WeekStat = {
+  week: string // ISO date of the Monday that starts the week
+  games: number
+  score_pct: number
+  words_pct: number
+  genius: number
+  qb: number
+}
+
 export type LengthStat = {
   length: number
   label: string
@@ -112,6 +121,7 @@ export type AnalyticsData = {
   summary: Summary
   recent: Recent
   monthly: MonthStat[]
+  weekly: WeekStat[]
   miss_by_length: LengthStat[]
   study_words: StudyWord[]
   missed_pangrams: MissedPangram[]
@@ -195,6 +205,15 @@ function round(n: number, decimals: number): number {
 function avg(nums: number[]): number {
   if (nums.length === 0) return 0
   return nums.reduce((a, b) => a + b, 0) / nums.length
+}
+
+// Monday (ISO) of the calendar week containing this date, as YYYY-MM-DD
+function weekStart(dateStr: string): string {
+  const d = new Date(dateStr + 'T12:00:00')
+  const day = d.getDay() // 0 = Sun ... 6 = Sat
+  const diff = (day === 0 ? -6 : 1) - day
+  d.setDate(d.getDate() + diff)
+  return d.toISOString().slice(0, 10)
 }
 
 // ── Main analytics function ───────────────────────────────────────────────────
@@ -298,6 +317,32 @@ export async function getAnalytics(): Promise<AnalyticsData> {
       }
     })
 
+  // ── Weekly stats ──────────────────────────────────────────────────────────
+  // Calendar weeks (Mon–Sun). Weeks with no games played are simply absent
+  // from the array rather than plotted as a zero — data gaps become gaps
+  // in the line, not dips to 0%.
+  const weeklyMap = new Map<string, { games: Game[] }>()
+  for (const g of games) {
+    const week = weekStart(g.puzzle_date)
+    if (!weeklyMap.has(week)) weeklyMap.set(week, { games: [] })
+    weeklyMap.get(week)!.games.push(g)
+  }
+
+  const weekly: WeekStat[] = Array.from(weeklyMap.entries())
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([week, { games: wg }]) => {
+      const withScore = wg.filter(g => g.max_possible_score && g.max_possible_score > 0)
+      const withWords = wg.filter(g => g.total_possible_words && g.total_possible_words > 0)
+      return {
+        week,
+        games:     wg.length,
+        score_pct: round(avg(withScore.map(g => g.score / g.max_possible_score! * 100)), 1),
+        words_pct: round(avg(withWords.map(g => g.total_words_found / g.total_possible_words! * 100)), 1),
+        genius:    wg.filter(g => g.is_genius).length,
+        qb:        wg.filter(g => g.is_queen_bee).length,
+      }
+    })
+
   // ── Miss by length ────────────────────────────────────────────────────────
   const lengthMap = new Map<number, { total: number; missed: number }>()
   for (const pa of puzzleAnswers) {
@@ -390,6 +435,7 @@ export async function getAnalytics(): Promise<AnalyticsData> {
     summary,
     recent,
     monthly,
+    weekly,
     miss_by_length,
     study_words,
     missed_pangrams,

@@ -175,60 +175,45 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 10px;
   margin-bottom: 1.1rem;
   flex-shrink: 0;
+  flex-wrap: wrap;
 }
 .chart-title { font-size: 13px; font-weight: 500; }
 .legend { display: flex; gap: 12px; }
 .legend-item { display: flex; align-items: center; gap: 5px; font-size: 11px; color: var(--muted); }
 .legend-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
-.chart-area {
+
+.range-toggle {
+  display: flex;
+  background: var(--bg-sec);
+  border: 0.5px solid var(--border);
+  border-radius: 8px;
+  padding: 2px;
+  gap: 2px;
+}
+.range-btn {
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 500;
+  padding: 4px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.range-btn.active { background: var(--teal); color: #fff; }
+
+.line-chart-area {
   flex: 1;
-  display: grid;
-  grid-template-columns: auto 1fr;
-  grid-template-rows: 1fr auto;
+  display: flex;
+  align-items: center;
   min-height: 0;
 }
-.chart-body { display: contents; }
-.y-axis {
-  grid-column: 1; grid-row: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding-right: 6px;
-  align-items: flex-end;
-}
-.y-label { font-size: 10px; color: var(--muted); }
-.bars {
-  grid-column: 2; grid-row: 1;
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-around;
-  border-left: 0.5px solid var(--border);
-  border-bottom: 0.5px solid var(--border);
-  position: relative;
-  padding: 0 8px;
-}
-.grid-line {
-  position: absolute;
-  left: 0; right: 0;
-  height: 0.5px;
-  background: var(--border);
-}
-.bar-group { display: flex; gap: 3px; align-items: flex-end; z-index: 1; height: 100%; }
-.bar { width: 14px; border-radius: 3px 3px 0 0; min-height: 2px; position: relative; cursor: default; }
-.bar:hover::after {
-  content: attr(data-val);
-  position: absolute;
-  top: -22px; left: 50%;
-  transform: translateX(-50%);
-  background: var(--text); color: var(--bg);
-  padding: 2px 5px; border-radius: 4px;
-  font-size: 10px; white-space: nowrap;
-  pointer-events: none; z-index: 10;
-}
-.x-labels { grid-column: 2; grid-row: 2; display: flex; justify-content: space-around; padding: 5px 8px 0; }
-.x-label { font-size: 11px; color: var(--muted); }
+.line-chart-svg { width: 100%; height: 100%; }
+.line-grid { stroke: var(--border); stroke-width: 1; }
+.line-x-label { font-size: 9px; fill: var(--muted); }
 
 /* ── Length bars (slide 5) ───────────────────────────────────── */
 .len-rows { display: flex; flex-direction: column; gap: 14px; flex: 1; justify-content: center; }
