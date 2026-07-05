@@ -131,32 +131,37 @@ def main():
         'pangram_miss_pct':   round((pg[0] - pg[1]) / pg[0] * 100, 1),
     }
 
-    # ── Recent stats (last 7 days) ────────────────────────────────────────────
-    rec_games = cur.execute('''
+    # ── Recent stats (last 7 played games) ───────────────────────────────────
+    recent_ids = [r[0] for r in cur.execute('''
+        SELECT id FROM games ORDER BY puzzle_date DESC LIMIT 7
+    ''').fetchall()]
+    id_placeholders = ','.join('?' * len(recent_ids))
+
+    rec_games = cur.execute(f'''
         SELECT COUNT(*) games,
                ROUND(AVG(CAST(score AS FLOAT)/NULLIF(max_possible_score,0))*100, 1) avg_score_pct,
                SUM(is_genius) genius_count
         FROM games
-        WHERE puzzle_date >= date('now', '-7 days')
-    ''').fetchone()
+        WHERE id IN ({id_placeholders})
+    ''', recent_ids).fetchone()
 
-    rec_words = cur.execute('''
+    rec_words = cur.execute(f'''
         SELECT COUNT(pa.word) total,
                SUM(CASE WHEN wf.word IS NULL THEN 1 ELSE 0 END) missed
         FROM puzzle_answers pa
         JOIN games g ON g.id = pa.game_id
         LEFT JOIN words_found wf ON wf.game_id = pa.game_id AND wf.word = pa.word
-        WHERE g.puzzle_date >= date('now', '-7 days')
-    ''').fetchone()
+        WHERE g.id IN ({id_placeholders})
+    ''', recent_ids).fetchone()
 
-    rec_pg = cur.execute('''
+    rec_pg = cur.execute(f'''
         SELECT COUNT(*) total,
                SUM(CASE WHEN wf.word IS NOT NULL THEN 1 ELSE 0 END) found
         FROM puzzle_answers pa
         JOIN games g ON g.id = pa.game_id
         LEFT JOIN words_found wf ON wf.game_id = pa.game_id AND wf.word = pa.word
-        WHERE pa.is_pangram = 1 AND g.puzzle_date >= date('now', '-7 days')
-    ''').fetchone()
+        WHERE pa.is_pangram = 1 AND g.id IN ({id_placeholders})
+    ''', recent_ids).fetchone()
 
     n_rec = rec_games[0] or 0
     recent = {

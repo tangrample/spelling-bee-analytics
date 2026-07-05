@@ -3,11 +3,12 @@
 ## What This Is
 A personal analytics pipeline for NYT Spelling Bee game history. Data is extracted from the browser, stored in both a local SQLite database and Supabase (Postgres), and analyzed for performance trends.
 
-## Current State (as of June 30, 2026)
+## Current State (as of July 4, 2026)
 - **116 games** in SQLite and Supabase, covering 2026-02-07 to 2026-06-29 with some gaps
 - **110 of 116 games** have full puzzle_answers data (6 expired before extraction)
 - **Phase 1 complete:** cloud pipeline live — bookmarklet POSTs to Supabase, dashboard on Vercel
 - Local Mac workflow still works as fallback (SQLite + GitHub Pages)
+- **Branding pass done:** Vercel dashboard now has custom bee icon/favicon, page title "BeeBot", and a fan-project disclaimer in the footer (not affiliated with/endorsed by NYT)
 
 ## Key Paths
 | Thing | Path |
@@ -62,10 +63,12 @@ bee --status    # preview without saving
 
 **Key web app files:**
 - `web/app/page.tsx` — server component, fetches analytics from Supabase
-- `web/components/Dashboard.tsx` — client component, carousel UI
+- `web/components/Dashboard.tsx` — client component, carousel UI (header icon, title, and footer disclaimer live here)
 - `web/lib/analytics.ts` — all analytics computations (port of export_analytics.py)
 - `web/lib/parseNYTData.ts` — parses raw bookmarklet JSON (port of parse_nyt_data.py + process_data.py)
 - `web/app/api/sync/route.ts` — accepts POST from bookmarklet, upserts to Supabase
+- `web/app/layout.tsx` — page metadata (title: "BeeBot")
+- `web/app/icon.png`, `web/app/apple-icon.png`, `web/app/favicon.ico` — bee icon, auto-wired by Next.js App Router (no manual `<link>` tags needed)
 
 ## Database Schema (SQLite + Supabase, identical structure)
 **`games`** — one row per puzzle played
