@@ -85,8 +85,10 @@ function TrendChart({ weekly, monthly }: { weekly: WeekStat[]; monthly: MonthSta
     ? `Trending up — ${last.label} is your strongest ${unit} yet (${last.score_pct}%).`
     : `Best ${unit} so far: ${best.label} at ${best.score_pct}%.`
 
+  const [hover, setHover] = useState<number | null>(null)
+
   // ── SVG line geometry ─────────────────────────────────────────────────
-  const w = 640, h = 220, padL = 32, padR = 8, padT = 12, padB = 24
+  const w = 640, h = 220, padL = 34, padR = 8, padT = 16, padB = 24
   const plotW = w - padL - padR, plotH = h - padT - padB
   const vals = points.flatMap(p => [p.score_pct, p.words_pct])
   const min = Math.max(0, Math.min(...vals) - 6)
@@ -98,6 +100,15 @@ function TrendChart({ weekly, monthly }: { weekly: WeekStat[]; monthly: MonthSta
 
   // Thin out x-axis labels when there are many points (weekly view)
   const labelStep = points.length > 10 ? Math.ceil(points.length / 8) : 1
+
+  // Y-axis ticks: low / mid / high
+  const yTicks = [min, (min + max) / 2, max]
+
+  const hoverPoint = hover !== null ? points[hover] : null
+  const tooltipText = hoverPoint
+    ? `${hoverPoint.label} · Score ${hoverPoint.score_pct}% · Words ${hoverPoint.words_pct}% · ${hoverPoint.games} game${hoverPoint.games === 1 ? '' : 's'}`
+    : ''
+  const tooltipW = Math.min(plotW, tooltipText.length * 5.6 + 16)
 
   return (
     <div className="slide">
@@ -124,26 +135,49 @@ function TrendChart({ weekly, monthly }: { weekly: WeekStat[]; monthly: MonthSta
       </div>
       <div className="line-chart-area">
         <svg viewBox={`0 0 ${w} ${h}`} className="line-chart-svg">
-          <line x1={padL} y1={padT} x2={w - padR} y2={padT} className="line-grid" />
-          <line x1={padL} y1={padT + plotH / 2} x2={w - padR} y2={padT + plotH / 2} className="line-grid" />
-          <line x1={padL} y1={padT + plotH} x2={w - padR} y2={padT + plotH} className="line-grid" />
+          {yTicks.map((t, i) => (
+            <line key={`grid-${i}`} x1={padL} y1={y(t)} x2={w - padR} y2={y(t)} className="line-grid" />
+          ))}
+          {yTicks.map((t, i) => (
+            <text key={`ytick-${i}`} x={padL - 6} y={y(t)} dy={3} textAnchor="end" className="line-y-label">
+              {Math.round(t)}%
+            </text>
+          ))}
           <path d={linePath('words_pct')} fill="none" stroke="var(--teal-light)" strokeWidth={2} />
           <path d={linePath('score_pct')} fill="none" stroke="var(--teal)" strokeWidth={2} />
           {points.map((p, i) => (
-            <circle key={`w-${p.key}`} cx={x(i)} cy={y(p.words_pct)} r={2.5} fill="var(--teal-light)">
-              <title>{p.label} · words {p.words_pct}% · {p.games} game{p.games === 1 ? '' : 's'}</title>
-            </circle>
+            <circle key={`w-${p.key}`} cx={x(i)} cy={y(p.words_pct)} r={2.5} fill="var(--teal-light)" />
           ))}
           {points.map((p, i) => (
-            <circle key={`s-${p.key}`} cx={x(i)} cy={y(p.score_pct)} r={2.5} fill="var(--teal)">
-              <title>{p.label} · score {p.score_pct}% · {p.games} game{p.games === 1 ? '' : 's'}</title>
-            </circle>
+            <circle key={`s-${p.key}`} cx={x(i)} cy={y(p.score_pct)} r={2.5} fill="var(--teal)" />
           ))}
+          {hover !== null && (
+            <line x1={x(hover)} y1={padT} x2={x(hover)} y2={padT + plotH} className="line-hover-guide" />
+          )}
           {points.map((p, i) => (
             (i % labelStep === 0 || i === points.length - 1) ? (
               <text key={`l-${p.key}`} x={x(i)} y={h - 6} textAnchor="middle" className="line-x-label">{p.label}</text>
             ) : null
           ))}
+          {points.map((p, i) => (
+            <rect
+              key={`hit-${p.key}`}
+              x={x(i) - (plotW / Math.max(points.length - 1, 1)) / 2}
+              y={padT}
+              width={plotW / Math.max(points.length - 1, 1)}
+              height={plotH}
+              fill="transparent"
+              onMouseEnter={() => setHover(i)}
+              onMouseLeave={() => setHover(null)}
+              onTouchStart={() => setHover(i)}
+            />
+          ))}
+          {hoverPoint && (
+            <g transform={`translate(${Math.min(Math.max(x(hover!) - tooltipW / 2, padL), w - padR - tooltipW)}, ${padT - 2})`}>
+              <rect width={tooltipW} height={20} rx={4} className="line-tooltip-bg" />
+              <text x={tooltipW / 2} y={14} textAnchor="middle" className="line-tooltip-text">{tooltipText}</text>
+            </g>
+          )}
         </svg>
       </div>
       <p className="insight">{insight}</p>
