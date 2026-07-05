@@ -91,8 +91,19 @@ function TrendChart({ weekly, monthly }: { weekly: WeekStat[]; monthly: MonthSta
   const w = 640, h = 220, padL = 34, padR = 8, padT = 16, padB = 24
   const plotW = w - padL - padR, plotH = h - padT - padB
   const vals = points.flatMap(p => [p.score_pct, p.words_pct])
-  const min = Math.max(0, Math.min(...vals) - 6)
-  const max = Math.min(100, Math.max(...vals) + 5)
+  const dataMin = Math.min(...vals)
+
+  // Y-axis: max is always 100, three evenly spaced ticks. Step is the
+  // smallest "nice" interval (20, 25, then 50) whose bottom tick still
+  // covers the data with a little headroom — 60/80/100 for typical scores,
+  // widening automatically to 50/75/100 or 0/50/100 if a week/month scores
+  // much lower.
+  const NICE_STEPS = [20, 25, 50]
+  const step = NICE_STEPS.find(s => 100 - 2 * s <= dataMin) ?? 50
+  const max = 100
+  const min = max - 2 * step
+  const yTicks = [min, min + step, max]
+
   const x = (i: number) => padL + (points.length === 1 ? 0 : (i / (points.length - 1)) * plotW)
   const y = (v: number) => padT + plotH - ((v - min) / (max - min || 1)) * plotH
   const linePath = (key: 'score_pct' | 'words_pct') =>
@@ -100,9 +111,6 @@ function TrendChart({ weekly, monthly }: { weekly: WeekStat[]; monthly: MonthSta
 
   // Thin out x-axis labels when there are many points (weekly view)
   const labelStep = points.length > 10 ? Math.ceil(points.length / 8) : 1
-
-  // Y-axis ticks: low / mid / high
-  const yTicks = [min, (min + max) / 2, max]
 
   const hoverPoint = hover !== null ? points[hover] : null
   const tooltipText = hoverPoint
