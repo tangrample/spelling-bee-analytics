@@ -243,7 +243,7 @@ body {
 /* ── Responsive ──────────────────────────────────────────────── */
 @media (max-width: 600px) {
   .slide { padding: 1.25rem; }
-  .overview-grid { gap: 1.25rem 1.5rem; }
+  .overview-grid { gap: 2.25rem 1.5rem; }
   .stat-big { font-size: 28px; }
   .carousel-outer { height: 460px; }
 }
