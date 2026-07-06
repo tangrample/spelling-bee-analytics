@@ -1,28 +1,28 @@
 {
-  "generated_at": "2026-07-04T16:34:07.655989",
+  "generated_at": "2026-07-05T20:29:59.910307",
   "summary": {
-    "total_games": 116,
-    "games_with_answers": 110,
-    "avg_score_pct": 79.7,
-    "word_miss_rate": 23.5,
-    "genius_count": 114,
+    "total_games": 117,
+    "games_with_answers": 111,
+    "avg_score_pct": 79.8,
+    "word_miss_rate": 23.4,
+    "genius_count": 115,
     "genius_rate": 98.3,
     "qb_count": 5,
     "first_date": "2026-02-07",
-    "last_date": "2026-06-29",
-    "pangram_total": 172,
-    "pangram_found": 142,
-    "pangram_missed": 30,
-    "pangram_pct": 82.6,
-    "pangram_miss_pct": 17.4
+    "last_date": "2026-07-04",
+    "pangram_total": 175,
+    "pangram_found": 144,
+    "pangram_missed": 31,
+    "pangram_pct": 82.3,
+    "pangram_miss_pct": 17.7
   },
   "recent": {
     "games": 7,
-    "avg_score_pct": 95.3,
+    "avg_score_pct": 94.8,
     "genius_count": 7,
     "word_miss_rate": 5.7,
-    "pangram_found": 10,
-    "pangram_total": 10
+    "pangram_found": 11,
+    "pangram_total": 12
   },
   "monthly": [
     {
@@ -64,43 +64,51 @@
       "words_pct": 87.4,
       "genius": 15,
       "qb": 5
+    },
+    {
+      "month": "2026-07",
+      "games": 1,
+      "score_pct": 84.8,
+      "words_pct": 89.1,
+      "genius": 1,
+      "qb": 0
     }
   ],
   "miss_by_length": [
     {
       "length": 4,
       "label": "4-letter",
-      "total": 1745,
-      "missed": 534,
-      "miss_pct": 30.6
+      "total": 1767,
+      "missed": 536,
+      "miss_pct": 30.3
     },
     {
       "length": 5,
       "label": "5-letter",
-      "total": 1133,
+      "total": 1149,
       "missed": 190,
-      "miss_pct": 16.8
+      "miss_pct": 16.5
     },
     {
       "length": 6,
       "label": "6-letter",
-      "total": 978,
-      "missed": 158,
-      "miss_pct": 16.2
+      "total": 992,
+      "missed": 160,
+      "miss_pct": 16.1
     },
     {
       "length": 7,
       "label": "7-letter",
-      "total": 618,
+      "total": 620,
       "missed": 134,
-      "miss_pct": 21.7
+      "miss_pct": 21.6
     },
     {
       "length": 8,
       "label": "8+ letter",
-      "total": 541,
-      "missed": 145,
-      "miss_pct": 26.8
+      "total": 551,
+      "missed": 148,
+      "miss_pct": 26.9
     }
   ],
   "study_words": [
@@ -1106,6 +1114,17 @@
       "definition": ""
     },
     {
+      "word": "baht",
+      "appearances": 2,
+      "missed": 2,
+      "miss_pct": 100.0,
+      "length": 4,
+      "is_pangram": false,
+      "weight": 0.67,
+      "last_missed": "2026-07-04",
+      "definition": ""
+    },
+    {
       "word": "banc",
       "appearances": 2,
       "missed": 2,
@@ -1192,20 +1211,15 @@
       "weight": 0.67,
       "last_missed": "2026-06-17",
       "definition": ""
-    },
-    {
-      "word": "epee",
-      "appearances": 2,
-      "missed": 2,
-      "miss_pct": 100.0,
-      "length": 4,
-      "is_pangram": false,
-      "weight": 0.67,
-      "last_missed": "2026-03-21",
-      "definition": ""
     }
   ],
   "missed_pangrams": [
+    {
+      "word": "biathlete",
+      "date": "2026-07-04",
+      "points": 16,
+      "length": 9
+    },
     {
       "word": "wrongdoing",
       "date": "2026-06-20",
