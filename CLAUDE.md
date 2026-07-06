@@ -3,7 +3,9 @@
 ## What This Is
 A personal analytics pipeline for NYT Spelling Bee game history. Data is extracted from the browser, stored in both a local SQLite database and Supabase (Postgres), and analyzed for performance trends.
 
-## Current State (as of July 5, 2026)
+## Current State (as of July 6, 2026)
+- **Bookmarklet setup simplified:** dropped the separate iPhone bookmarklet in favor of relying on iCloud Safari bookmark sync — add/edit only the Mac bookmarklet (`files/mac_bookmarklet.html`), and it syncs to iPhone's bookmarks list automatically (requires Safari toggled on under iCloud settings on both devices). `files/iphone_bookmarklet_setup.html` has since been deleted.
+- **Bookmarklet script reordered:** cloud sync (`fetch` to `/api/sync`) now runs *before* the file download is triggered, not after. On iPhone, tapping the bookmarklet's download link shows an OS-level "Do you want to download...?" interstitial that can interrupt page JS before an async `.then()` fires — so with the old order, the sync silently never completed on iPhone even though the download succeeded. Sync-first fixes this for both platforms.
 - **116 games** in SQLite and Supabase, covering 2026-02-07 to 2026-06-29 with some gaps
 - **110 of 116 games** have full puzzle_answers data (6 expired before extraction)
 - **Phase 1 complete:** cloud pipeline live — bookmarklet POSTs to Supabase, dashboard on Vercel
@@ -13,6 +15,10 @@ A personal analytics pipeline for NYT Spelling Bee game history. Data is extract
 - **Word-length miss-rate chart** (last carousel slide) now has a "7 games / 30 games / All time" toggle, defaulting to All time. Windows are game-count-based, not calendar-day-based, consistent with how "recent" is computed everywhere else (see Known Issues).
 - **Mobile overview-card fix:** stat numbers no longer wrap onto a second line (`white-space: nowrap` + smaller font at ≤600px), and row spacing was opened up so the 2x2 grid better fills the card height.
 - **Security:** `files/migrate_to_supabase.py` (one-off migration script) contained a hardcoded Supabase service_role key and has been deleted. The key was rotated in Supabase (Settings → API Keys → Secret keys) and updated in Vercel's `SUPABASE_SERVICE_ROLE_KEY` env var. It was never committed to git history. Also removed `files/fix_jun28.py` (one-time data patch, already applied).
+- **Length-slide takeaway is now dynamic:** the hardcoded "Mostly cheap losses — 4-letter words..." line on the last carousel card (`LengthSlide` in `Dashboard.tsx`) has been replaced with a computed insight — whichever word length currently has the highest miss rate for the selected range — and renders nothing if there's nothing to report.
+- **Word definitions — IN PROGRESS, not yet live:** added a `word_definitions` Supabase table (schema in `files/add_word_definitions_table.sql`, not yet run) to cache definitions from the free dictionaryapi.dev API instead of relying solely on the small hand-curated `DEFINITIONS` dict in `web/lib/analytics.ts` (~65 entries vs. 433 words that actually qualify as study words — hence all the "4-letter word" fallbacks). `analytics.ts` now reads the cache, falls back to the hardcoded dict, and auto-fetches + caches any still-missing definition for words in the visible top-100 study words going forward (self-maintaining, bounded, 3s timeout per lookup so a slow API can't stall the dashboard).
+  - **⚠️ BLOCKING — dashboard will break until this SQL step is run:** `analytics.ts` now queries `word_definitions` unconditionally, and `fetchAll()` throws on any Supabase error. Since the table doesn't exist yet, the live dashboard (`page.tsx` → `getAnalytics()`) will currently error out. Run `files/add_word_definitions_table.sql` in the Supabase SQL Editor **before** deploying/reloading. After that, running `python3 files/backfill_definitions.py` locally (`pip install requests` first) is optional-but-recommended to backfill the current 433-word gap in one pass rather than relying on slower per-word live lookups. Neither step could be run from the agent sandbox (no network egress to Supabase/dictionaryapi.dev from there).
+  - `files/backfill_definitions.py` is safe to delete after the one-time run, same convention as other one-off scripts in this repo.
 
 ## Key Paths
 | Thing | Path |
@@ -47,9 +53,9 @@ bee --status    # preview without saving
 ```
 
 ## Bookmarklet Setup Files
-- Mac Safari: `files/mac_bookmarklet.html` — open in Safari, drag yellow button to bookmarks bar
-- iPhone Safari: `files/iphone_bookmarklet_setup.html` — open on iPhone, follow 4-step setup
-- Both bookmarklets now POST to `/api/sync` on Vercel in addition to their existing behavior
+- Mac Safari: `files/mac_bookmarklet.html` — open in Safari, drag yellow button to bookmarks bar. This is now the *only* bookmarklet to maintain — it syncs to iPhone via iCloud Safari bookmark sync, no separate iPhone setup needed.
+- `files/iphone_bookmarklet_setup.html` — deleted (was legacy/unused; manually recreating the bookmarklet on iPhone instead of relying on sync was the original source of the Mac/iPhone mismatch bug).
+- The bookmarklet POSTs to `/api/sync` on Vercel (sync-first, then triggers file download — see Current State above)
 
 ## Cloud Infrastructure
 | Thing | Value |

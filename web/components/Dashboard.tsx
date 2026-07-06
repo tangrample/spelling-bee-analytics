@@ -252,7 +252,12 @@ function LengthSlide({ missByLength }: { missByLength: MissByLength }) {
           </div>
         ))}
       </div>
-      <p className="insight">Mostly cheap losses — 4-letter words are only worth 1 pt. ({rangeLabel})</p>
+      {data.length > 0 && (() => {
+        const worst = data.reduce((a, b) => (b.miss_pct > a.miss_pct ? b : a))
+        return worst.missed > 0 ? (
+          <p className="insight">Toughest length: {worst.label} words, missed {worst.miss_pct.toFixed(0)}% of the time ({rangeLabel})</p>
+        ) : null
+      })()}
     </div>
   )
 }
