@@ -3,12 +3,16 @@
 ## What This Is
 A personal analytics pipeline for NYT Spelling Bee game history. Data is extracted from the browser, stored in both a local SQLite database and Supabase (Postgres), and analyzed for performance trends.
 
-## Current State (as of July 4, 2026)
+## Current State (as of July 5, 2026)
 - **116 games** in SQLite and Supabase, covering 2026-02-07 to 2026-06-29 with some gaps
 - **110 of 116 games** have full puzzle_answers data (6 expired before extraction)
 - **Phase 1 complete:** cloud pipeline live — bookmarklet POSTs to Supabase, dashboard on Vercel
 - Local Mac workflow still works as fallback (SQLite + GitHub Pages)
 - **Branding pass done:** Vercel dashboard now has custom bee icon/favicon, page title "BeeBot", and a fan-project disclaimer in the footer (not affiliated with/endorsed by NYT)
+- **Trend chart redesigned:** the old monthly bar chart is now a line chart (`TrendChart` in `Dashboard.tsx`) with a Weekly/Monthly toggle (defaults to weekly), a fixed 0-100 y-axis with nice ticks (auto-widens if scores drop), and a custom hover tooltip — native SVG `<title>` tooltips don't render reliably in Safari, which this project requires. The chart also measures its own rendered pixel size (`ResizeObserver`) so text doesn't shrink illegibly on narrow phone screens.
+- **Word-length miss-rate chart** (last carousel slide) now has a "7 games / 30 games / All time" toggle, defaulting to All time. Windows are game-count-based, not calendar-day-based, consistent with how "recent" is computed everywhere else (see Known Issues).
+- **Mobile overview-card fix:** stat numbers no longer wrap onto a second line (`white-space: nowrap` + smaller font at ≤600px), and row spacing was opened up so the 2x2 grid better fills the card height.
+- **Security:** `files/migrate_to_supabase.py` (one-off migration script) contained a hardcoded Supabase service_role key and has been deleted. The key was rotated in Supabase (Settings → API Keys → Secret keys) and updated in Vercel's `SUPABASE_SERVICE_ROLE_KEY` env var. It was never committed to git history. Also removed `files/fix_jun28.py` (one-time data patch, already applied).
 
 ## Key Paths
 | Thing | Path |
@@ -63,8 +67,8 @@ bee --status    # preview without saving
 
 **Key web app files:**
 - `web/app/page.tsx` — server component, fetches analytics from Supabase
-- `web/components/Dashboard.tsx` — client component, carousel UI (header icon, title, and footer disclaimer live here)
-- `web/lib/analytics.ts` — all analytics computations (port of export_analytics.py)
+- `web/components/Dashboard.tsx` — client component, carousel UI (header icon, title, footer disclaimer, `TrendChart` line chart, `LengthSlide` miss-rate chart)
+- `web/lib/analytics.ts` — all analytics computations (port of export_analytics.py). Computes `weekly`/`monthly` stats (calendar-bucketed, ISO weeks Mon–Sun) for the trend chart, and `miss_by_length` as three ranges (`last7`/`last30`/`all`, game-count-based) for the length chart
 - `web/lib/parseNYTData.ts` — parses raw bookmarklet JSON (port of parse_nyt_data.py + process_data.py)
 - `web/app/api/sync/route.ts` — accepts POST from bookmarklet, upserts to Supabase
 - `web/app/layout.tsx` — page metadata (title: "BeeBot")
@@ -96,6 +100,7 @@ Updated by `bee` → `export_analytics.py` → `git push`. Will be superseded by
 - 6 games missing from `puzzle_answers` (puzzles expired before extraction — data unrecoverable)
 - `bee_sync_error.log` has old errors from previous laptop — can be ignored
 - Vercel dashboard reads live from Supabase; local SQLite and GitHub Pages are independent and only updated when `bee` is run manually
+- "Recent" stats (overview slide, 7/30-game miss-rate windows) are defined by **game count, not calendar days** — e.g. "last 7" means the 7 most recent games played, not the last 7 calendar days. This is intentional: calendar-day windows would shrink unpredictably whenever days are skipped. The trend chart's Weekly/Monthly toggle is the one exception — it's genuinely calendar-bucketed (ISO weeks/months) since its whole purpose is showing change over real time, including gaps in play as silently-omitted (not specially flagged) points
 
 ## What's Next (Phase 2)
 - [ ] Add Supabase Auth (email magic link)
