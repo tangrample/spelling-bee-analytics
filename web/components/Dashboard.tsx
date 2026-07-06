@@ -87,8 +87,28 @@ function TrendChart({ weekly, monthly }: { weekly: WeekStat[]; monthly: MonthSta
 
   const [hover, setHover] = useState<number | null>(null)
 
+  // ── Measure the actual rendered size so the SVG viewBox matches real
+  // pixels 1:1 — otherwise on a narrow phone the whole coordinate system
+  // (including text, dots, and the tooltip) scales down with the container
+  // and becomes unreadably small, even though the surrounding HTML title
+  // and legend stay full size.
+  const containerRef = useRef<HTMLDivElement>(null)
+  const [size, setSize] = useState({ width: 640, height: 220 })
+  useEffect(() => {
+    const el = containerRef.current
+    if (!el) return
+    const observer = new ResizeObserver(entries => {
+      const entry = entries[0]
+      if (!entry) return
+      const { width, height } = entry.contentRect
+      if (width > 0 && height > 0) setSize({ width, height })
+    })
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
+
   // ── SVG line geometry ─────────────────────────────────────────────────
-  const w = 640, h = 220, padL = 34, padR = 8, padT = 16, padB = 24
+  const w = size.width, h = size.height, padL = 34, padR = 8, padT = 16, padB = 24
   const plotW = w - padL - padR, plotH = h - padT - padB
   const vals = points.flatMap(p => [p.score_pct, p.words_pct])
   const dataMin = Math.min(...vals)
@@ -141,8 +161,8 @@ function TrendChart({ weekly, monthly }: { weekly: WeekStat[]; monthly: MonthSta
           </div>
         </div>
       </div>
-      <div className="line-chart-area">
-        <svg viewBox={`0 0 ${w} ${h}`} className="line-chart-svg">
+      <div className="line-chart-area" ref={containerRef}>
+        <svg viewBox={`0 0 ${w} ${h}`} width={w} height={h} className="line-chart-svg">
           {yTicks.map((t, i) => (
             <line key={`grid-${i}`} x1={padL} y1={y(t)} x2={w - padR} y2={y(t)} className="line-grid" />
           ))}
