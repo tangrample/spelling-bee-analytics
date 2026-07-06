@@ -90,6 +90,12 @@ export type LengthStat = {
   miss_pct: number
 }
 
+export type MissByLength = {
+  last7: LengthStat[]
+  last30: LengthStat[]
+  all: LengthStat[]
+}
+
 export type Summary = {
   total_games: number
   games_with_answers: number
@@ -122,7 +128,7 @@ export type AnalyticsData = {
   recent: Recent
   monthly: MonthStat[]
   weekly: WeekStat[]
-  miss_by_length: LengthStat[]
+  miss_by_length: MissByLength
   study_words: StudyWord[]
   missed_pangrams: MissedPangram[]
 }
@@ -344,25 +350,37 @@ export async function getAnalytics(): Promise<AnalyticsData> {
     })
 
   // ── Miss by length ────────────────────────────────────────────────────────
-  const lengthMap = new Map<number, { total: number; missed: number }>()
-  for (const pa of puzzleAnswers) {
-    const lenGroup = pa.length >= 8 ? 8 : pa.length
-    const found = foundByGame.get(pa.game_id)?.has(pa.word) ?? false
-    const curr = lengthMap.get(lenGroup) ?? { total: 0, missed: 0 }
-    curr.total++
-    if (!found) curr.missed++
-    lengthMap.set(lenGroup, curr)
+  // Computed over three windows — last 7 games, last 30 games, all time —
+  // using game counts rather than calendar days so gaps in play history
+  // don't shrink the window below what it's supposed to cover.
+  function computeMissByLength(answers: PuzzleAnswer[]): LengthStat[] {
+    const lengthMap = new Map<number, { total: number; missed: number }>()
+    for (const pa of answers) {
+      const lenGroup = pa.length >= 8 ? 8 : pa.length
+      const found = foundByGame.get(pa.game_id)?.has(pa.word) ?? false
+      const curr = lengthMap.get(lenGroup) ?? { total: 0, missed: 0 }
+      curr.total++
+      if (!found) curr.missed++
+      lengthMap.set(lenGroup, curr)
+    }
+    return Array.from(lengthMap.entries())
+      .sort(([a], [b]) => a - b)
+      .map(([len, { total, missed }]) => ({
+        length:   len,
+        label:    len >= 8 ? '8+ letter' : `${len}-letter`,
+        total,
+        missed,
+        miss_pct: total > 0 ? round(missed / total * 100, 1) : 0,
+      }))
   }
 
-  const miss_by_length: LengthStat[] = Array.from(lengthMap.entries())
-    .sort(([a], [b]) => a - b)
-    .map(([len, { total, missed }]) => ({
-      length:   len,
-      label:    len >= 8 ? '8+ letter' : `${len}-letter`,
-      total,
-      missed,
-      miss_pct: total > 0 ? round(missed / total * 100, 1) : 0,
-    }))
+  const last30Ids = new Set(games.slice(-30).map(g => g.id))
+
+  const miss_by_length: MissByLength = {
+    last7:  computeMissByLength(puzzleAnswers.filter(pa => recentIds.has(pa.game_id))),
+    last30: computeMissByLength(puzzleAnswers.filter(pa => last30Ids.has(pa.game_id))),
+    all:    computeMissByLength(puzzleAnswers),
+  }
 
   // ── Study words ───────────────────────────────────────────────────────────
   const wordMap = new Map<string, {

@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef, useCallback } from 'react'
-import type { AnalyticsData, StudyWord, MissedPangram, MonthStat, WeekStat, LengthStat } from '@/lib/analytics'
+import type { AnalyticsData, StudyWord, MissedPangram, MonthStat, WeekStat, MissByLength } from '@/lib/analytics'
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -213,12 +213,34 @@ function TrendChart({ weekly, monthly }: { weekly: WeekStat[]; monthly: MonthSta
   )
 }
 
-function LengthSlide({ missByLength }: { missByLength: LengthStat[] }) {
+type LengthRange = 'last7' | 'last30' | 'all'
+
+function LengthSlide({ missByLength }: { missByLength: MissByLength }) {
+  const [range, setRange] = useState<LengthRange>('all')
+  const data = missByLength[range]
+  const rangeLabel = range === 'last7' ? 'last 7 games' : range === 'last30' ? 'last 30 games' : 'all time'
+
   return (
     <div className="slide">
-      <div className="slide-label">Miss rate by word length</div>
+      <div className="chart-header" style={{ marginBottom: '1.25rem' }}>
+        <span className="slide-label" style={{ marginBottom: 0 }}>Miss rate by word length</span>
+        <div className="range-toggle">
+          <button
+            className={range === 'last7' ? 'range-btn active' : 'range-btn'}
+            onClick={() => setRange('last7')}
+          >7 games</button>
+          <button
+            className={range === 'last30' ? 'range-btn active' : 'range-btn'}
+            onClick={() => setRange('last30')}
+          >30 games</button>
+          <button
+            className={range === 'all' ? 'range-btn active' : 'range-btn'}
+            onClick={() => setRange('all')}
+          >All time</button>
+        </div>
+      </div>
       <div className="len-rows">
-        {missByLength.map(r => (
+        {data.map(r => (
           <div key={r.length}>
             <div className="len-header">
               <span className="len-label">{r.label}</span>
@@ -230,7 +252,7 @@ function LengthSlide({ missByLength }: { missByLength: LengthStat[] }) {
           </div>
         ))}
       </div>
-      <p className="insight">Mostly cheap losses — 4-letter words are only worth 1 pt.</p>
+      <p className="insight">Mostly cheap losses — 4-letter words are only worth 1 pt. ({rangeLabel})</p>
     </div>
   )
 }

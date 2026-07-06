@@ -128,7 +128,7 @@ body {
   letter-spacing: 0.05em;
   margin: 0 0 4px;
 }
-.stat-big { font-size: 44px; font-weight: 500; line-height: 1; margin: 0; }
+.stat-big { font-size: 44px; font-weight: 500; line-height: 1; margin: 0; white-space: nowrap; }
 .stat-week { font-size: 11px; font-weight: 400; color: var(--muted); margin-left: 5px; }
 .stat-alltime { font-size: 11px; color: var(--muted); margin: 5px 0 0; }
 
@@ -244,6 +244,6 @@ body {
 @media (max-width: 600px) {
   .slide { padding: 1.25rem; }
   .overview-grid { gap: 1.25rem 1.5rem; }
-  .stat-big { font-size: 36px; }
+  .stat-big { font-size: 28px; }
   .carousel-outer { height: 460px; }
 }
