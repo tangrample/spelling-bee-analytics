@@ -204,12 +204,34 @@ const DEFINITIONS: Record<string, string> = {
   cane:       'a walking stick; sugar plant',
   chai:       'spiced milk tea',
   chia:       'plant with edible seeds',
+  // Manual overrides: dictionaryapi.dev's Wiktionary data lists a low-quality
+  // or irrelevant sense first for these, and the general quality filter below
+  // (added after noticing this) still can't fully replace human judgment —
+  // "anal" has a legitimate but obscure "reptile scale" noun sense that beats
+  // the length filter, and these entries are already cached in Supabase with
+  // the bad values from before the filter existed, so an override here is the
+  // most direct fix (hardcoded entries always take priority over the cache).
+  anal:       'obsessively neat and precise; also, relating to the anus',
+  adorn:      'to decorate or make more beautiful',
+}
+
+// Definitions this short/generic are almost always a word restating itself
+// (e.g. "Adornment" for "adorn") rather than an actual definition, and are
+// filtered out wherever raw dictionary API results are considered.
+function isLowQualityDefinition(def: string): boolean {
+  const trimmed = def.trim()
+  if (trimmed.length < 15) return true
+  // Light denylist for explicit/vulgar senses — this app surfaces definitions
+  // for casual vocab study, not an unabridged dictionary, so skip past these
+  // in favor of any other available sense of the word.
+  if (/\b(sex|sexual|genitals?|masturbat\w*)\b/i.test(trimmed)) return true
+  return false
 }
 
 // Cache-miss lookup against the free dictionaryapi.dev API for words not covered
 // above and not yet in the word_definitions Supabase cache. Bounded + short timeout
 // so a slow/unreachable API can't stall the dashboard.
-async function lookupDictionaryDefinition(word: string): Promise<string | null> {
+async function lookupDictionaryApiDev(word: string): Promise<string | null> {
   try {
     const controller = new AbortController()
     const timeout = setTimeout(() => controller.abort(), 3000)
@@ -219,17 +241,81 @@ async function lookupDictionaryDefinition(word: string): Promise<string | null> 
     clearTimeout(timeout)
     if (!res.ok) return null
     const data = await res.json()
+    // Wiktionary doesn't order senses by "most useful" — a rare noun sense or
+    // a bare word-restating-itself entry can easily land first (e.g. "anal"'s
+    // "reptile scale" sense beats its far more common adjective senses; "adorn"'s
+    // noun sense is literally just "Adornment"). Scan every definition across
+    // every meaning and take the first one that clears the quality bar, only
+    // falling back to whatever came first if nothing does (so a word where
+    // every sense happens to be short doesn't lose coverage entirely).
+    let fallback: string | null = null
     for (const entry of data) {
       for (const meaning of entry.meanings ?? []) {
         for (const def of meaning.definitions ?? []) {
-          if (def.definition) return String(def.definition).trim().replace(/\.$/, '')
+          if (!def.definition) continue
+          const cleaned = String(def.definition).trim().replace(/\.$/, '')
+          if (!fallback) fallback = cleaned
+          if (!isLowQualityDefinition(cleaned)) return cleaned
         }
       }
     }
-    return null
+    return fallback
   } catch {
     return null
   }
+}
+
+// Fallback lookup against Datamuse's word-definitions endpoint (WordNet-backed).
+// dictionaryapi.dev is Wiktionary-backed and misses a fair number of regularly
+// formed but less common derivations (e.g. "hateable", "healable" — valid
+// -able adjectives that just don't have their own Wiktionary entry). Datamuse
+// has broader WordNet coverage for exactly this kind of word, so it's tried
+// second rather than first — dictionaryapi.dev's definitions tend to read more
+// naturally, so it stays the preferred source when it has an entry at all.
+async function lookupDatamuse(word: string): Promise<string | null> {
+  try {
+    const controller = new AbortController()
+    const timeout = setTimeout(() => controller.abort(), 3000)
+    const res = await fetch(
+      // max=5 (not 1) so a same-spelling exact match further down the
+      // ranked results still gets found — see exact-match check below.
+      `https://api.datamuse.com/words?sp=${encodeURIComponent(word)}&md=d&max=5`,
+      { signal: controller.signal }
+    )
+    clearTimeout(timeout)
+    if (!res.ok) return null
+    const data = await res.json()
+    // IMPORTANT: `sp=` is a fuzzy "spelled like" query, not an exact lookup —
+    // Datamuse will happily return the definition for a *different* word if
+    // there's no exact match (e.g. querying "anagramming" returns
+    // "diagramming"; querying "idylically" returns "idyllically"). Silently
+    // attaching a wrong word's definition would be worse than the generic
+    // "N-letter word" fallback, so only accept a result whose word matches
+    // exactly (case-insensitive).
+    const match = (data as { word: string; defs?: string[] }[]).find(
+      d => d.word.toLowerCase() === word.toLowerCase()
+    )
+    const defs = match?.defs
+    if (!defs || defs.length === 0) return null
+    // Datamuse formats each entry as "pos\tdefinition text", e.g.
+    // "adj\tCapable of being healed." — strip the part-of-speech tag, and
+    // apply the same low-quality filter as the dictionaryapi.dev lookup
+    // (Datamuse can list multiple senses too, in no particular quality order).
+    let fallback: string | null = null
+    for (const d of defs) {
+      const cleaned = d.split('\t').slice(1).join('\t').trim().replace(/\.$/, '')
+      if (!cleaned) continue
+      if (!fallback) fallback = cleaned
+      if (!isLowQualityDefinition(cleaned)) return cleaned
+    }
+    return fallback
+  } catch {
+    return null
+  }
+}
+
+async function lookupDictionaryDefinition(word: string): Promise<string | null> {
+  return (await lookupDictionaryApiDev(word)) ?? (await lookupDatamuse(word))
 }
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
