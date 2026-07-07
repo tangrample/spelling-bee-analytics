@@ -457,12 +457,16 @@ export async function getAnalytics(): Promise<AnalyticsData> {
   // word you'd only seen once — including ones missed within the last few
   // days.) Repeat misses still naturally rank higher via the weight formula
   // below, since `appearances` factors in directly.
+  // Pangrams are excluded — they already get their own "Missed pangrams" card,
+  // so including them here would just be duplicate real estate. (The old
+  // pangram-bonus multiplier in the weight formula is dropped too, since it's
+  // now a no-op — every word left in this list is a non-pangram by construction.)
   const study_words: StudyWord[] = Array.from(wordMap.entries())
-    .filter(([, w]) => w.missed > 0)
+    .filter(([, w]) => w.missed > 0 && !w.isPangram)
     .map(([word, w]) => {
       const missPct = round(w.missed / w.appearances * 100, 1)
       const weight = round(
-        (w.missed / w.appearances) * (w.length / 4) * (w.isPangram ? 3 : 1) * (w.appearances / 3),
+        (w.missed / w.appearances) * (w.length / 4) * (w.appearances / 3),
         2
       )
       return {
