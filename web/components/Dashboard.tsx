@@ -131,23 +131,14 @@ function TrendChart({ weekly, monthly }: { weekly: WeekStat[]; monthly: MonthSta
 
   // Thin out x-axis labels when there are many points (weekly view). Use a
   // constant index step so consecutive shown labels are evenly spaced in
-  // pixels (rounding a fixed step across the whole range, as opposed to
-  // rounding each label's position independently, causes gaps to jitter
-  // between adjacent sizes — visually "uneven" even though technically
-  // close). Only the tail is a special case: a plain fixed step forces the
-  // very last point in regardless of how close it lands to the previous
-  // label, which is what caused the original crowding at the right edge.
-  // Fix that by dropping the last *regular* label instead of layering the
-  // true last point on top of it whenever the two would land closer than
-  // half a step apart.
+  // pixels — rounding a fixed step across the whole range, as opposed to
+  // rounding each label's position independently, keeps every gap the same
+  // size instead of jittering between adjacent sizes. No special-casing the
+  // last point: it's only labeled if it happens to land on the step.
   const maxLabels = 8
   const labelStep = points.length > maxLabels ? Math.ceil((points.length - 1) / (maxLabels - 1)) : 1
   const shownLabelIndices = new Set<number>()
-  for (let i = 0; i < points.length - 1; i += labelStep) shownLabelIndices.add(i)
-  const lastRegular = Math.max(...shownLabelIndices, 0)
-  const gapToEnd = points.length - 1 - lastRegular
-  if (gapToEnd > 0 && gapToEnd < labelStep / 2) shownLabelIndices.delete(lastRegular)
-  shownLabelIndices.add(points.length - 1)
+  for (let i = 0; i < points.length; i += labelStep) shownLabelIndices.add(i)
 
   const hoverPoint = hover !== null ? points[hover] : null
   const tooltipText = hoverPoint
