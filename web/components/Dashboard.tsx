@@ -129,18 +129,25 @@ function TrendChart({ weekly, monthly }: { weekly: WeekStat[]; monthly: MonthSta
   const linePath = (key: 'score_pct' | 'words_pct') =>
     points.map((p, i) => `${i === 0 ? 'M' : 'L'}${x(i).toFixed(1)},${y(p[key]).toFixed(1)}`).join(' ')
 
-  // Thin out x-axis labels when there are many points (weekly view). Evenly
-  // distribute indices across the full range (rather than a fixed step with
-  // the last point force-included) so the final label never lands right on
-  // top of the previous one — a fixed step can leave a short last gap when
-  // points.length doesn't divide evenly by the step.
+  // Thin out x-axis labels when there are many points (weekly view). Use a
+  // constant index step so consecutive shown labels are evenly spaced in
+  // pixels (rounding a fixed step across the whole range, as opposed to
+  // rounding each label's position independently, causes gaps to jitter
+  // between adjacent sizes — visually "uneven" even though technically
+  // close). Only the tail is a special case: a plain fixed step forces the
+  // very last point in regardless of how close it lands to the previous
+  // label, which is what caused the original crowding at the right edge.
+  // Fix that by dropping the last *regular* label instead of layering the
+  // true last point on top of it whenever the two would land closer than
+  // half a step apart.
   const maxLabels = 8
-  const numLabels = Math.min(points.length, maxLabels)
-  const shownLabelIndices = new Set(
-    Array.from({ length: numLabels }, (_, i) =>
-      Math.round((i * (points.length - 1)) / Math.max(numLabels - 1, 1))
-    )
-  )
+  const labelStep = points.length > maxLabels ? Math.ceil((points.length - 1) / (maxLabels - 1)) : 1
+  const shownLabelIndices = new Set<number>()
+  for (let i = 0; i < points.length - 1; i += labelStep) shownLabelIndices.add(i)
+  const lastRegular = Math.max(...shownLabelIndices, 0)
+  const gapToEnd = points.length - 1 - lastRegular
+  if (gapToEnd > 0 && gapToEnd < labelStep / 2) shownLabelIndices.delete(lastRegular)
+  shownLabelIndices.add(points.length - 1)
 
   const hoverPoint = hover !== null ? points[hover] : null
   const tooltipText = hoverPoint
