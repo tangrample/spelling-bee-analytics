@@ -129,8 +129,18 @@ function TrendChart({ weekly, monthly }: { weekly: WeekStat[]; monthly: MonthSta
   const linePath = (key: 'score_pct' | 'words_pct') =>
     points.map((p, i) => `${i === 0 ? 'M' : 'L'}${x(i).toFixed(1)},${y(p[key]).toFixed(1)}`).join(' ')
 
-  // Thin out x-axis labels when there are many points (weekly view)
-  const labelStep = points.length > 10 ? Math.ceil(points.length / 8) : 1
+  // Thin out x-axis labels when there are many points (weekly view). Evenly
+  // distribute indices across the full range (rather than a fixed step with
+  // the last point force-included) so the final label never lands right on
+  // top of the previous one — a fixed step can leave a short last gap when
+  // points.length doesn't divide evenly by the step.
+  const maxLabels = 8
+  const numLabels = Math.min(points.length, maxLabels)
+  const shownLabelIndices = new Set(
+    Array.from({ length: numLabels }, (_, i) =>
+      Math.round((i * (points.length - 1)) / Math.max(numLabels - 1, 1))
+    )
+  )
 
   const hoverPoint = hover !== null ? points[hover] : null
   const tooltipText = hoverPoint
@@ -183,7 +193,7 @@ function TrendChart({ weekly, monthly }: { weekly: WeekStat[]; monthly: MonthSta
             <line x1={x(hover)} y1={padT} x2={x(hover)} y2={padT + plotH} className="line-hover-guide" />
           )}
           {points.map((p, i) => (
-            (i % labelStep === 0 || i === points.length - 1) ? (
+            shownLabelIndices.has(i) ? (
               <text key={`l-${p.key}`} x={x(i)} y={h - 6} textAnchor="middle" className="line-x-label">{p.label}</text>
             ) : null
           ))}

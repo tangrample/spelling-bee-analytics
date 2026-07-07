@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🐝 Spelling Bee — iPhone Setup</title>
+<style>
+  body {
+    font-family: -apple-system, sans-serif;
+    max-width: 540px;
+    margin: 0 auto;
+    padding: 24px 20px 60px;
+    background: #fffbf0;
+    color: #1a1a1a;
+  }
+  h1 { font-size: 1.5rem; margin-bottom: 4px; }
+  .sub { color: #666; font-size: 0.95rem; margin-bottom: 32px; }
+  .step {
+    background: #fff;
+    border: 1px solid #e8e0cc;
+    border-radius: 14px;
+    padding: 18px 20px;
+    margin-bottom: 16px;
+  }
+  .step-num {
+    display: inline-block;
+    background: #f5c800;
+    color: #000;
+    font-weight: 700;
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 26px;
+    font-size: 0.85rem;
+    margin-right: 10px;
+    vertical-align: middle;
+  }
+  .step-title { font-weight: 600; font-size: 1rem; vertical-align: middle; }
+  .step-body { margin-top: 10px; font-size: 0.92rem; color: #444; line-height: 1.55; }
+  .code-box {
+    background: #1a1a2e;
+    color: #e0e0ff;
+    border-radius: 10px;
+    padding: 14px 16px;
+    font-family: 'Menlo', monospace;
+    font-size: 0.78rem;
+    word-break: break-all;
+    margin-top: 12px;
+    position: relative;
+  }
+  .copy-btn {
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+    padding: 13px;
+    background: #f5c800;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    color: #000;
+  }
+  .copy-btn:active { background: #e0b500; }
+  .tip {
+    background: #e8f4ff;
+    border-left: 3px solid #4a9eff;
+    border-radius: 0 8px 8px 0;
+    padding: 10px 14px;
+    font-size: 0.88rem;
+    color: #333;
+    margin-top: 10px;
+  }
+  .daily {
+    background: #f0fff4;
+    border: 1px solid #b2f0c8;
+    border-radius: 14px;
+    padding: 18px 20px;
+    margin-top: 24px;
+  }
+  .daily h2 { font-size: 1rem; margin: 0 0 10px; }
+  .daily ol { margin: 0; padding-left: 20px; font-size: 0.92rem; color: #333; line-height: 1.8; }
+</style>
+</head>
+<body>
+
+<h1>🐝 Spelling Bee Bookmarklet</h1>
+<p class="sub">One-time setup on your iPhone — takes about 2 minutes.</p>
+
+<div class="step">
+  <span class="step-num">1</span>
+  <span class="step-title">Bookmark any page in Safari</span>
+  <div class="step-body">
+    Open Safari and tap the <strong>Share</strong> button (box with arrow).
+    Tap <strong>Add Bookmark</strong>. Name it <strong>🐝 Save Bee Data</strong> and save it anywhere.
+  </div>
+</div>
+
+<div class="step">
+  <span class="step-num">2</span>
+  <span class="step-title">Copy the bookmarklet code</span>
+  <div class="step-body">
+    Tap the button below to copy the code. You'll paste it in the next step.
+    <div class="code-box" id="bm-code">javascript:(function(){var d={};for(var i=0;i&lt;localStorage.length;i++){var k=localStorage.key(i);var v=localStorage.getItem(k);if(k.indexOf('spelling-bee')!==-1||k.indexOf('sb-')!==-1||k.indexOf('games-state')!==-1){try{d[k]=JSON.parse(v);}catch(e){d[k]=v;}}}try{if(typeof window.gameData!=='undefined')d['_window_gameData']=window.gameData;}catch(e){}var s=JSON.stringify(d,null,2);var b=new Blob([s],{type:'application/json'});var u=URL.createObjectURL(b);var a=document.createElement('a');a.href=u;a.download='spelling_bee_raw_'+new Date().toISOString().split('T')[0]+'.json';document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(u);var syncUrl='https://spelling-bee-analytics.vercel.app/api/sync';var syncSecret='5a7100adda55ea4b40b380f45d6f519ddcd387796ddbcae5';fetch(syncUrl,{method:'POST',headers:{'Content-Type':'application/json','X-Sync-Secret':syncSecret},body:s}).then(function(r){return r.json();}).then(function(res){if(res.saved>0){alert('Saved to iCloud + synced '+res.saved+' game(s) to cloud!');}}).catch(function(){});})()</div>
+    <button class="copy-btn" onclick="copyCode()">Copy Code</button>
+  </div>
+</div>
+
+<div class="step">
+  <span class="step-num">3</span>
+  <span class="step-title">Replace the bookmark URL with the code</span>
+  <div class="step-body">
+    In Safari, tap the <strong>bookmarks icon</strong> (open book). Find <strong>🐝 Save Bee Data</strong>,
+    swipe left and tap <strong>Edit</strong>. Delete everything in the <strong>URL field</strong>
+    and paste the code you just copied. Tap <strong>Done</strong>.
+    <div class="tip">
+      💡 The URL field will look broken — that's normal for a bookmarklet.
+    </div>
+  </div>
+</div>
+
+<div class="step">
+  <span class="step-num">4</span>
+  <span class="step-title">Test it on the Spelling Bee page</span>
+  <div class="step-body">
+    Go to <strong>nytimes.com/puzzles/spelling-bee</strong> in Safari.
+    Tap your <strong>🐝 Save Bee Data</strong> bookmark.
+    A download prompt will appear — tap <strong>Download</strong> then open the
+    <strong>Downloads</strong> icon and tap the file. Choose
+    <strong>Share → Save to Files → iCloud Drive → Spelling Bee</strong>.
+    <div class="tip">
+      💡 iOS remembers the last folder you saved to, so after the first time it's just 2 taps.
+    </div>
+  </div>
+</div>
+
+<div class="daily">
+  <h2>✅ Your daily routine (after setup)</h2>
+  <ol>
+    <li>Finish playing Spelling Bee on your iPhone</li>
+    <li>Tap <strong>🐝 Save Bee Data</strong> bookmark</li>
+    <li>Tap Download → Save to Files → Spelling Bee folder</li>
+    <li>Done — your Mac processes it automatically 🎉</li>
+  </ol>
+</div>
+
+<script>
+function copyCode() {
+  const code = document.getElementById('bm-code').innerText;
+  // Decode HTML entities for actual code
+  const decoded = code.replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&amp;/g,'&');
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(decoded).then(() => {
+      const btn = document.querySelector('.copy-btn');
+      btn.textContent = '✓ Copied!';
+      setTimeout(() => btn.textContent = 'Copy Code', 2000);
+    });
+  } else {
+    // Fallback: select the text
+    const range = document.createRange();
+    range.selectNode(document.getElementById('bm-code'));
+    window.getSelection().removeAllRanges();
+    window.getSelection().addRange(range);
+  }
+}
+</script>
+
+</body>
+</html>

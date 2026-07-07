@@ -1,26 +1,26 @@
 {
-  "generated_at": "2026-07-06T19:30:03.205840",
+  "generated_at": "2026-07-05T20:29:59.910307",
   "summary": {
-    "total_games": 119,
-    "games_with_answers": 113,
-    "avg_score_pct": 79.9,
-    "word_miss_rate": 23.2,
-    "genius_count": 117,
+    "total_games": 117,
+    "games_with_answers": 111,
+    "avg_score_pct": 79.8,
+    "word_miss_rate": 23.4,
+    "genius_count": 115,
     "genius_rate": 98.3,
     "qb_count": 5,
     "first_date": "2026-02-07",
-    "last_date": "2026-07-06",
-    "pangram_total": 177,
-    "pangram_found": 146,
+    "last_date": "2026-07-04",
+    "pangram_total": 175,
+    "pangram_found": 144,
     "pangram_missed": 31,
-    "pangram_pct": 82.5,
-    "pangram_miss_pct": 17.5
+    "pangram_pct": 82.3,
+    "pangram_miss_pct": 17.7
   },
   "recent": {
     "games": 7,
-    "avg_score_pct": 93.9,
+    "avg_score_pct": 94.8,
     "genius_count": 7,
-    "word_miss_rate": 5.2,
+    "word_miss_rate": 5.7,
     "pangram_found": 11,
     "pangram_total": 12
   },
@@ -67,10 +67,10 @@
     },
     {
       "month": "2026-07",
-      "games": 3,
-      "score_pct": 87.2,
-      "words_pct": 90.3,
-      "genius": 3,
+      "games": 1,
+      "score_pct": 84.8,
+      "words_pct": 89.1,
+      "genius": 1,
       "qb": 0
     }
   ],
@@ -78,37 +78,37 @@
     {
       "length": 4,
       "label": "4-letter",
-      "total": 1797,
-      "missed": 537,
-      "miss_pct": 29.9
+      "total": 1767,
+      "missed": 536,
+      "miss_pct": 30.3
     },
     {
       "length": 5,
       "label": "5-letter",
-      "total": 1174,
+      "total": 1149,
       "missed": 190,
-      "miss_pct": 16.2
+      "miss_pct": 16.5
     },
     {
       "length": 6,
       "label": "6-letter",
-      "total": 1011,
-      "missed": 161,
-      "miss_pct": 15.9
+      "total": 992,
+      "missed": 160,
+      "miss_pct": 16.1
     },
     {
       "length": 7,
       "label": "7-letter",
-      "total": 634,
-      "missed": 139,
-      "miss_pct": 21.9
+      "total": 620,
+      "missed": 134,
+      "miss_pct": 21.6
     },
     {
       "length": 8,
       "label": "8+ letter",
-      "total": 554,
+      "total": 551,
       "missed": 148,
-      "miss_pct": 26.7
+      "miss_pct": 26.9
     }
   ],
   "study_words": [
@@ -323,9 +323,9 @@
     },
     {
       "word": "olio",
-      "appearances": 8,
+      "appearances": 7,
       "missed": 4,
-      "miss_pct": 50.0,
+      "miss_pct": 57.1,
       "length": 4,
       "is_pangram": false,
       "weight": 1.33,
@@ -364,17 +364,6 @@
       "weight": 1.17,
       "last_missed": "2026-06-19",
       "definition": "the academic world"
-    },
-    {
-      "word": "challah",
-      "appearances": 2,
-      "missed": 2,
-      "miss_pct": 100.0,
-      "length": 7,
-      "is_pangram": false,
-      "weight": 1.17,
-      "last_missed": "2026-07-06",
-      "definition": ""
     },
     {
       "word": "digging",
@@ -1210,6 +1199,17 @@
       "is_pangram": false,
       "weight": 0.67,
       "last_missed": "2026-05-17",
+      "definition": ""
+    },
+    {
+      "word": "croc",
+      "appearances": 2,
+      "missed": 2,
+      "miss_pct": 100.0,
+      "length": 4,
+      "is_pangram": false,
+      "weight": 0.67,
+      "last_missed": "2026-06-17",
       "definition": ""
     }
   ],
