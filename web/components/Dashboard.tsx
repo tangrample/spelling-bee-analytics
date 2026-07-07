@@ -367,8 +367,12 @@ export default function Dashboard({ data }: { data: AnalyticsData }) {
   const cutoff = new Date()
   cutoff.setDate(cutoff.getDate() - 7)
   const cutoffStr = cutoff.toISOString().slice(0, 10)
+  // Recent misses are never capped — a word you just missed should always show
+  // up here regardless of how it ranks by weight. The top-100 cap only applies
+  // to the all-time bucket, which is a "highest priority to review" list rather
+  // than a complete history.
   const recentWords  = study_words.filter(w => w.last_missed && w.last_missed >= cutoffStr)
-  const allTimeWords = study_words.filter(w => !w.last_missed || w.last_missed < cutoffStr)
+  const allTimeWords = study_words.filter(w => !w.last_missed || w.last_missed < cutoffStr).slice(0, 100)
 
   // ── Study words insight ──────────────────────────────────────
   const topWord = study_words[0]

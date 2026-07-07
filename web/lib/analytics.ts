@@ -45,6 +45,11 @@ type PuzzleAnswer = {
   length: number
 }
 
+export type WordDefinitionRow = {
+  word: string
+  definition: string
+}
+
 export type StudyWord = {
   word: string
   appearances: number
@@ -201,6 +206,32 @@ const DEFINITIONS: Record<string, string> = {
   chia:       'plant with edible seeds',
 }
 
+// Cache-miss lookup against the free dictionaryapi.dev API for words not covered
+// above and not yet in the word_definitions Supabase cache. Bounded + short timeout
+// so a slow/unreachable API can't stall the dashboard.
+async function lookupDictionaryDefinition(word: string): Promise<string | null> {
+  try {
+    const controller = new AbortController()
+    const timeout = setTimeout(() => controller.abort(), 3000)
+    const res = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`, {
+      signal: controller.signal,
+    })
+    clearTimeout(timeout)
+    if (!res.ok) return null
+    const data = await res.json()
+    for (const entry of data) {
+      for (const meaning of entry.meanings ?? []) {
+        for (const def of meaning.definitions ?? []) {
+          if (def.definition) return String(def.definition).trim().replace(/\.$/, '')
+        }
+      }
+    }
+    return null
+  } catch {
+    return null
+  }
+}
+
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
 function round(n: number, decimals: number): number {
@@ -226,11 +257,13 @@ function weekStart(dateStr: string): string {
 
 export async function getAnalytics(): Promise<AnalyticsData> {
   // Fetch all data (paginated to bypass 1000-row default limit)
-  const [games, wordsFound, puzzleAnswers] = await Promise.all([
+  const [games, wordsFound, puzzleAnswers, cachedDefinitions] = await Promise.all([
     fetchAll<Game>(() => supabase.from('games').select('*').order('puzzle_date', { ascending: true })),
     fetchAll<WordFound>(() => supabase.from('words_found').select('game_id, word, is_pangram, length')),
     fetchAll<PuzzleAnswer>(() => supabase.from('puzzle_answers').select('game_id, word, points, is_pangram, length')),
+    fetchAll<WordDefinitionRow>(() => supabase.from('word_definitions').select('word, definition')),
   ])
+  const dbDefinitions = new Map(cachedDefinitions.map(d => [d.word, d.definition]))
 
   // Build lookup: game_id → set of found words
   const foundByGame = new Map<number, Set<string>>()
@@ -416,8 +449,16 @@ export async function getAnalytics(): Promise<AnalyticsData> {
     }
   }
 
+  // Note: no minimum-appearances requirement here — a word missed on its only
+  // appearance so far still belongs on the study list. The goal isn't just
+  // spotting repeat spelling-bee weak spots, it's building vocabulary in
+  // general, so a first-time miss is just as worth surfacing as a recurring
+  // one. (Previously this required appearances >= 2, which silently hid any
+  // word you'd only seen once — including ones missed within the last few
+  // days.) Repeat misses still naturally rank higher via the weight formula
+  // below, since `appearances` factors in directly.
   const study_words: StudyWord[] = Array.from(wordMap.entries())
-    .filter(([, w]) => w.appearances >= 2 && w.missed > 0)
+    .filter(([, w]) => w.missed > 0)
     .map(([word, w]) => {
       const missPct = round(w.missed / w.appearances * 100, 1)
       const weight = round(
@@ -433,11 +474,47 @@ export async function getAnalytics(): Promise<AnalyticsData> {
         is_pangram:  w.isPangram,
         weight,
         last_missed: w.lastMissed,
-        definition:  DEFINITIONS[word] ?? '',
+        definition:  DEFINITIONS[word] ?? dbDefinitions.get(word) ?? '',
       }
     })
     .sort((a, b) => b.weight - a.weight || b.miss_pct - a.miss_pct)
-    .slice(0, 100)
+  // Not sliced to a fixed count here — the dashboard applies the top-100 cap
+  // only to the "all time" bucket, after splitting out recently-missed words,
+  // so a fresh miss can't be pushed off the list by its own low weight before
+  // it's had a chance to recur. See Dashboard.tsx.
+
+  // Any word actually visible on the dashboard (recent misses, unbounded but
+  // naturally small since the window is only 7 days, plus the top-100 all-time
+  // words) that still has no definition is either a brand new study word since
+  // the last backfill, or genuinely absent from the dictionary API (slang/
+  // informal answers). Look those up now and cache hits for next time. This is
+  // deliberately scoped to what's rendered rather than the full study_words
+  // list — study_words is no longer capped (see above), so without this scope
+  // a bad week could trigger hundreds of concurrent dictionary lookups.
+  const defCutoff = new Date()
+  defCutoff.setDate(defCutoff.getDate() - 7)
+  const defCutoffStr = defCutoff.toISOString().slice(0, 10)
+  const visibleStudyWords = [
+    ...study_words.filter(w => w.last_missed && w.last_missed >= defCutoffStr),
+    ...study_words.slice(0, 100),
+  ]
+  const undefinedWords = Array.from(new Set(visibleStudyWords.filter(w => !w.definition).map(w => w.word)))
+  if (undefinedWords.length > 0) {
+    const lookups = await Promise.all(
+      undefinedWords.map(async word => ({ word, definition: await lookupDictionaryDefinition(word) }))
+    )
+    const newlyCached = lookups.filter(l => l.definition) as { word: string; definition: string }[]
+    if (newlyCached.length > 0) {
+      const byWord = new Map(newlyCached.map(l => [l.word, l.definition]))
+      for (const w of study_words) {
+        const def = byWord.get(w.word)
+        if (def) w.definition = def
+      }
+      await supabase.from('word_definitions').upsert(
+        newlyCached.map(l => ({ word: l.word, definition: l.definition, source: 'dictionaryapi.dev' }))
+      )
+    }
+  }
 
   // ── Missed pangrams ───────────────────────────────────────────────────────
   const missed_pangrams: MissedPangram[] = puzzleAnswers
