@@ -63,6 +63,7 @@ body {
 }
 .slide {
   min-width: 100%;
+  max-width: 100%;
   height: 100%;
   padding: 1.75rem 2rem;
   box-sizing: border-box;
@@ -153,9 +154,21 @@ body {
   border-bottom: 0.5px solid var(--border);
 }
 .word-row:last-child { border-bottom: none; }
-.word-left { display: flex; align-items: center; gap: 7px; }
+.word-left { display: flex; align-items: center; gap: 7px; flex-shrink: 0; }
 .word-name { font-size: 15px; font-weight: 500; }
-.word-def { font-size: 12px; color: var(--muted); text-align: right; flex-shrink: 0; margin-left: 8px; }
+/* min-width: 0 is required here — without it, a flex child's default
+   min-width is its content's unwrapped width, which silently defeats
+   text-wrapping and forces the whole row (and slide) to grow instead. */
+.word-def {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+  flex: 1 1 auto;
+  min-width: 0;
+  max-width: 60%;
+  margin-left: 8px;
+  overflow-wrap: break-word;
+}
 .badge {
   display: inline-block;
   font-size: 11px;
