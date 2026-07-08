@@ -1,28 +1,28 @@
 {
-  "generated_at": "2026-07-07T15:02:32.321990",
+  "generated_at": "2026-07-08T14:49:40.520483",
   "summary": {
-    "total_games": 119,
-    "games_with_answers": 113,
+    "total_games": 120,
+    "games_with_answers": 114,
     "avg_score_pct": 79.9,
     "word_miss_rate": 23.2,
-    "genius_count": 117,
+    "genius_count": 118,
     "genius_rate": 98.3,
     "qb_count": 5,
     "first_date": "2026-02-07",
     "last_date": "2026-07-06",
-    "pangram_total": 177,
-    "pangram_found": 146,
+    "pangram_total": 178,
+    "pangram_found": 147,
     "pangram_missed": 31,
-    "pangram_pct": 82.5,
-    "pangram_miss_pct": 17.5
+    "pangram_pct": 82.6,
+    "pangram_miss_pct": 17.4
   },
   "recent": {
     "games": 7,
-    "avg_score_pct": 93.9,
+    "avg_score_pct": 90.2,
     "genius_count": 7,
-    "word_miss_rate": 5.2,
-    "pangram_found": 11,
-    "pangram_total": 12
+    "word_miss_rate": 8.1,
+    "pangram_found": 10,
+    "pangram_total": 11
   },
   "monthly": [
     {
@@ -59,10 +59,10 @@
     },
     {
       "month": "2026-06",
-      "games": 15,
-      "score_pct": 89.0,
-      "words_pct": 87.4,
-      "genius": 15,
+      "games": 16,
+      "score_pct": 88.1,
+      "words_pct": 86.5,
+      "genius": 16,
       "qb": 5
     },
     {
@@ -78,37 +78,37 @@
     {
       "length": 4,
       "label": "4-letter",
-      "total": 1797,
-      "missed": 537,
+      "total": 1812,
+      "missed": 541,
       "miss_pct": 29.9
     },
     {
       "length": 5,
       "label": "5-letter",
-      "total": 1174,
-      "missed": 190,
-      "miss_pct": 16.2
+      "total": 1181,
+      "missed": 192,
+      "miss_pct": 16.3
     },
     {
       "length": 6,
       "label": "6-letter",
-      "total": 1011,
-      "missed": 161,
-      "miss_pct": 15.9
+      "total": 1017,
+      "missed": 164,
+      "miss_pct": 16.1
     },
     {
       "length": 7,
       "label": "7-letter",
-      "total": 634,
+      "total": 636,
       "missed": 139,
       "miss_pct": 21.9
     },
     {
       "length": 8,
       "label": "8+ letter",
-      "total": 554,
+      "total": 556,
       "missed": 148,
-      "miss_pct": 26.7
+      "miss_pct": 26.6
     }
   ],
   "study_words": [
@@ -575,17 +575,6 @@
       "definition": "in place of; instead of"
     },
     {
-      "word": "moan",
-      "appearances": 3,
-      "missed": 3,
-      "miss_pct": 100.0,
-      "length": 4,
-      "is_pangram": false,
-      "weight": 1.0,
-      "last_missed": "2026-04-02",
-      "definition": "low sound of pain or grief"
-    },
-    {
       "word": "nigiri",
       "appearances": 2,
       "missed": 2,
@@ -683,6 +672,17 @@
       "weight": 1.0,
       "last_missed": "2026-05-15",
       "definition": "the Three Wise Men"
+    },
+    {
+      "word": "moan",
+      "appearances": 4,
+      "missed": 3,
+      "miss_pct": 75.0,
+      "length": 4,
+      "is_pangram": false,
+      "weight": 1.0,
+      "last_missed": "2026-04-02",
+      "definition": "low sound of pain or grief"
     },
     {
       "word": "orca",
