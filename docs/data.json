@@ -1,26 +1,26 @@
 {
-  "generated_at": "2026-07-08T14:49:40.520483",
+  "generated_at": "2026-07-08T23:47:05.219707",
   "summary": {
-    "total_games": 120,
-    "games_with_answers": 114,
-    "avg_score_pct": 79.9,
-    "word_miss_rate": 23.2,
-    "genius_count": 118,
+    "total_games": 121,
+    "games_with_answers": 115,
+    "avg_score_pct": 80.0,
+    "word_miss_rate": 23.0,
+    "genius_count": 119,
     "genius_rate": 98.3,
-    "qb_count": 5,
+    "qb_count": 6,
     "first_date": "2026-02-07",
-    "last_date": "2026-07-06",
-    "pangram_total": 178,
-    "pangram_found": 147,
+    "last_date": "2026-07-07",
+    "pangram_total": 179,
+    "pangram_found": 148,
     "pangram_missed": 31,
-    "pangram_pct": 82.6,
-    "pangram_miss_pct": 17.4
+    "pangram_pct": 82.7,
+    "pangram_miss_pct": 17.3
   },
   "recent": {
     "games": 7,
     "avg_score_pct": 90.2,
     "genius_count": 7,
-    "word_miss_rate": 8.1,
+    "word_miss_rate": 7.9,
     "pangram_found": 10,
     "pangram_total": 11
   },
@@ -67,34 +67,34 @@
     },
     {
       "month": "2026-07",
-      "games": 3,
-      "score_pct": 87.2,
-      "words_pct": 90.3,
-      "genius": 3,
-      "qb": 0
+      "games": 4,
+      "score_pct": 90.4,
+      "words_pct": 92.7,
+      "genius": 4,
+      "qb": 1
     }
   ],
   "miss_by_length": [
     {
       "length": 4,
       "label": "4-letter",
-      "total": 1812,
+      "total": 1828,
       "missed": 541,
-      "miss_pct": 29.9
+      "miss_pct": 29.6
     },
     {
       "length": 5,
       "label": "5-letter",
-      "total": 1181,
+      "total": 1187,
       "missed": 192,
-      "miss_pct": 16.3
+      "miss_pct": 16.2
     },
     {
       "length": 6,
       "label": "6-letter",
-      "total": 1017,
+      "total": 1024,
       "missed": 164,
-      "miss_pct": 16.1
+      "miss_pct": 16.0
     },
     {
       "length": 7,
@@ -106,9 +106,9 @@
     {
       "length": 8,
       "label": "8+ letter",
-      "total": 556,
+      "total": 559,
       "missed": 148,
-      "miss_pct": 26.6
+      "miss_pct": 26.5
     }
   ],
   "study_words": [
