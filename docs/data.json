@@ -1,28 +1,28 @@
 {
-  "generated_at": "2026-07-09T17:01:33.284003",
+  "generated_at": "2026-07-11T19:33:46.039293",
   "summary": {
-    "total_games": 122,
-    "games_with_answers": 116,
-    "avg_score_pct": 80.2,
-    "word_miss_rate": 22.8,
-    "genius_count": 120,
+    "total_games": 124,
+    "games_with_answers": 118,
+    "avg_score_pct": 80.5,
+    "word_miss_rate": 22.5,
+    "genius_count": 122,
     "genius_rate": 98.4,
-    "qb_count": 7,
+    "qb_count": 8,
     "first_date": "2026-02-07",
-    "last_date": "2026-07-08",
-    "pangram_total": 180,
-    "pangram_found": 149,
+    "last_date": "2026-07-10",
+    "pangram_total": 183,
+    "pangram_found": 152,
     "pangram_missed": 31,
-    "pangram_pct": 82.8,
-    "pangram_miss_pct": 17.2
+    "pangram_pct": 83.1,
+    "pangram_miss_pct": 16.9
   },
   "recent": {
     "games": 7,
-    "avg_score_pct": 90.2,
+    "avg_score_pct": 94.1,
     "genius_count": 7,
-    "word_miss_rate": 9.3,
-    "pangram_found": 8,
-    "pangram_total": 9
+    "word_miss_rate": 5.2,
+    "pangram_found": 9,
+    "pangram_total": 10
   },
   "monthly": [
     {
@@ -67,48 +67,48 @@
     },
     {
       "month": "2026-07",
-      "games": 5,
-      "score_pct": 92.3,
-      "words_pct": 94.2,
-      "genius": 5,
-      "qb": 2
+      "games": 7,
+      "score_pct": 94.1,
+      "words_pct": 95.6,
+      "genius": 7,
+      "qb": 3
     }
   ],
   "miss_by_length": [
     {
       "length": 4,
       "label": "4-letter",
-      "total": 1839,
+      "total": 1869,
       "missed": 541,
-      "miss_pct": 29.4
+      "miss_pct": 28.9
     },
     {
       "length": 5,
       "label": "5-letter",
-      "total": 1191,
+      "total": 1208,
       "missed": 192,
-      "miss_pct": 16.1
+      "miss_pct": 15.9
     },
     {
       "length": 6,
       "label": "6-letter",
-      "total": 1027,
-      "missed": 164,
-      "miss_pct": 16.0
+      "total": 1048,
+      "missed": 165,
+      "miss_pct": 15.7
     },
     {
       "length": 7,
       "label": "7-letter",
-      "total": 637,
+      "total": 641,
       "missed": 139,
-      "miss_pct": 21.8
+      "miss_pct": 21.7
     },
     {
       "length": 8,
       "label": "8+ letter",
-      "total": 561,
+      "total": 567,
       "missed": 148,
-      "miss_pct": 26.4
+      "miss_pct": 26.1
     }
   ],
   "study_words": [
