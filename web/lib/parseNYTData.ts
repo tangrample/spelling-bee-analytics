@@ -138,6 +138,13 @@ export function parseNYTData(rawData: Record<string, any>): ParsedGame[] {
 
     const points5Plus = wordsFound.filter(w => w.length >= 5).reduce((s, w) => s + w.points, 0)
     const isGn4l      = maxScore > 0 && points5Plus >= maxScore * 0.7
+    const isQueenBee  = foundRaw.length === info.allWords.length && info.allWords.length > 0
+
+    // Queen Bee means every possible word was found, so the answer key is
+    // already fully known even if the player never tapped NYT's "reveal"
+    // button — treat it as revealed so puzzle_answers gets saved right away
+    // instead of waiting on a reveal that may never come.
+    const effectivelyRevealed = isRevealed || isQueenBee
 
     games.push({
       gameRecord: {
@@ -148,14 +155,14 @@ export function parseNYTData(rawData: Record<string, any>): ParsedGame[] {
         max_possible_score:   maxScore || null,
         rank_achieved:        (gameData.rank as string) || rankFromPct(pct),
         is_genius:            pct >= 70,
-        is_queen_bee:         foundRaw.length === info.allWords.length && info.allWords.length > 0,
+        is_queen_bee:         isQueenBee,
         is_gn4l:              isGn4l,
-        is_revealed:          isRevealed,
+        is_revealed:          effectivelyRevealed,
         total_words_found:    foundRaw.length,
         total_possible_words: info.allWords.length || null,
       },
       wordsFound,
-      puzzleAnswers: isRevealed ? puzzleAnswers : [],
+      puzzleAnswers: effectivelyRevealed ? puzzleAnswers : [],
     })
   }
 
