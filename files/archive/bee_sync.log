@@ -1,0 +1,83 @@
+
+Sun 29 Mar 2026 20:53:57 EDT: 🐝 auto_process_icloud triggered
+Sun 29 Mar 2026 20:54:00 EDT: Processing spelling_bee_raw_2026-03-30 2.json
+
+📦 Found 3 game state(s) in localStorage
+📋 Found puzzle info for 14 puzzle(s) (2026-03-16 → 2026-03-29)
+
+  ⊘ Skipping puzzle 25083 - no words found (unsolved)
+  ⊘ Skipping puzzle 15060 - no words found (unsolved)
+  ⊘ Skipping puzzle 27412 - no words found (unsolved)
+❌ No Spelling Bee game data found in the extracted file.
+   Make sure you are logged into NYT in Safari.
+Sun 29 Mar 2026 20:54:02 EDT: ❌ Failed (exit 1)
+Sun 29 Mar 2026 20:54:02 EDT: Processing spelling_bee_raw_2026-03-30.json
+
+📦 Found 3 game state(s) in localStorage
+📋 Found puzzle info for 14 puzzle(s) (2026-03-16 → 2026-03-29)
+
+  ⊘ Skipping puzzle 25083 - no words found (unsolved)
+  ⊘ Skipping puzzle 15060 - no words found (unsolved)
+  ⊘ Skipping puzzle 27412 - no words found (unsolved)
+❌ No Spelling Bee game data found in the extracted file.
+   Make sure you are logged into NYT in Safari.
+Sun 29 Mar 2026 20:54:03 EDT: ❌ Failed (exit 1)
+
+Sun 29 Mar 2026 21:00:05 EDT: 🐝 auto_process_icloud triggered
+Sun 29 Mar 2026 21:00:08 EDT: Processing spelling_bee_raw_2026-03-30 2.json
+26:27: syntax error: Expected “"” but found unknown token. (-2741)
+
+📦 Found 3 game state(s) in localStorage
+📋 Found puzzle info for 14 puzzle(s) (2026-03-16 → 2026-03-29)
+
+  ✓ Parsed 2026-03-23: 41 words found
+  ✓ Parsed 2026-03-29: 19 words found
+  ✓ Parsed 2026-03-28: 42 words found
+📅 2026-03-23  →  Genius (76%, 201/265) | GN4L: ✓ | Revealed: ✓ | Expires in: 7d
+     💾 Saving (puzzle revealed)...
+📅 2026-03-29  →  Great (50%, 110/221) | GN4L: ✗ | Revealed: ✗ | Expires in: 13d
+  ⚠️  Reminders failed (308:309: syntax error: Expected “"” but found unknown token. (-2741)), falling back to Mac notification
+📅 2026-03-28  →  Genius (82%, 184/225) | GN4L: ✓ | Revealed: ✓ | Expires in: 12d
+     💾 Saving (puzzle revealed)...
+
+💾 Writing 2 game(s) to database...
+  ✓ Loaded 2026-03-23: 41 words, 201 points
+  ✓ Loaded 2026-03-28: 42 words, 184 points
+
+✓ Loaded 2 games into database
+  Skipped 0 unsolved puzzles
+
+====================================================
+✅ SYNC COMPLETE
+   Saved:          2026-03-23, 2026-03-28
+   Reminded:       2026-03-29
+
+Sun 29 Mar 2026 21:00:08 EDT: ✅ Done
+Sun 29 Mar 2026 21:00:08 EDT: Processing spelling_bee_raw_2026-03-30.json
+26:27: syntax error: Expected “"” but found unknown token. (-2741)
+
+📦 Found 3 game state(s) in localStorage
+📋 Found puzzle info for 14 puzzle(s) (2026-03-16 → 2026-03-29)
+
+  ✓ Parsed 2026-03-29: 19 words found
+  ✓ Parsed 2026-03-28: 42 words found
+  ✓ Parsed 2026-03-27: 21 words found
+📅 2026-03-29  →  Great (50%, 110/221) | GN4L: ✗ | Revealed: ✗ | Expires in: 13d
+  ⚠️  Reminders failed (308:309: syntax error: Expected “"” but found unknown token. (-2741)), falling back to Mac notification
+📅 2026-03-28  →  already in database ✓
+📅 2026-03-27  →  Genius (82%, 103/125) | GN4L: ✓ | Revealed: ✓ | Expires in: 11d
+     💾 Saving (puzzle revealed)...
+
+💾 Writing 1 game(s) to database...
+  ✓ Loaded 2026-03-27: 21 words, 103 points
+
+✓ Loaded 1 games into database
+  Skipped 0 unsolved puzzles
+
+====================================================
+✅ SYNC COMPLETE
+   Saved:          2026-03-27
+   Already in DB:  2026-03-28
+   Reminded:       2026-03-29
+
+Sun 29 Mar 2026 21:00:09 EDT: ✅ Done

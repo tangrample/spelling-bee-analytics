@@ -1,9 +1,17 @@
 # Spelling Bee Analytics — Project Notes
 
 ## What This Is
-A personal analytics pipeline for NYT Spelling Bee game history. Data is extracted from the browser, stored in both a local SQLite database and Supabase (Postgres), and analyzed for performance trends.
+A personal analytics pipeline for NYT Spelling Bee game history. Data is extracted from the browser via a Safari bookmarklet, stored in Supabase (Postgres), and analyzed for performance trends on a Next.js dashboard.
 
-## Current State (as of July 7, 2026)
+## Current State (as of July 16, 2026)
+- **Local SQLite/GitHub Pages pipeline retired.** Now that the cloud pipeline (bookmarklet → Supabase → Vercel dashboard) has been validated as the sole daily driver for months, the local fallback path was retired as redundant maintenance overhead — it had its own parsing logic (`parse_nyt_data.py`/`process_data.py`) duplicating the web app's TS port, and had already drifted out of sync in a real way (local `smart_update.py` silently skips re-saving a puzzle_date that's already in SQLite, while the Supabase sync route upserts and reflects the latest download — found while investigating why local counts lagged Supabase).
+  - Retired/archived (moved to `files/archive/`, not deleted, in case anything needs to be referenced later): `bee_sync.sh`, `smart_update.py`, `export_analytics.py`, `create_database.py`, `process_data.py`, `parse_nyt_data.py`, `bee_orchestrate.py`, `spelling_bee.db`, `spelling_bee_raw.json`, `bee_sync.log`, `bee_sync_error.log`, `install_bee.sh`, `install_schedule.sh`, `Update Spelling Bee.command`. The GitHub Pages site (`docs/index.html`, `docs/data.json`, `docs/bee.svg`) was archived to `files/archive/docs_github_pages/`.
+  - The `bee` alias in `~/.zshrc` was **not** removed by this pass (out of reach from the agent sandbox — home directory outside the mounted project folder). Remove it yourself whenever convenient; it's harmless if left (just points at an archived script and will error if run).
+  - `files/mac_bookmarklet.html` simplified to cloud-sync-only — dropped the "download a dated file to ~/Downloads" step and its clipboard-copy fallback, since nothing consumes that file anymore. It now just POSTs to `/api/sync` and shows a success/failure alert. Re-drag the bookmark from the updated file if you want the simplified version (the old one in your Safari bookmarks bar still works fine as-is, it'll just keep downloading files nobody reads).
+  - Replaced the SQLite mirror with a weekly scheduled Cowork task (`spelling-bee-supabase-backup`, Sundays) that exports all four Supabase tables (`games`, `words_found`, `puzzle_answers`, `word_definitions`) to a dated JSON snapshot at `files/backups/backup_<date>.json`, purely as an off-Supabase safety net — not a live mirror, not queried by anything, just a periodic restore point. Old snapshots beyond 90 days are pruned automatically. Runs silently unless something breaks.
+  - Net effect: Supabase is now the only source of truth. No more `bee` command, no more manually remembering to run it, no more two copies of parsing logic to keep in sync.
+
+## Previous State (as of July 7, 2026)
 - **Trend chart x-axis labels fixed:** the weekly/monthly label thinning logic (`TrendChart` in `Dashboard.tsx`) previously force-included the last data point regardless of how close it landed to the last regularly-spaced label, which could crowd the two together (e.g. 7/6 landing right on top of 6/29 on mobile). Now uses a plain constant index step with no special-casing of the last point — it's only labeled if it happens to fall on the step, same as any other point. This keeps spacing uniform at the cost of not always labeling the most recent point.
 - **Study words list logic changed:** `study_words` (`analytics.ts`) no longer requires `appearances >= 2` — a word missed on its only appearance so far now qualifies, since the goal is general vocab building, not just flagging repeat spelling-bee weak spots. Also now excludes pangrams entirely (they already have their own "Missed pangrams" card). To make sure a fresh miss can't be buried by its own low weight, `study_words` is no longer capped in `analytics.ts` — `Dashboard.tsx` instead applies the top-100 cap only to the "all time" bucket, after splitting out anything missed in the last 7 days; the "Recent" bucket is never capped.
 - **Word definition quality fixes:**
@@ -34,37 +42,28 @@ A personal analytics pipeline for NYT Spelling Bee game history. Data is extract
 |-------|-------|
 | Project folder | `~/Desktop/AI-projects/spelling-bee-analytics/` |
 | Scripts | `~/Desktop/AI-projects/spelling-bee-analytics/files/` |
-| Database | `~/Desktop/AI-projects/spelling-bee-analytics/files/spelling_bee.db` |
+| Retired local pipeline (archived) | `~/Desktop/AI-projects/spelling-bee-analytics/files/archive/` |
+| Off-Supabase backups | `~/Desktop/AI-projects/spelling-bee-analytics/files/backups/` |
 | Web app | `~/Desktop/AI-projects/spelling-bee-analytics/web/` |
-| iCloud drop folder | `~/Library/Mobile Documents/com~apple~CloudDocs/Downloads/Spelling Bee/` |
+| iCloud drop folder | `~/Library/Mobile Documents/com~apple~CloudDocs/Downloads/Spelling Bee/` (legacy, unused now that the bookmarklet is cloud-sync-only) |
 
-## Daily Workflow (Cloud — preferred)
+## Daily Workflow (Cloud-only)
 **iPhone:**
 1. Finish playing, reveal answers in Safari
 2. Tap **🐝 Save Bee Data** bookmarklet
-3. File saves to iCloud AND syncs to Supabase — dashboard updates automatically
+3. Syncs to Supabase — dashboard updates automatically
 
 **Mac:**
 1. Go to nytimes.com/puzzles/spelling-bee in Safari
 2. Click **🐝 Save Bee Data** bookmarklet
-3. Downloads a dated file to `~/Downloads`, copies to clipboard, AND syncs to Supabase — no `bee` command needed
+3. Syncs to Supabase — dashboard updates automatically
 
-## Daily Workflow (Local fallback)
-Same as above, but also run `bee` in Terminal to write to SQLite and update GitHub Pages. `bee` picks up every `spelling_bee_*.json` sitting in `~/Downloads` (oldest first) each time it runs, so it's fine to skip it for several days — the files just accumulate until you run it. (As of Jul 2026, the Mac bookmarklet is named **Save Bee Data**, not Copy Bee Data — it downloads a file instead of relying on clipboard, since clipboard content only lasts until you copy something else.)
-
-## The `bee` Command
-Alias defined in `~/.zshrc`, points to `files/bee_sync.sh`.
-
-```bash
-bee             # smart sync
-bee --force     # save all puzzles with any progress
-bee --status    # preview without saving
-```
+That's it — no `bee` command, no Downloads folder cleanup, nothing else to run. (See "Local SQLite/GitHub Pages pipeline retired" above for why this used to be more involved.)
 
 ## Bookmarklet Setup Files
-- Mac Safari: `files/mac_bookmarklet.html` — open in Safari, drag yellow button to bookmarks bar. This is now the *only* bookmarklet to maintain — it syncs to iPhone via iCloud Safari bookmark sync, no separate iPhone setup needed.
+- Mac Safari: `files/mac_bookmarklet.html` — open in Safari, drag yellow button to bookmarks bar. This is the *only* bookmarklet to maintain — it syncs to iPhone via iCloud Safari bookmark sync, no separate iPhone setup needed.
 - `files/iphone_bookmarklet_setup.html` — deleted (was legacy/unused; manually recreating the bookmarklet on iPhone instead of relying on sync was the original source of the Mac/iPhone mismatch bug).
-- The bookmarklet POSTs to `/api/sync` on Vercel (sync-first, then triggers file download — see Current State above)
+- The bookmarklet POSTs to `/api/sync` on Vercel and shows a success/failure alert — that's its entire job now (no download step, no clipboard copy — see Current State above).
 
 ## Cloud Infrastructure
 | Thing | Value |
@@ -89,7 +88,7 @@ bee --status    # preview without saving
 - `web/app/layout.tsx` — page metadata (title: "BeeBot")
 - `web/app/icon.png`, `web/app/apple-icon.png`, `web/app/favicon.ico` — bee icon, auto-wired by Next.js App Router (no manual `<link>` tags needed)
 
-## Database Schema (SQLite + Supabase, identical structure)
+## Database Schema (Supabase — Postgres only, SQLite retired)
 **`games`** — one row per puzzle played
 - `id`, `puzzle_date`, `puzzle_letters`, `center_letter`
 - `score`, `max_possible_score`, `rank_achieved`
@@ -107,18 +106,22 @@ bee --status    # preview without saving
 
 **Supabase note:** `games` has a partial unique index on `puzzle_date WHERE user_id IS NULL` (instead of a standard UNIQUE constraint) to handle NULL user_ids correctly in Phase 1.
 
-## GitHub Pages Dashboard (legacy, still live)
-Live at: `https://tangrample.github.io/spelling-bee-analytics`
-Updated by `bee` → `export_analytics.py` → `git push`. Will be superseded by Vercel app.
+## GitHub Pages Dashboard (retired)
+Was live at `https://tangrample.github.io/spelling-bee-analytics`, updated by `bee` → `export_analytics.py` → `git push`. Retired alongside the rest of the local pipeline (see Current State) — the Vercel dashboard reading live from Supabase is now the only dashboard. The GitHub Pages repo content itself (the actual published site, separate from this local `docs/` source) hasn't been un-published — if you want it fully gone, disable Pages in the GitHub repo settings.
 
 ## Known Issues / Limitations
-- 6 games missing from `puzzle_answers` (puzzles expired before extraction — data unrecoverable)
-- `bee_sync_error.log` has old errors from previous laptop — can be ignored
-- Vercel dashboard reads live from Supabase; local SQLite and GitHub Pages are independent and only updated when `bee` is run manually
+- 6 games missing from `puzzle_answers` (puzzles expired before extraction — data unrecoverable). A 7th (today's game) will always transiently show as missing until it's revealed and re-synced — not a bug.
+- `files/archive/bee_sync_error.log` has old errors from previous laptop — can be ignored
+- Vercel dashboard reads live from Supabase, which is now the sole source of truth. `files/backups/` holds periodic off-Supabase snapshots (weekly scheduled task) purely as a restore point, not a live mirror.
 - **Agent sandbox + git:** this project folder has delete-protection that blocks the Claude sandbox from unlinking files in it. Git's own internal cleanup of lock/temp files (`.git/index.lock`, `.git/HEAD.lock`, `.git/objects/*/tmp_obj_*`) hits this and leaves stray files behind after every commit. This is **not purely cosmetic**: a stray `.git/index.lock` blocks any further commit attempt from the sandbox, and a partially-written `.git/index` left over from an interrupted commit can make `git diff` / `git status` (which compare working tree → index) show phantom "pending changes" for content that's actually already committed and pushed — always cross-check with `git diff HEAD` (working tree → HEAD, skips the index) and `git show origin/main:<path>` before trusting `git status` output in this repo. Workaround for running git from the agent sandbox: point the index outside the mount, e.g. `GIT_INDEX_FILE=/tmp/sb_index git read-tree HEAD && GIT_INDEX_FILE=/tmp/sb_index git add -A && GIT_INDEX_FILE=/tmp/sb_index git commit -m "..."`. `git push` itself doesn't need the index and works normally once a real GitHub credential/SSH key is available (the agent sandbox doesn't have one — push from the user's own Terminal instead). Cleanup from the user's Mac Terminal (recommended after any sandbox commit attempt, not just optional): `rm -f .git/index.lock .git/HEAD.lock .git/objects/*/tmp_obj_* && git status` to reset the index to a clean state.
 - "Recent" stats (overview slide, 7/30-game miss-rate windows) are defined by **game count, not calendar days** — e.g. "last 7" means the 7 most recent games played, not the last 7 calendar days. This is intentional: calendar-day windows would shrink unpredictably whenever days are skipped. The trend chart's Weekly/Monthly toggle is the one exception — it's genuinely calendar-bucketed (ISO weeks/months) since its whole purpose is showing change over real time, including gaps in play as silently-omitted (not specially flagged) points
 
 ## What's Next (Phase 2)
+**Deprioritized as of July 8, 2026.** Discussed and decided Phase 2 (multi-user auth) isn't worth building preemptively. Reasoning: user expects to remain the primary/only user for the foreseeable future, and magic-link auth would make their *own* daily experience worse — session expiry requiring re-login, and (more importantly) the bookmarklet would need to carry a per-user token that can expire/break, turning data *sync* failures (not just dashboard-viewing failures) into a real risk. That's a worse failure mode than today's shared-secret POST.
+
+If someone else does want in before real multi-tenant auth is built, the lighter-weight fallback is to clone the whole stack for them (their own Supabase project + Vercel deployment + env vars + bookmarklet pointing at their own sync endpoint) rather than adding login. That avoids any new friction for the existing user, at the cost of a one-time per-person setup (30-60 min, either self-serve for a technical friend or done on their behalf) instead of a centralized shared deployment.
+
+Revisit Phase 2 only when there's concrete demand from a real second user, not before. Original scope, if/when it happens:
 - [ ] Add Supabase Auth (email magic link)
 - [ ] Landing page + onboarding flow for bookmarklet install
 - [ ] Tighten RLS policies to user_id-scoped access
@@ -135,12 +138,13 @@ Updated by `bee` → `export_analytics.py` → `git push`. Will be superseded by
 - **Data ingestion:** Bookmarklet POSTs raw localStorage JSON to `/api/sync`, parsed server-side
 
 **Key constraints:**
-- Safari is a hard requirement — bookmarklet reads JS state from the NYT page. Native app is a black box.
+- Safari is a hard requirement — bookmarklet reads JS state from the NYT page. Native app is a black box (no way to inject code like the bookmarklet does).
 - `puzzle_answers` is stored (it's publicly available data on misc sites, low ToS risk)
+- **Known unknown (July 8, 2026):** NYT Games syncs play progress to your NYT account across devices, which implies some backend API for it — there's precedent for scraping personal stats this way (e.g. `kesyog/crossword` on GitHub uses NYT's undocumented crossword-stats REST API via the account session cookie). Unconfirmed whether Spelling Bee's equivalent endpoint (if it exists) exposes per-word data (`words_found`/`puzzle_answers`) or just aggregate stats (streak/score), and building it would mean capturing + maintaining an auth token rather than the bookmarklet's one-off localStorage read — likely higher risk, not lower friction, unless the current daily bookmarklet click becomes an actual pain point. Not pursued unless that changes.
 
 **Phased plan:**
-- **Phase 1** ✅ — Cloud pipeline live. Supabase + Vercel + updated bookmarklets. No Mac required for daily workflow.
-- **Phase 2** — Multi-user auth, landing page, onboarding.
+- **Phase 1** ✅ — Cloud pipeline live. Supabase + Vercel + updated bookmarklets. No Mac required for daily workflow. The local SQLite/GitHub Pages fallback that existed alongside this during validation has since been retired (July 16, 2026) — cloud is now the only path, not just the preferred one.
+- **Phase 2** — Multi-user auth, landing page, onboarding. Deprioritized as of July 8, 2026 — see "What's Next (Phase 2)" for reasoning; only revisit if a real second user wants in.
 - **Phase 3** — Polish, email notifications, cross-browser testing.
 
 **What to tell users:** "Requires playing in Safari (mobile or desktop). Native NYT app not supported."

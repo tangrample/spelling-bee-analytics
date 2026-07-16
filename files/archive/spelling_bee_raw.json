@@ -1,0 +1,454 @@
+{
+  "games-state-spelling_bee/59392802": {
+    "states": [
+      {
+        "puzzleId": "26682",
+        "data": {
+          "answers": [
+            "ennoble",
+            "noble",
+            "foible",
+            "booboo",
+            "bonobo",
+            "bonbon",
+            "bobble",
+            "loonie",
+            "leonine",
+            "online",
+            "offline",
+            "folio",
+            "boffo",
+            "onion",
+            "ollie",
+            "nonillion",
+            "billion",
+            "bobbin",
+            "boil",
+            "foil",
+            "fool",
+            "boll",
+            "lobe",
+            "loin",
+            "lion",
+            "noon",
+            "loll",
+            "blob",
+            "boob",
+            "lobo",
+            "bolo",
+            "lone",
+            "noel",
+            "loon",
+            "noob",
+            "ebon",
+            "floe",
+            "oleo",
+            "olio",
+            "info",
+            "neon",
+            "boon"
+          ],
+          "isRevealed": false,
+          "rank": "Genius",
+          "isPlayingArchive": false
+        },
+        "schemaVersion": "0.48.0",
+        "timestamp": 1784176200,
+        "printDate": "2026-07-15"
+      },
+      {
+        "puzzleId": "897",
+        "data": {
+          "answers": [
+            "vitriolic",
+            "vitriol",
+            "trill",
+            "troll",
+            "torii",
+            "toric",
+            "critic",
+            "citric",
+            "tricot",
+            "licit",
+            "illicit",
+            "victor",
+            "tricolor",
+            "rotor",
+            "root",
+            "toot",
+            "tool",
+            "coot",
+            "loot",
+            "tort",
+            "tori",
+            "riot",
+            "colt",
+            "volt",
+            "trio",
+            "till",
+            "toll",
+            "toro",
+            "roti",
+            "lilt",
+            "clot",
+            "tilt",
+            "lotto"
+          ],
+          "isRevealed": true,
+          "rank": "Genius",
+          "isPlayingArchive": true
+        },
+        "schemaVersion": "0.48.0",
+        "timestamp": 1784176217,
+        "printDate": "2026-07-14"
+      },
+      {
+        "puzzleId": "24677",
+        "data": {
+          "answers": [
+            "climactic",
+            "comma",
+            "tatami",
+            "tomtit",
+            "militia",
+            "tomato",
+            "llama",
+            "mamma",
+            "momma",
+            "limit",
+            "comic",
+            "mimic",
+            "atomic",
+            "tomatillo",
+            "comical",
+            "malic",
+            "mammal",
+            "motto",
+            "acclaim",
+            "claim",
+            "committal",
+            "commit",
+            "omit",
+            "lima",
+            "malt",
+            "mica",
+            "cami",
+            "camo",
+            "coma",
+            "moot",
+            "moll",
+            "mall",
+            "mail",
+            "mill",
+            "molt",
+            "loom",
+            "moola",
+            "mitt",
+            "imam",
+            "atom",
+            "loam",
+            "clam",
+            "mama",
+            "calm",
+            "ammo",
+            "climatic",
+            "lama",
+            "limo",
+            "maim",
+            "tomcat"
+          ],
+          "isRevealed": true,
+          "rank": "Genius",
+          "isPlayingArchive": true
+        },
+        "schemaVersion": "0.48.0",
+        "timestamp": 1784083355,
+        "printDate": "2026-07-13"
+      }
+    ]
+  },
+  "games-state-connections/59392802": {
+    "states": [
+      {
+        "puzzleId": "1171",
+        "data": {
+          "puzzleComplete": true,
+          "puzzleWon": false,
+          "mistakes": 4,
+          "guesses": [
+            {
+              "cards": [
+                {
+                  "position": 2,
+                  "level": 0
+                },
+                {
+                  "position": 4,
+                  "level": 1
+                },
+                {
+                  "position": 8,
+                  "level": 2
+                },
+                {
+                  "position": 13,
+                  "level": 3
+                }
+              ],
+              "correct": false
+            },
+            {
+              "cards": [
+                {
+                  "position": 3,
+                  "level": 1
+                },
+                {
+                  "position": 5,
+                  "level": 3
+                },
+                {
+                  "position": 6,
+                  "level": 2
+                },
+                {
+                  "position": 7,
+                  "level": 3
+                }
+              ],
+              "correct": false
+            },
+            {
+              "cards": [
+                {
+                  "position": 2,
+                  "level": 0
+                },
+                {
+                  "position": 4,
+                  "level": 1
+                },
+                {
+                  "position": 8,
+                  "level": 2
+                },
+                {
+                  "position": 11,
+                  "level": 2
+                }
+              ],
+              "correct": false
+            },
+            {
+              "cards": [
+                {
+                  "position": 2,
+                  "level": 0
+                },
+                {
+                  "position": 10,
+                  "level": 0
+                },
+                {
+                  "position": 12,
+                  "level": 0
+                },
+                {
+                  "position": 15,
+                  "level": 0
+                }
+              ],
+              "correct": true
+            },
+            {
+              "cards": [
+                {
+                  "position": 3,
+                  "level": 1
+                },
+                {
+                  "position": 4,
+                  "level": 1
+                },
+                {
+                  "position": 9,
+                  "level": 1
+                },
+                {
+                  "position": 14,
+                  "level": 1
+                }
+              ],
+              "correct": true
+            },
+            {
+              "cards": [
+                {
+                  "position": 0,
+                  "level": 3
+                },
+                {
+                  "position": 5,
+                  "level": 3
+                },
+                {
+                  "position": 11,
+                  "level": 2
+                },
+                {
+                  "position": 13,
+                  "level": 3
+                }
+              ],
+              "correct": false
+            }
+          ],
+          "solvedCategories": [
+            {
+              "cards": [
+                {
+                  "position": 2,
+                  "level": 0
+                },
+                {
+                  "position": 10,
+                  "level": 0
+                },
+                {
+                  "position": 12,
+                  "level": 0
+                },
+                {
+                  "position": 15,
+                  "level": 0
+                }
+              ],
+              "level": 0,
+              "orderSolved": 1
+            },
+            {
+              "cards": [
+                {
+                  "position": 3,
+                  "level": 1
+                },
+                {
+                  "position": 4,
+                  "level": 1
+                },
+                {
+                  "position": 9,
+                  "level": 1
+                },
+                {
+                  "position": 14,
+                  "level": 1
+                }
+              ],
+              "level": 1,
+              "orderSolved": 2
+            }
+          ],
+          "isPlayingArchive": true
+        },
+        "schemaVersion": "0.45.0",
+        "timestamp": 1780967052,
+        "printDate": "2026-06-07"
+      }
+    ]
+  },
+  "games-state-crossword_daily/59392802": {
+    "states": [
+      {
+        "puzzleId": "24022",
+        "data": {
+          "cells": {},
+          "confirmed": [],
+          "penciled": [],
+          "checked": [],
+          "revealed": [],
+          "modified": [],
+          "playTimeSeconds": 502,
+          "isAutocheckEnabled": false,
+          "isTimerReset": false,
+          "puzzleInfoSeen": false,
+          "completionFraction": 0,
+          "star": ""
+        },
+        "schemaVersion": "0.45.0",
+        "timestamp": 1780456981,
+        "printDate": "2026-06-03"
+      }
+    ]
+  },
+  "_window_gameData": {
+    "today": {
+      "displayWeekday": "Tuesday",
+      "displayDate": "July 14, 2026",
+      "printDate": "2026-07-14",
+      "centerLetter": "t",
+      "outerLetters": [
+        "c",
+        "i",
+        "l",
+        "o",
+        "r",
+        "v"
+      ],
+      "validLetters": [
+        "t",
+        "c",
+        "i",
+        "l",
+        "o",
+        "r",
+        "v"
+      ],
+      "pangrams": [
+        "vitriolic"
+      ],
+      "answers": [
+        "vitriolic",
+        "citric",
+        "clot",
+        "colt",
+        "coot",
+        "critic",
+        "illicit",
+        "licit",
+        "lilt",
+        "loot",
+        "lotto",
+        "riot",
+        "root",
+        "roti",
+        "rotor",
+        "rototill",
+        "till",
+        "tilt",
+        "toil",
+        "toll",
+        "tool",
+        "toot",
+        "tori",
+        "toric",
+        "torii",
+        "toro",
+        "tort",
+        "tricolor",
+        "tricot",
+        "trill",
+        "trio",
+        "troll",
+        "trot",
+        "victor",
+        "vitriol",
+        "volt"
+      ],
+      "id": 897,
+      "freeExpiration": 0,
+      "editor": "Sam Ezersky"
+    },
+    "_source": "window.gameData"
+  }
+}
