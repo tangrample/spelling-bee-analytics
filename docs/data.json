@@ -1,26 +1,26 @@
 {
-  "generated_at": "2026-07-13T14:00:34.747779",
+  "generated_at": "2026-07-16T16:04:30.595581",
   "summary": {
-    "total_games": 124,
-    "games_with_answers": 118,
-    "avg_score_pct": 80.5,
-    "word_miss_rate": 22.5,
-    "genius_count": 122,
-    "genius_rate": 98.4,
-    "qb_count": 8,
+    "total_games": 130,
+    "games_with_answers": 124,
+    "avg_score_pct": 81.0,
+    "word_miss_rate": 21.8,
+    "genius_count": 128,
+    "genius_rate": 98.5,
+    "qb_count": 9,
     "first_date": "2026-02-07",
-    "last_date": "2026-07-10",
-    "pangram_total": 183,
-    "pangram_found": 152,
-    "pangram_missed": 31,
-    "pangram_pct": 83.1,
-    "pangram_miss_pct": 16.9
+    "last_date": "2026-07-16",
+    "pangram_total": 192,
+    "pangram_found": 160,
+    "pangram_missed": 32,
+    "pangram_pct": 83.3,
+    "pangram_miss_pct": 16.7
   },
   "recent": {
     "games": 7,
-    "avg_score_pct": 94.1,
+    "avg_score_pct": 92.4,
     "genius_count": 7,
-    "word_miss_rate": 5.2,
+    "word_miss_rate": 7.5,
     "pangram_found": 9,
     "pangram_total": 10
   },
@@ -67,56 +67,56 @@
     },
     {
       "month": "2026-07",
-      "games": 7,
-      "score_pct": 94.1,
-      "words_pct": 95.6,
-      "genius": 7,
-      "qb": 3
+      "games": 13,
+      "score_pct": 93.0,
+      "words_pct": 93.9,
+      "genius": 13,
+      "qb": 4
     }
   ],
   "miss_by_length": [
     {
       "length": 4,
       "label": "4-letter",
-      "total": 1869,
-      "missed": 541,
-      "miss_pct": 28.9
+      "total": 1992,
+      "missed": 552,
+      "miss_pct": 27.7
     },
     {
       "length": 5,
       "label": "5-letter",
-      "total": 1208,
-      "missed": 192,
-      "miss_pct": 15.9
+      "total": 1266,
+      "missed": 198,
+      "miss_pct": 15.6
     },
     {
       "length": 6,
       "label": "6-letter",
-      "total": 1048,
-      "missed": 165,
-      "miss_pct": 15.7
+      "total": 1086,
+      "missed": 166,
+      "miss_pct": 15.3
     },
     {
       "length": 7,
       "label": "7-letter",
-      "total": 641,
-      "missed": 139,
-      "miss_pct": 21.7
+      "total": 672,
+      "missed": 141,
+      "miss_pct": 21.0
     },
     {
       "length": 8,
       "label": "8+ letter",
-      "total": 567,
-      "missed": 148,
-      "miss_pct": 26.1
+      "total": 585,
+      "missed": 151,
+      "miss_pct": 25.8
     }
   ],
   "study_words": [
     {
       "word": "imam",
-      "appearances": 10,
+      "appearances": 11,
       "missed": 9,
-      "miss_pct": 90.0,
+      "miss_pct": 81.8,
       "length": 4,
       "is_pangram": false,
       "weight": 3.0,
@@ -155,6 +155,17 @@
       "weight": 1.75,
       "last_missed": "2026-04-10",
       "definition": "playing live music gigs"
+    },
+    {
+      "word": "titan",
+      "appearances": 4,
+      "missed": 4,
+      "miss_pct": 100.0,
+      "length": 5,
+      "is_pangram": false,
+      "weight": 1.67,
+      "last_missed": "2026-07-11",
+      "definition": "person of great power/strength"
     },
     {
       "word": "illy",
@@ -322,17 +333,6 @@
       "definition": "nothing"
     },
     {
-      "word": "olio",
-      "appearances": 8,
-      "missed": 4,
-      "miss_pct": 50.0,
-      "length": 4,
-      "is_pangram": false,
-      "weight": 1.33,
-      "last_missed": "2026-05-22",
-      "definition": "a mixture or medley"
-    },
-    {
       "word": "acai",
       "appearances": 9,
       "missed": 4,
@@ -344,15 +344,37 @@
       "definition": "purple berry from Brazil"
     },
     {
-      "word": "titan",
+      "word": "olio",
+      "appearances": 9,
+      "missed": 4,
+      "miss_pct": 44.4,
+      "length": 4,
+      "is_pangram": false,
+      "weight": 1.33,
+      "last_missed": "2026-05-22",
+      "definition": "a mixture or medley"
+    },
+    {
+      "word": "acidy",
       "appearances": 3,
       "missed": 3,
       "miss_pct": 100.0,
       "length": 5,
       "is_pangram": false,
       "weight": 1.25,
-      "last_missed": "2026-04-08",
-      "definition": "person of great power/strength"
+      "last_missed": "2026-07-16",
+      "definition": ""
+    },
+    {
+      "word": "atilt",
+      "appearances": 5,
+      "missed": 3,
+      "miss_pct": 60.0,
+      "length": 5,
+      "is_pangram": false,
+      "weight": 1.25,
+      "last_missed": "2026-07-11",
+      "definition": ""
     },
     {
       "word": "academe",
@@ -630,6 +652,17 @@
       "definition": "spoken; relating to the mouth"
     },
     {
+      "word": "toil",
+      "appearances": 3,
+      "missed": 3,
+      "miss_pct": 100.0,
+      "length": 4,
+      "is_pangram": false,
+      "weight": 1.0,
+      "last_missed": "2026-07-14",
+      "definition": ""
+    },
+    {
       "word": "venule",
       "appearances": 2,
       "missed": 2,
@@ -740,28 +773,6 @@
       "definition": "of the laity; secular"
     },
     {
-      "word": "tapa",
-      "appearances": 5,
-      "missed": 3,
-      "miss_pct": 60.0,
-      "length": 4,
-      "is_pangram": false,
-      "weight": 1.0,
-      "last_missed": "2026-05-16",
-      "definition": "Spanish small dish"
-    },
-    {
-      "word": "cami",
-      "appearances": 6,
-      "missed": 3,
-      "miss_pct": 50.0,
-      "length": 4,
-      "is_pangram": false,
-      "weight": 1.0,
-      "last_missed": "2026-06-19",
-      "definition": ""
-    },
-    {
       "word": "miming",
       "appearances": 4,
       "missed": 2,
@@ -784,15 +795,26 @@
       "definition": "Hawaii's state bird"
     },
     {
-      "word": "maim",
-      "appearances": 10,
+      "word": "tapa",
+      "appearances": 6,
       "missed": 3,
-      "miss_pct": 30.0,
+      "miss_pct": 50.0,
       "length": 4,
       "is_pangram": false,
       "weight": 1.0,
-      "last_missed": "2026-04-19",
-      "definition": "to injure or disable"
+      "last_missed": "2026-05-16",
+      "definition": "Spanish small dish"
+    },
+    {
+      "word": "cami",
+      "appearances": 7,
+      "missed": 3,
+      "miss_pct": 42.9,
+      "length": 4,
+      "is_pangram": false,
+      "weight": 1.0,
+      "last_missed": "2026-06-19",
+      "definition": ""
     },
     {
       "word": "naan",
@@ -806,15 +828,15 @@
       "definition": "leavened South Asian flatbread"
     },
     {
-      "word": "acidy",
-      "appearances": 2,
-      "missed": 2,
-      "miss_pct": 100.0,
-      "length": 5,
+      "word": "maim",
+      "appearances": 11,
+      "missed": 3,
+      "miss_pct": 27.3,
+      "length": 4,
       "is_pangram": false,
-      "weight": 0.83,
-      "last_missed": "2026-06-19",
-      "definition": ""
+      "weight": 1.0,
+      "last_missed": "2026-04-19",
+      "definition": "to injure or disable"
     },
     {
       "word": "altar",
@@ -1004,17 +1026,6 @@
       "definition": ""
     },
     {
-      "word": "atilt",
-      "appearances": 4,
-      "missed": 2,
-      "miss_pct": 50.0,
-      "length": 5,
-      "is_pangram": false,
-      "weight": 0.83,
-      "last_missed": "2026-05-06",
-      "definition": ""
-    },
-    {
       "word": "eaten",
       "appearances": 4,
       "missed": 2,
@@ -1038,9 +1049,9 @@
     },
     {
       "word": "mimic",
-      "appearances": 6,
+      "appearances": 7,
       "missed": 2,
-      "miss_pct": 33.3,
+      "miss_pct": 28.6,
       "length": 5,
       "is_pangram": false,
       "weight": 0.83,
@@ -1082,9 +1093,9 @@
     },
     {
       "word": "nonillion",
-      "appearances": 4,
+      "appearances": 5,
       "missed": 1,
-      "miss_pct": 25.0,
+      "miss_pct": 20.0,
       "length": 9,
       "is_pangram": false,
       "weight": 0.75,
@@ -1200,20 +1211,15 @@
       "weight": 0.67,
       "last_missed": "2026-05-08",
       "definition": ""
-    },
-    {
-      "word": "colt",
-      "appearances": 2,
-      "missed": 2,
-      "miss_pct": 100.0,
-      "length": 4,
-      "is_pangram": false,
-      "weight": 0.67,
-      "last_missed": "2026-05-17",
-      "definition": ""
     }
   ],
   "missed_pangrams": [
+    {
+      "word": "nonbelief",
+      "date": "2026-07-15",
+      "points": 16,
+      "length": 9
+    },
     {
       "word": "biathlete",
       "date": "2026-07-04",
